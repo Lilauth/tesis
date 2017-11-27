@@ -2,47 +2,64 @@
 
 \label{introduccion}
 
-\section{Ciencia  Ciudadana y Ciencia Abierta}
+%[¿en que tema están trabajando? ] Introduce en contexto en el que están trabajando (p.e., el ámbito en el que se dá el problema). Da definiciones (brevemente) de conceptos que aparecen en el contexto. 
 
-\begin{itemize}
-   \item Ciencia Ciudadana
-   \begin{itemize}
-        \item Cómo participan los ciudadanos en la ciencia?        
-        Esto de que hay que asignarles tareas acordes o darles una pequeña capacitación o ayuda en pantalla. Comunidades que hacen de soporte de voluntarios.
-        \item De qué depende que un proyecto incluya ciencia ciudadana?
-        Tipología de los proyectos de ciencia ciudadana, por ejemplo, que sea de educación, de investigación, que no cualquier proyecto puede tilizar ciencia ciudadana y no siempre se aplica en todo el proyecto. Muchas veces los ciudadanos colaboran con una parte.
-   \end{itemize}   
-   \item Ciencia Abierta   
-   \begin{itemize}
-        \item \item Por qué es importante la ciencia abierta? democracia y cuestiones políticas. Acceso público a la información de interés general. 
-        \item Qué relación tiene con la ciencia ciudadana? Básicamente los participantes en proyectos de investigación de ciencia ciudadana lo hacen por interés en el tema de investigación. Es una buena práctica que una vez finalizada la investigación se haga una devolución de los resultados de la misma para que los ciudadanos participantes quienes estaban interesados en el tema de movida puedan ver los resultados de la investigación. Este tema está directamente relacionado con la ciencia abierta que básicamente es abrir los datos, resultados y procesos utilizados para conseguir resultados a el público general.
-   \end{itemize}
+Acá introducción de ciencia ciudadana y samplers
+
+\section{ Estructura de la Tesina }
+Este trabajo de tesina se organiza de la siguiente manera:
+\begin{itemize} 
+	\item{Capítulo 1} 
+		\begin{description} En este capítulo se presenta una breve introducción al marco teórico que encuadra este proyecto. Se describe brevemente cuál es el problema que se quiere resolver y por qué es interesante y necesario resolverlo. Se plantean los objetivos de este trabajo de tesina.
+		\end{description}
+
+	\item{Capítulo 2} 
+		\begin{description} En este capítulo se describe el marco teórico de manera más exhaustiva, explicando cuáles son los fundamentos teóricos que apoyan a este trabajo. Damos una introducción a la Ciencia Ciudadana y la Ciencia Abierta, como así también de frameworks.
+		\end{description}
+	
+	\item{Capítulo 3} 
+		\begin{description} Describe las herramientas utilizadas en la construcción del framework. Android como sistema operativo. Características de los dispositivos móviles. Gradle para scripting y manejo de dependencias. Android Studio como estándar para desarrollar para Android. Google Services para identificación del usuario y de la geolocalización. 
+		\end{description}
+	
+	\item{Capítulo 4} 
+		\begin{description} Describe el framework desarrollado. Jerarquía de clases. Objetivos y colaboración. Estructura de los resultados de la muestra tomada. Almacenamiento y transmisión de los datos.
+		\end{description}
+
+	\item{Capítulo 5} 
+		\begin{description} En este capítulo se presentan las conclusiones de este trabajo. Se analiza de qué manera Samplers puede ser una buena contribución a los proyectos de ciencia ciudadana. También, se habla de los resultados y lo aprendido en el desarrollo. Se habla de Samplers2, la interfaz web para crear proyectos de ciencia ciudadana con Android y se documentan posibles lineamientos para trabajos futuros.
+		\end{description}
 \end{itemize}
+\section{ Motivación }
 
-\section{ Dispositivos Móviles y Android }
-\begin{itemize}
-	\item Distribución de dispositivos móviles entre la población
-	cantidad de personas que tienen dispositivos móviles. Que porcentaje de la población representan. Zonas de concentración de dispositivos:cómo están distribuidos
-	\item Características de los dispositivos móviles
-	cámaras, micrófonos, conexiones a redes, posibilidad de transferencias de archivos, navegabilidad en la interfaz de aplicación. 
-    \item Android 
-    el sistema operativo. Licencia. Estructura. Versiones y lo que ello implica.
-    \item Ejemplos de aplicaciones de ciencia ciudadana y dispositivos móviles 
-    hablemos del ejemplo africano que no tenía palabras para que la población partipe sin necesidad de saber leer o escribir. AppEAR y Cazamosquitos. Ejemplo aplicado a salud Colombia
-\end{itemize}
+Los proyectos de investigación científica a menudo requieren la realización de gran número de actividades simples que son difíciles de automatizar (clasificación de fotos, anotaciones, observaciones, etc.) lo cual, entre otras cosas, consume mucho tiempo [2]. Muchas veces estas actividades son sencillas y no se necesita de ninguna preparación académica o escolarizada previa para realizarlas, por ejemplo indicar si en una foto se observa o no un animal. La ciencia ciudadana es una forma de investigación en colaboración que involucra a los ciudadanos comunes resolviendo este tipo de tareas simples en proyectos de investigación científica que buscan resolver problemas del mundo real [1]. Un científico ciudadano es un voluntario que recoge y/o procesa información como parte de una investigación científica [3]. Para que los ciudadanos o voluntarios que quieran participar en estos proyectos puedan colaborar es necesario brindarles herramientas que los ayuden a contribuir. 
+Nuestro interés está enfocado en los proyectos de recolección. Estos proyectos de investigación científica requieren la recopilación de datos del medio físico [1]. Una forma de asistir a estos proyectos es por medio de sistemas informáticos que posibiliten la recolección de datos usando móviles
+Un ejemplo de este tipo de proyectos es AppEAR [4] un sistema de ciencia ciudadana para cuidar y aprender de los ambientes acuáticos en Argentina, realizado por Joaquín Cochero, investigador del CONICET en el Instituto Platense de Limnología. El objetivo final de AppEAR es tener un relevamiento completo y detallado de aguas continentales de todo el territorio nacional para conocer los lugares en riesgo en los que urge trabajar. Los voluntarios de este proyecto descargan una aplicación para su dispositivo móvil y toman muestras para el proyecto. La aplicación guía a los usuarios, a través de preguntas, la posibilidad de tomar fotografías y registrar la posición geográfica por medio del GPS.
+La mayoría de los proyectos de ciencia ciudadana de recolección cuentan con aplicaciones desarrolladas específicamente para cada proyecto, en donde el principal problema a resolver es la secuencia de pasos que conforman el protocolo para la toma de la muestra y la combinación en este protocolo de las herramientas del dispositivo móvil que se desean utilizar (cámara, GPS, etc).. Proveer un framework que resuelva esta problemática  sería muy útil para la creciente comunidad de científicos que incluyen ciencia ciudadana en sus proyectos.
+Este proyecto se enmarca dentro de Cientópolis [5], una plataforma para la promoción y el estudio de la Ciencia Ciudadana. Cientópolis se nuclea como un proyecto de investigación desde la Facultad de Informática de la UNLP pero articula su funcionamiento con investigadores de las facultades de Ciencias Astronómicas y Geofísicas, Humanidades y Ciencias de la Educación, Bellas Artes y Ciencias Naturales y Museo.
 
-\section{ Frameworks }
+\section{ Objetivos }
 
-\begin{itemize}
-	\item Frameworks para construir aplicaciones
-    \item Configuración de aplicaciones mediante archivos
-\end{itemize}
+	\begin{itemize} 
+		\item Desarrollos propuestos
+		\begin{description}
+			Desarrollar un framework para instanciar aplicaciones móviles Android de ciencia ciudadana. El framework recibirá un archivo con la configuración requerida (por ejemplo en XML) y generará una aplicación para ejecutarse en un dispositivo Android. En este archivo estará el conjunto de pasos que especifique el protocolo de recolección de muestras. Estos pasos pueden ser:
+			\begin{itemize}
+				\item capturar de una foto, un video, un audio o un recorrido hecho con el dispositivo móvil.
+				\item contestar una pregunta con respecto a la muestra. Esta pregunta puede tener una o múltiples respuestas posibles.
+				\item introducir anotaciones (texto)
+				\item mostrar información de orientación para la toma de la muestra.
+			\end{itemize}
+		La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado y las almacenará y empaquetará en el dispositivo móvil hasta que pueda ser enviada a un servidor web.
+		Definir la estructura que deberá tener el archivo de configuración
+		Instanciar una aplicación básica de ejemplo con el framework en base a un archivo de configuración, que permita tomar algunas muestras y enviarlas a un servidor web que estará configurado para dicho propósito.
+		\end{description}
+	
+		\item Resultados esperados
+		\begin{itemize}
+			\item Proveer un framework que facilite el desarrollo de aplicaciones móviles de recolección de muestras en proyectos de ciencia ciudadana, resolviendo de manera sencilla y eficaz la toma de las muestras  aprovechando el hardware de los dispositivos móviles.
+			\item Proveer a la comunidad de Cientópolis una herramienta para agilizar la implementación de futuros proyectos de ciencia ciudadana. 
+			\item Brindar a la comunidad científica un incentivo para que se animen a incluir ciencia ciudadana en sus proyectos.
+		\end{itemize}	
+	\end{itemize}
 
-\begin{figure}
-\begin{center}
-\includegraphics[width=0.8\textwidth]{00-introduccion/zobel-page-46}
-\caption{Extracto del libro Writing for Computers Science de Justin Zobel}
-\label{zobel-page-46}
-\end{center}
-\end{figure}
 
