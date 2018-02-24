@@ -1,8 +1,10 @@
 \begin{thebibliography}{1}
 
-\bibitem{silvertown2009new}
-J.~Silvertown, ``A new dawn for citizen science,'' {\em Trends in ecology \&
-  evolution}, vol.~24, no.~9, pp.~467--471, 2009.
+\bibitem{bonney2009citizen}
+R.~Bonney, C.~B. Cooper, J.~Dickinson, S.~Kelling, T.~Phillips, K.~V.
+  Rosenberg, and J.~Shirk, ``Citizen science: a developing tool for expanding
+  science knowledge and scientific literacy,'' {\em BioScience}, vol.~59,
+  no.~11, pp.~977--984, 2009.
 
 \bibitem{wiggins2011conservation}
 A.~Wiggins and K.~Crowston, ``From conservation to crowdsourcing: A typology of
@@ -12,6 +14,10 @@ A.~Wiggins and K.~Crowston, ``From conservation to crowdsourcing: A typology of
 \bibitem{wtf}
 J.~Zobel, {\em {Another Title}}.
 \newblock Springer-Verlag, second~ed., 2004.
+
+\bibitem{silvertown2009new}
+J.~Silvertown, ``A new dawn for citizen science,'' {\em Trends in ecology \&
+  evolution}, vol.~24, no.~9, pp.~467--471, 2009.
 
 \bibitem{bartling2014opening}
 S.~Bartling and S.~Friesike, {\em Opening science: The evolving guide on how
