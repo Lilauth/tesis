@@ -144,10 +144,48 @@ public void takeSampleClick(View view) {
 
 \subsubsection{Instanciación usando el  generador de clases de Gradle}
 
+Básicamente, el generador de clases de Gradle se encarga de hacer una instanciación manual a partir de un archivo de configuración (JSON). Está pensado para desarrolladores que no tienen muchos conocimientos en Android, o para servir de interfaz entre una aplicación que genere apps a través de Samplers (esto hay que escribirlo mejor).
 
+Los pasos para usar el generador de clases de Gradle son:
+\begin{enumerate}
+	\item Crear un archivo JSON con el nombre SamplersConfig.json
+		\begin{itemize}
+			\item El formato y las opciones están explicadas en la siguiente sección.
+			\item Para validar sintaxis se puede usar el validador online: jsonformatter.curiousconcept.com (Ver si se puede poner esto o hay que tener permisos?)
+			\item Al final de la sección se provee un archivo de ejemplo
+		\end{itemize}
+		
+	\item Copiar el archivo creado en el item anterior al directorio raíz del proyecto Android
+	
+	\item Descargar la última versión de los archivos \textbf{samplers.gradle} y \textbf{samplersclassgenerator.jar} del repositorio de Samplers (https://github.com/cientopolis/samplers/releases/) y copiarlos también al directorio raíz del proyecto Android
+	
+	\item Enlazar el archivo samplers.gradle en el archivo build.gradle de la aplicación
+		\begin{itemize}
+			\item Android Studio crea por defecto dos archivos build.gradle, uno a nivel de aplicación y otro a nivel de proyecto. Debe usarse el de aplicación
+			\item Al final del archivo build.gradle de aplicación agregar:
+\begin{lstlisting}[language=XML, frame=tlb]
+apply from: '../samplers.gradle'
+\end{lstlisting}
+			\item Al guardar los cambios, Android Studio sugerirá hacer una sincronización del proyecto, hacerla. Esto generará en la aplicación una activity llamada MyMainSamplersActivity en base a las opciones configuradas en el archivo SamplersConfig.json.
+			\item Si se necesita volver a generar esta activity (si se quieren modificar algunas opciones por ejemplo ) se puede eliminar la misma, hacer las modificaciones en el archivo SamplersConfig.json y volver a generar el proyecto (en el menu Build -> Make Project)
+		\end{itemize}
+		
+	\item Eliminar o (customizar) el archivo \textbf{style.xml} que está en \textbf{res/values} en la aplicación
+	
+	\item Ejecutar la aplicación y listo.
+
+\end{enumerate}
 
 
 \subsection{Secciones del Archivo}
+
+El archivo SamplersConfig.json es un archivo JSON con 3 objetos:
+\begin{itemize}
+	\item El objeto \textbf{project}
+	\item El objeto \textbf{application}
+	\item El objeto \textbf{workflow}
+\end{itemize}
+
 
 \subsubsection{Configuración de los Servicios de Google}
 
