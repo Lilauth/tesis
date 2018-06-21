@@ -182,8 +182,139 @@ apply from: '../samplers.gradle'
 El archivo SamplersConfig.json es un archivo JSON con 3 objetos:
 \begin{itemize}
 	\item El objeto \textbf{project}
+		
+	El objeto project tiene dos campos
+	\begin{itemize}
+		\item \textbf{app\_path}: Un String con la ubicación del directorio de los fuentes de la aplicación, relativo al directorio del proyecto. Es donde están los archivos -java de la aplicación y donde se creará el archivo MyMainSamplersActivity.java
+		\item \textbf{package\_name}: Un String con el nombre del package usado para las activities de la aplicación. Es el package donde la activity MyMainSamplersActivity será agregada.
+	\end{itemize}
+	
+Ejemplo:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "project" : {
+    "app_path" = "app/src/main/java/com/example/myApplication/"
+    "package_name" : "com.example.myApplication"
+  }
+}
+\end{lstlisting}	
+	
 	\item El objeto \textbf{application}
+	El objeto application tiene 7 campos, de los cuales 3 son requeridos y los otros 4 opcionales (para habilitar características especiales)
+	\begin{itemize}
+		\item \textbf{title}: Un String con el nombre de la aplicación.
+		
+		 \item \textbf{welcomeMessage}: Un String con el mensaje de bienvenida que se mostrará en la activity principal (MyMainSamplersActivity)
+		 
+		 \item \textbf{networkConfiguration}: Un objeto con la configuración de red que se usará para enviar las muestras al servidor web. Ver mas abajo la configuración de este objeto.
+		 
+		 \item \textbf{googleMaps\_API\_KEY}: [Opcional] Un String con la API Key de Google. Este campo es necesario si se van a usar los servicios de ubicación y mapas (Location Step y Route Step). La API Key de google se puede obtener desde la página de google developers (https://developers.google.com/maps/documentation/android-api/signup)
+		 
+		 \item \textbf{mainHelpFileName}: [Opcional] Un String con el nombre del archivo HTML que contiene la ayuda principal de la aplicación. Este archivo debe estar junto con el archivo SamplersConfig.json. Ver la sección Mostrando Ayuda para mas detalles.
+		 
+		 \item \textbf{authenticationEnabled}: [Opcional] Un boolean que indica si se usará autenticación (true) o no (false). Si se omite este campo se asume false. Ver la sección Usando Autenticación para mas detalles.
+		 
+		 \item \textbf{authenticationOptional}: [Opcional] Un boolean que indica si la autenticación será opcional (true) o requerida (false). Si se omite este campo se asume true (autenticación opcional). Este campo solo tiene sentido si se usa autenticación. Ver la sección Usando Autenticación para mas detalles.
+		 
+	\end{itemize}
+	
+	
+	El objeto \textbf{networkConfiguration}:
+	El objeto networkConfiguration contiene la configuración de red que se usará para enviar las muestras al servidor web. Tiene 4 campos, de los cuales 2 son requeridos y los otros 2 opcionales.
+	
+	\begin{itemize}
+	
+		\item \textbf{url}: Un String con la URL del servidor web al cual se le enviaran las muestra con un mensaje HTTP POST.
+		
+		\item \textbf{paramName}: Un String con el nombre del parámetro dentro del mensaje HTTP POST en el que se enviará la muestra.
+	
+		\item \textbf{paramNameUserId}: (Opcional) Un String con el nombre del parámetro dentro del mensaje HTTP POST en el que se enviará el id del usuario que envía la muestra. Este campo solo es necesario si se usa autenticación. Ver la sección Usando Autenticación para mas detalles.
+		
+		\item \textbf{paramNameAuthenticationType}: (Opcional) Un String con el nombre del parámetro dentro del mensaje HTTP POST en el que se enviará el tipo de autenticación que usó el usuario que envía la muestra. Este campo solo es necesario si se usa autenticación. Ver la sección Usando Autenticación para mas detalles.
+	
+	\end{itemize}
+	
+	
+Ejemplo:
+\begin{lstlisting}[language=XML, frame=tlb]
+{
+  "application": {
+    "title" : "Samplers Hello World App",
+    "welcomeMessage" : "Welcome to your first Samplers App!",
+    "networkConfiguration" : {
+      "url" : "http://192.168.1.10/samplers/upload.php",
+      "paramName" : "sample",
+      "paramNameUserId" : "user_id",
+      "paramNameAuthenticationType" : "authentication_type"
+    },
+    "authenticationEnabled" : true,
+    "authenticationOptional" : true,
+    "googleMaps_API_KEY" : "your_google_maps_API_KEY",
+    "mainHelpFileName" : "mainhelp.html"
+  } 
+}
+\end{lstlisting}	
+	
+	
 	\item El objeto \textbf{workflow}
+	El objeto workflow representa el protocolo para la toma de la muestra. Son los pasos que se ejecutarán para tomar la misma.
+	El objeto cuenta con dos campos:
+		
+	\begin{itemize}
+	
+		\item \textbf{actionLabel}: Un String con el título que se usará para el botón que inicia la activity TakeSampleActivity, que es la encargada de tomar la muestra.
+		
+		\item \textbf{steps}: Un Array de Objetos Step los cuales forman el workflow. El primer objeto del array se considera como el inicio del mismo. Ver la sección Steps para mas detalles.
+	
+	
+	\end{itemize}	
+	
+	
+Ejemplo:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "workflow": {
+    "actionLabel" : "Tomar muestra",
+    "steps": [
+      {
+        "id" : 1,
+        "type" : "Information",
+        "text" : "Por favor, siga las instrucciones",
+        "nextStepId" : 2
+      },
+      {
+        "id" : 2,
+        "type" : "Location",
+        "text" : "Por favor posicione la muestra en el mapa",
+        "nextStepId" : 3,
+        "helpFileName" : "locationhelp.html"
+      },
+      {
+        "id" : 3,
+        "type": "MultipleSelect",
+        "title" : "Seleecione las cosas que ve",
+        "helpFileName" : "selecthelp.html",
+        "options" : [
+          {
+            "id":1,
+            "text":"Arboles"
+          },
+          {
+            "id":2,
+            "text":"Basura"
+          },
+          {
+            "id":3,
+            "text":"Agua"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+\end{lstlisting}	
+	
 \end{itemize}
 
 
