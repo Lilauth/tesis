@@ -21,6 +21,7 @@ Nuestras clases, las que permiten que se cree una app
 Acá explicamos un poco la estrategia que utilizamos para el envío de muestras y las librerías externas que nos ayudaron.
 
 \section{Instalación y uso del framework}
+\subsection{Instalación}
 Instalación. 
 Requerimientos mínimos:
 \begin{itemize}
@@ -317,7 +318,243 @@ Ejemplo:
 	
 \end{itemize}
 
+\subsection{Configuración de los Servicios de Google}
 
-\subsubsection{Configuración de los Servicios de Google}
+\section{Steps}
+los steps son aaaaaaaaaaaaaaaaaaaaaaaaaahhhh, bueno, lo explicamos despues...
 
-\section{Generador de Clases}
+\subsection{InformationStep: Mostrar información}
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+InformationStep step = new InformationStep(1,"Texto para mostrar",2);
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+	"id":1,
+	"type" : "Information",
+	"text" : "Texto para mostrar",
+	"nextStepId": 2
+}
+\end{lstlisting}
+
+\subsection{SelectOneStep: Seleccionar una opción de un grupo de opciones}
+en forma de radio buttons
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+ArrayList<SelectOneOption> optionsToSelectOne = new ArrayList<SelectOneOption>();
+optionsToSelectOne.add(new SelectOneOption(1,"Opcion 1", 2));
+optionsToSelectOne.add(new SelectOneOption(2,"Opcion 2", 2));
+optionsToSelectOne.add(new SelectOneOption(3,"Opcion 3", 3));
+SelectOneStep step = new SelectOneStep(1,optionsToSelectOne,"Seleccione una opcion");
+
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "id" : 1,
+  "type" : "SelectOne",
+  "title" : "Seleccione una opcion",
+  "options" : [
+    {
+      "id":1,
+      "text":"Opcion 1",
+      "nextStepId" : 2
+    },
+    {
+      "id":2,
+      "text":"Opcion 2",
+      "nextStepId" : 2
+    },
+    {
+      "id":3,
+      "text":"Opcion 3",
+      "nextStepId" : 3
+    }
+  ]
+}
+\end{lstlisting}
+
+\subsection{MultipleSelectStep: Seleccionar varias opciones de un grupo de opciones}
+en forma de checkboxes
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+ArrayList<MultipleSelectOption> optionsToSelect = new ArrayList<MultipleSelectOption>();
+optionsToSelect.add(new MultipleSelectOption(1,"Arboles"));
+optionsToSelect.add(new MultipleSelectOption(2,"Basura"));
+optionsToSelect.add(new MultipleSelectOption(3,"Agua"));
+optionsToSelect.add(new MultipleSelectOption(4,"Animales"));
+MultipleSelectStep step = new MultipleSelectStep(1,optionsToSelect,"Seleccione lo que ve",2); 
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "id" : 1,
+  "type" : "MultipleSelect",
+  "title" : "Seleccione lo que ve",
+  "options" : [
+    {
+      "id":1,
+      "text":"Arboles"
+    },
+    {
+      "id":2,
+      "text":"Basura"
+    },
+    {
+      "id":3,
+      "text":"Agua"
+    },
+    {
+      "id":4,
+      "text":"Animales"
+    }
+  ],
+  "nextStepId" : 2
+}
+\end{lstlisting}
+
+
+\subsection{PhotoStep: Tomar una foto}
+muestra un preview
+usa una camara dependiendo de la api
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+PhotoStep step = new PhotoStep(1,"Por favor tome una foto de su gato",2);
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "id" : 1,
+  "type" : "Photo",
+  "text" : "Por favor tome una foto de su gato",
+  "nextStepId" : 2
+}
+\end{lstlisting}
+
+\subsection{SoundRecordStep: Grabar sonido}
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+SoundRecordStep step = new SoundRecordStep(1,"Grabe el sonido de su auto",2); 
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "id" : 1,
+  "type" : "Sound",
+  "text" : "Grabe el sonido de su auto",
+  "nextStepId" : 2
+}
+\end{lstlisting}
+
+
+\subsection{LocationStep: Posicionar la muestra en el mapa con el GPS}
+
+Permite usar el GPS o posicionar la muestra manualmente en el mapa
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+LocationStep step = new LocationStep(1,"Por favor posicione la muestra en el mapa",2); 
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "id" : 1,
+  "type" : "Location",
+  "text" : "Por favor posicione la muestra en el mapa",
+  "nextStepId" : 2
+}
+\end{lstlisting}
+
+
+\subsection{RouteStep: Grabar un recorrido en el mapa usando el GPS}
+Intervalo y mapZoom opcionales. Poner los valores por defecto
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+RouteStep step = new RouteStep(1,"Registre la ruta que corre",2); 
+step.setInterval(10000);
+step.setMapZoom(18);
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "id" : 1,
+  "type" : "Route",
+  "text" : "Registre la ruta que corre",
+  "interval" : 10000,
+  "mapZoom" : 18,
+  "nextStepId" : 2
+}
+\end{lstlisting}
+
+
+\subsection{InsertTextStep: Ingresar texto}
+Type Values allowed are: text, number or decimal
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+InsertTextStep step = new InsertTextStep(1,"Por favor, ingrese el nombre del lago","Nombre del lago",50,InsertTextStep.InputType.TYPE_TEXT,true,2);
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "id" : 1,
+  "type" : "InsertText",
+  "text" : "Por favor, ingrese el nombre del lago",
+  "sampleText" : "Nombre del lago",
+  "inputType" : "text",
+  "maxLength" : 50,
+  "optional" : true,
+  "nextStepId" : 2
+}
+\end{lstlisting}
+
+
+\subsection{InsertDateStep y InsertTimeStep: Ingresar fecha y hora}
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+InsertDateStep step = new InsertDateStep(1,"Por favor indique la fecha de la muestra",2); 
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "id" : 1,
+  "type" : "InsertDate",
+  "text" : "Por favor indique la fecha de la muestra",
+  "nextStepId" : 2
+}
+\end{lstlisting}
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+InsertTimeStep step6 = new InsertTimeStep(1,"Por favor indique la hora de la muestra",2); 
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "id" : 1,
+  "type" : "InsertTime",
+  "text" : "Por favor indique la hora de la muestra",
+  "nextStepId" : 2
+}
+\end{lstlisting}
+
+
+
