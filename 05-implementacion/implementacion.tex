@@ -320,8 +320,12 @@ Ejemplo:
 
 \subsection{Configuración de los Servicios de Google}
 
-\section{Steps}
+\section{Step y StepResult}
 los steps son aaaaaaaaaaaaaaaaaaaaaaaaaahhhh, bueno, lo explicamos despues...
+
+Los StepResult son el resultado obtenido de ejecutar un Step.
+Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
+Un StepResult tiene el Id del Step en base al cual se generó. También tiene un método....
 
 \subsection{InformationStep: Mostrar información}
 
@@ -341,9 +345,14 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{InformationStepResult: El resultado de Mostrar información}
+El resultado de mostrar información es nulo, es una clase vacía. Solo está para cerrar el circuito.
 
 \subsection{SelectOneStep: Seleccionar una opción de un grupo de opciones}
-en forma de radio buttons
+Tiene un title
+Las opciones son una lista de objetos SelectOneOption
+Cada objeto SelectOneOption tiene un id, textToShow y nextStepId
+Explicar la bifurcación de caminos en el workflow a partir de este Step
+En forma de radio buttons
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -382,8 +391,12 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{SelectOneStepResult: El resultado de Seleccionar una opción de un grupo de opciones}
+El resultado tiene la opción seleccionada (un objeto SelectOneOption)
 
 \subsection{MultipleSelectStep: Seleccionar varias opciones de un grupo de opciones}
+Tiene un title
+Las opciones son una lista de objetos MultipleSelectOption
+Cada objeto MultipleSelectOption tiene un id y textToShow
 en forma de checkboxes
 
 En Android Studio (Java):
@@ -425,8 +438,10 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{MultipleSelectStepResult: El resultado de Seleccionar varias opciones de un grupo de opciones}
+El resultado tiene una lista de las opciones seleccionadas (una lista de objetos MultipleSelectOption)
 
 \subsection{PhotoStep: Tomar una foto}
+Tiene instructionsToShow que se muestran a modo de instrucciones o mensaje cuando la cámara esta encendida
 muestra un preview
 usa una camara dependiendo de la api
 
@@ -446,8 +461,12 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{PhotoStepResult: El resultado de Tomar una foto}
+guarda el imageFileName de la foto. 
+La foto va como archivo jpg en la carpeta de la muestra.
+Puede haber varias fotos si hay varios PhotoSteps en el workflow
 
 \subsection{SoundRecordStep: Grabar sonido}
+Tiene instructionsToShow a modo de instrucciones que se muestran.
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -464,9 +483,14 @@ Usando el generador de clases:
 }
 \end{lstlisting}
 
+\subsubsection{SoundRecordStepResult: El resultado de Grabar sonido}
+guarda el soundFileName del sonido.
+El sonido va como archivo mp4 en la carpeta de la muestra.
+Puede haber varios sonidos si hay varios SoundRecordSteps en el workflow
+
 
 \subsection{LocationStep: Posicionar la muestra en el mapa con el GPS}
-
+Tiene un textToShow a modo de instrucciones
 Permite usar el GPS o posicionar la muestra manualmente en el mapa
 
 En Android Studio (Java):
@@ -484,8 +508,11 @@ Usando el generador de clases:
 }
 \end{lstlisting}
 
+\subsubsection{LocationStepResult: El resultado de Posicionar la muestra en el mapa con el GPS}
+Guarda latitude y longitude
 
 \subsection{RouteStep: Grabar un recorrido en el mapa usando el GPS}
+Tiene un textToShow a modo de instrucciones
 Intervalo y mapZoom opcionales. Poner los valores por defecto
 
 En Android Studio (Java):
@@ -507,9 +534,16 @@ Usando el generador de clases:
 }
 \end{lstlisting}
 
+\subsubsection{RouteStepResult: El resultado de Grabar un recorrido en el mapa usando el GPS}
+guarda una lista de objetos Location
 
 \subsection{InsertTextStep: Ingresar texto}
+textToShow a modo de instrucciones
+sampleText a modo de ejmplo
+maxLength cantidad máxima de caracteres permitida
 Type Values allowed are: text, number or decimal
+optional indicando si se puede dejar vacío y no ingresar ningún texto (true) o si se requiere que ingrese algo si o si (false)
+
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -530,8 +564,11 @@ Usando el generador de clases:
 }
 \end{lstlisting}
 
+\subsubsection{InsertTextStepResult: El resultado de Ingresar texto}
+guarda el texto ingresado en insertedText
 
 \subsection{InsertDateStep y InsertTimeStep: Ingresar fecha y hora}
+ambos tienen textToShow a modo de instrucciones
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -563,5 +600,6 @@ Usando el generador de clases:
 }
 \end{lstlisting}
 
-
+\subsubsection{InsertDateStepResult y InsertTimeStep: El resultado de Ingresar fecha y hora}
+un objeto Date que tiene la fecha o la hora según corresponda
 
