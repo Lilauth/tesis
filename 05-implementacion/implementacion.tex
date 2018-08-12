@@ -10,6 +10,10 @@ Nuestras clases, las que permiten que se cree una app
 
 
 \subsection{Workflow: Control de Ejecución}
+los steps son...
+Los StepResult son el resultado obtenido de ejecutar un Step.
+Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
+Un StepResult tiene el Id del Step en base al cual se generó. También tiene un método....
 
 \subsubsection{Step, el Paso}
 
@@ -19,6 +23,8 @@ Nuestras clases, las que permiten que se cree una app
 
 \subsection{Envío de Muestras a Servidor Web}
 Acá explicamos un poco la estrategia que utilizamos para el envío de muestras y las librerías externas que nos ayudaron.
+
+Usuario afuera de la muestra porque cuando toma la muestra puede no estar logueado, y loguearse antes de enviarlas.
 
 \section{Instalación y uso del framework}
 \subsection{Instalación}
@@ -318,11 +324,13 @@ Ejemplo:
 	
 \end{itemize}
 
+Aca podriamos poner un ejemplo completo de un archivo JSON de los que estan en la wiki.
+
 \subsection{Configuración de los Servicios de Google}
 
-\section{Step y StepResult}
-los steps son aaaaaaaaaaaaaaaaaaaaaaaaaahhhh, bueno, lo explicamos despues...
-
+\section{Los diferentes Steps y sus resultados (StepResult)}
+Esto me parece que ya esta explicado arriba... hay que ver donde lo explicamos en forma generica y aca el detalle de cada uno.
+los steps son...
 Los StepResult son el resultado obtenido de ejecutar un Step.
 Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
 Un StepResult tiene el Id del Step en base al cual se generó. También tiene un método....
@@ -602,4 +610,149 @@ Usando el generador de clases:
 
 \subsubsection{InsertDateStepResult y InsertTimeStep: El resultado de Ingresar fecha y hora}
 un objeto Date que tiene la fecha o la hora según corresponda
+
+\section{Mostrar Ayuda}
+
+\section{Usando autenticación}
+Por defecto provee autenticación con Google, porque al tener Android tiene una cuenta de Google si o si.
+Esta abierto a poder agregar autenticación con otras plataformas/APIs.
+
+Samplers provee autenticación con Google, pero ese necesario registrar la aplicación en la pagina de desarrolladores de google (https://developers.google.com/identity/sign-in/android/start-integrating). Ahí hay que seguir los pasos para [to Configure a Google API Console project]. Es necesario [proveer] el nombre de la aplicación, package name, y también el SHA-1 hash del certificado con el que se firma la aplicación.
+
+Una vez registrada la aplicación en Google, hay que configurar Samplers para habilitar la autenticación.
+
+Una vez configurado los valores de los parámetros de autenticación, Samplers mostrará un fragment de inicio de sesión la primera vez que el usuario intente tomar una muestra. Si la autentición es opcional, se mostrará un botón para omitir el inicio de sesión y continuar con la toma de la muestra. También se muestra un botón para iniciar sesión en la activity principal (si se está usando la que provee Samplers).
+
+Cuando la muestra es enviada, el id de usuario y el método de autenticación (por defecto 'google') se envían junto con esta.
+
+
+\subsection{Configurar autenticación con el generador de clases de Gradle}
+
+Para usar autenticación usando el generador de clases de Gradle, es necesario configurar los siguientes parámetros en el objeto \textbf{applicaction}:
+
+\begin{itemize}
+
+	\item \textbf{authenticationEnabled}: poner en true para habilitar la autenticación
+		
+	\item \textbf{authenticationOptional}: poner en true si se desea que la autenticación sea opcional, o en false si se desea que la autenticación sea obligatoria.
+	
+	\item Dentro del parámetro \textbf{networkConfiguration} es necesario establecer los parámetros \textbf{paramNameUserId} y \textbf{paramNameAuthenticationType} con los nombres de los parámetros con los que irán el id de usuario y el tipo de autenticación usada respectivamente dentro del mensaje HTTP POST.
+	
+
+\end{itemize}
+
+Ejemplo:
+
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "application": {
+    "title" : "Samplers Hello World App",
+    "welcomeMessage" : "Welcome to your first Samplers App!",
+    "networkConfiguration" : {
+      "url" : "http://192.168.1.10/samplers/upload.php",
+      "paramName" : "sample",
+      "paramNameUserId" : "user_id",
+      "paramNameAuthenticationType" : "authentication_type"
+    },
+    "authenticationEnabled" : true,
+    "authenticationOptional" : true
+  } 
+}
+\end{lstlisting}
+
+\subsection{Configurar autenticación [con instanciación manual]}
+
+Para usar autenticación [con instanciación manual], es necesario definir la configuración de red y de autenticación en el método \textbf{onCreate()} de la activity principal:
+
+\begin{lstlisting}[language=Java, frame=tlb]	
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+	
+  NetworkConfiguration.setURL("http://192.168.1.10/samplers/upload.php");
+  NetworkConfiguration.setPARAM_NAME_SAMPLE("sample");
+  // Set the authentication params of the Network Configuration
+  NetworkConfiguration.setPARAM_NAME_USER_ID("user_id");
+  NetworkConfiguration.setPARAM_NAME_AUTHENTICATION_TYPE("authentication_type");
+
+  // Set the authenticationconfiguration
+  AuthenticationManager.setAuthenticationEnabled(true);
+  AuthenticationManager.setAuthenticationOptional(true);
+}
+\end{lstlisting}
+
+\subsection{Usando un método de autenticación propio}
+
+Con Samplers también se puede usar un método de autenticación propio, definiendo un LoginFragment y una clase User (o varias clases si se desea proporcionar autenticación con diferentes APIs, como Facebook, Tweeter, Yahoo, etc.) y Samplers enviará junto con la muestra el id de usuario y el método de autenticación usado.
+
+
+\subsubsection{Definiendo un Login Fragment [personalizado]}
+
+Es necesario crear un fragment que herede de LoginFragment, y configurar la clase AuthenticationManager para que lo use, llamando al método setLoginFragmentClass() dentro del método onCreate() de la ativity principal:
+
+\begin{lstlisting}[language=Java, frame=tlb]	
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+	
+  AuthenticationManager.setLoginFragmentClass(MyCustomLoginFragment.class);
+}
+\end{lstlisting}
+
+El proceso de login y la interacción con las APIs responsabilidad del desarrollador, pero después de que el usuario inicia sesión en la API seleccionada, es necesario llamar al método login() en la clase AuthenticationManager y al método onLogin() en el objeto mListener heredado:
+
+\begin{lstlisting}[language=Java, frame=tlb]	
+if (loginOK) {
+  AuthenticationManager.login(user, getActivity().getApplicationContext());
+  mListener.onLogin(user);
+}
+\end{lstlisting}
+
+
+\subsubsection{Definiendo una clase User [personalizada]}
+
+Es necesario crear una clase usuario propia que implemente la interfaz User por cada método de autenticación que se use. Los objetos de dichas clases se usarán para llamar al método login() de la clase AuthenticationManager.
+
+Ejemplo de una clase usuario propia:
+\begin{lstlisting}[language=Java, frame=tlb]	
+public class EMailUser implements User {
+
+    public static final String AUTHENTICATION_TYPE = "email";
+
+    private String userName;
+    private String email;
+
+    public GoogleUser(String userName, String email) {
+        this.userName = userName;
+        this.email = email;
+    }
+
+    @Override
+    public String getAuthenticationType() {
+        return AUTHENTICATION_TYPE;
+    }
+
+    @Override
+    public String getUserName() {
+        return userName;
+    }
+
+    @Override
+    public String getUserId() {
+        return email;
+    }
+
+}
+\end{lstlisting}
+
+
+
+\section{Personalización}
+
+\subsection{Temas y colores}
+
+\subsection{Idiomas}
+
+
+
 
