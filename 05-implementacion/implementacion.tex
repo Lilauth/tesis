@@ -1,7 +1,23 @@
 \chapter{Samplers: Framework Android}
 
+\section{Propuesta general}
+Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana.
 
+Brinda una solución simple al problema de la recolección de la muestra .
 
+Funciona de dos formas:
+\begin{itemize}
+\item Usando el generador de clases de Gradle: 
+\item Extendiendo las clases: 
+\end{itemize}
+
+## en un principio se pensó para que un científico pudiera crear su propia app sin tener conocimientos de programación
+
+## hablar de FrozenSpots y HotSpots (ver la tesis de Spotters
+
+## por que decidimos que sea sobre Android y que queda la adaptacion a iOS para otra tesis
+
+## Configurable o Extensible nosotros creo que hicimos los dos... :P
 
 \section{Jerarquía de Clases}
 Nuestras clases, las que permiten que se cree una app
@@ -9,17 +25,25 @@ Nuestras clases, las que permiten que se cree una app
 \includegraphics[scale=0.4]{05-implementacion/Steps.png} 
 
 
-\subsection{Workflow: Control de Ejecución}
+\subsection{Workflow}
+La clase Workflow representa el protocolo de recolección de muestras. Está formado por una colección de Steps que representan los pasos a seguir para completar dicho protocolo.
+
+
+Es el encargado de llevar el estado del paso en el que se encuentra.
+
+
+
 los steps son...
 Los StepResult son el resultado obtenido de ejecutar un Step.
 Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
 Un StepResult tiene el Id del Step en base al cual se generó. También tiene un método....
 
-\subsubsection{Step, el Paso}
+\subsubsection{Step: el Paso}
 
-\subsubsection{StepResult, El Resultado de la Ejecución del Paso}
+\subsubsection{StepResult: El Resultado de la Ejecución del Paso}
 
-\subsubsection{Muestra, Conjunto de Resultados}
+\subsubsection{Sample: la muestra}
+La clase Sample representa una muestra tomada a partir de seguir los pasos (Steps) del protocolo del recolección (Workflow). Contiene los resultados de la ejecución de cada paso (StepResult). También guarda fecha y hora de inicio y finalización. Esto es útil para sacar una estadística de cuanto tarda un usuario en recolectar una muestra y analizar optimizaciones para la aplicación final.
 
 \subsection{Envío de Muestras a Servidor Web}
 Acá explicamos un poco la estrategia que utilizamos para el envío de muestras y las librerías externas que nos ayudaron.
@@ -754,5 +778,5 @@ public class EMailUser implements User {
 \subsection{Idiomas}
 
 
-
+## Ver Auth0
 
