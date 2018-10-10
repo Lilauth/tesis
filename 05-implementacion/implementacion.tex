@@ -2,8 +2,25 @@
 
 \section{Propuesta general}
 Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana.
+**Se apoya sobre Android Studio**
 
-Brinda una solución simple al problema de la recolección de la muestra .
+Brinda una solución simple al problema de la recolección de la muestra usando/aprovechando las funcionalidades de los dispositivos móviles.
+
+** por que decidimos que sea sobre Android y que queda la adaptacion a iOS para otra tesis
+
+** Estadistica de 2016 (cuando presentamos la propuesta) que dice que mas del 80\% de las ventas fueron de celulares con Android
+
+Según una estadística de Gartner sobre las ventas de smartphones en el último trimestre de 2016\cite{gartner} mas del 80\% de las ventas fueron de celulares con Android.
+
+
+
+En un principio se pensó para que un científico pudiera crear su propia aplicación Android sin tener conocimientos de programación. La idea inicial era que mediante una aplicación web el científico pudiera armar el protocolo de recolección de las muestras (el Workflow en Samplers) y se generara el archivo de configuración para Samplers. Con el archivo de configuración se pasaría a Samplers y se generaría la aplicación Android. Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que que el archivo de configuración ya viene armado.
+Se eligió el formato JSON para el archivo de configuración porque nos pareció más fácil de escribir/leer a mano que XML, suponiendo que el científico tuviese que armarlo a mano. Se establecieron las opciones de configuración del archivo para poder armar el workflow, que representa el protocolo de recolección de las muestras.
+
+
+
+
+
 
 Funciona de dos formas:
 \begin{itemize}
@@ -11,13 +28,11 @@ Funciona de dos formas:
 \item Extendiendo las clases: 
 \end{itemize}
 
-## en un principio se pensó para que un científico pudiera crear su propia app sin tener conocimientos de programación
 
-## hablar de FrozenSpots y HotSpots (ver la tesis de Spotters
+** hablar de FrozenSpots y HotSpots (ver la tesis de Spotters)
 
-## por que decidimos que sea sobre Android y que queda la adaptacion a iOS para otra tesis
 
-## Configurable o Extensible nosotros creo que hicimos los dos... :P
+** Configurable o Extensible nosotros creo que hicimos los dos... :P
 
 \section{Jerarquía de Clases}
 Nuestras clases, las que permiten que se cree una app
@@ -52,14 +67,16 @@ Usuario afuera de la muestra porque cuando toma la muestra puede no estar loguea
 
 \section{Instalación y uso del framework}
 \subsection{Instalación}
-Instalación. 
-Requerimientos mínimos:
+En esta sección se describe como instalar el framework en Android Studio y como instanciarlo para su uso, brindando algunos ejemplos concretos.
+
+\subsubsection{Requerimientos mínimos:}
+
 \begin{itemize}
 \item Android Studio (Java): Si bien esta pensado para y probado en Android Studio, podria funcionar bien en otro entorno que use Java y deje importar archivos Android Archive (.aar).
 \item Android SDK API17: Android 4.2 (Jelly Bean) o superior.
 \end{itemize}
 
-Instalación:
+\subsubsection{Pasos para la Instalación:}
 \begin{enumerate}
 	\item Crear en Android Studio un nuevo proyecto vacío (sin ninguna Activity).
 		\begin{itemize}
@@ -67,7 +84,7 @@ Instalación:
 		\end{itemize}
 	\item Importar la librería del framework en el proyecto creado
 		\begin{itemize}
-		\item Descargar la última versión de samplersFramework.aar desde https://github.com/			cientopolis/samplers/releases/
+		\item Descargar la última versión de samplersFramework.aar desde https://github.com/cientopolis/samplers/releases/
 		\item Importar la librería al proyecto: File -> New -> New Module -> Import .JAR/.AAR Package
 		\end{itemize}
 	\item Agregar el repositorio de Google
@@ -778,5 +795,5 @@ public class EMailUser implements User {
 \subsection{Idiomas}
 
 
-## Ver Auth0
+** Ver Auth0
 
