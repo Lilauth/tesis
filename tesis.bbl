@@ -1,30 +1,57 @@
-\begin{thebibliography}{1}
-
-\bibitem{bonney2009citizen}
-R.~Bonney, C.~B. Cooper, J.~Dickinson, S.~Kelling, T.~Phillips, K.~V.
-  Rosenberg, and J.~Shirk, ``Citizen science: a developing tool for expanding
-  science knowledge and scientific literacy,'' {\em BioScience}, vol.~59,
-  no.~11, pp.~977--984, 2009.
-
-\bibitem{wiggins2011conservation}
-A.~Wiggins and K.~Crowston, ``From conservation to crowdsourcing: A typology of
-  citizen science,'' in {\em System Sciences (HICSS), 2011 44th Hawaii
-  international conference on}, pp.~1--10, IEEE, 2011.
-
-\bibitem{wtf}
-J.~Zobel, {\em {Another Title}}.
-\newblock Springer-Verlag, second~ed., 2004.
-
-\bibitem{silvertown2009new}
-J.~Silvertown, ``A new dawn for citizen science,'' {\em Trends in ecology \&
-  evolution}, vol.~24, no.~9, pp.~467--471, 2009.
-
-\bibitem{bartling2014opening}
-S.~Bartling and S.~Friesike, {\em Opening science: The evolving guide on how
-  the internet is changing research, collaboration and scholarly publishing}.
-\newblock Springer, 2014.
+\begin{thebibliography}{10}
 
 \bibitem{CBC}
-{Audubon}, ``{History of the Christmas Bird Count}.''
+{Audubon}.
+\newblock {History of the Christmas Bird Count}.
+
+\bibitem{bartling2014opening}
+S{\"o}nke Bartling and Sascha Friesike.
+\newblock {\em Opening science: The evolving guide on how the internet is
+  changing research, collaboration and scholarly publishing}.
+\newblock Springer, 2014.
+
+\bibitem{bonney2009citizen}
+Rick Bonney, Caren~B Cooper, Janis Dickinson, Steve Kelling, Tina Phillips,
+  Kenneth~V Rosenberg, and Jennifer Shirk.
+\newblock Citizen science: a developing tool for expanding science knowledge
+  and scientific literacy.
+\newblock {\em BioScience}, 59(11):977--984, 2009.
+
+\bibitem{cohn2008citizen}
+Jeffrey~P Cohn.
+\newblock Citizen science: Can volunteers do real research?
+\newblock {\em AIBS Bulletin}, 58(3):192--197, 2008.
+
+\bibitem{FossilFinders}
+{Fossil Finders}.
+\newblock {What is Fossil Finders?}
+
+\bibitem{GalaxyZoo}
+{Galaxy Zoo}.
+\newblock {The Science behind the Site}.
+
+\bibitem{gartner}
+{Gartner}.
+\newblock {Gartner Says Worldwide Sales of Smartphones Grew 7 Percent in the
+  Fourth Quarter of 2016}.
+\newblock
+  \url{https://www.gartner.com/en/newsroom/press-releases/2017-02-15-gartner-says-worldwide-sales-of-smartphones-grew-7-percent-in-the-fourth-quarter-of-2016},
+  2 2017.
+
+\bibitem{silvertown2009new}
+Jonathan Silvertown.
+\newblock A new dawn for citizen science.
+\newblock {\em Trends in ecology \& evolution}, 24(9):467--471, 2009.
+
+\bibitem{wiggins2011conservation}
+Andrea Wiggins and Kevin Crowston.
+\newblock From conservation to crowdsourcing: A typology of citizen science.
+\newblock In {\em System Sciences (HICSS), 2011 44th Hawaii international
+  conference on}, pages 1--10. IEEE, 2011.
+
+\bibitem{wtf}
+Justin Zobel.
+\newblock {\em {Another Title}}.
+\newblock Springer-Verlag, second edition, 2004.
 
 \end{thebibliography}

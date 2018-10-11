@@ -10,18 +10,22 @@
 \usepackage[table]{xcolor}
 \usepackage{graphicx}
 \usepackage{amssymb}
+\usepackage{cite}
+\usepackage{hyperref}
 
+
+
+\begin{document}
 
 % ------------------- Titulo y  Autor -----------------------------
 \title{Samplers: Framework para construir aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana}
 \author{Laura Lus y Javier Ramírez}
 
-\begin{document}
-
 \maketitle
 
 \begin{abstract}
 %Este es un resumen de la tesis muy corto (media carilla). El que lo lee se tiene que quedar con la idea de: 1) en que tema trabajaron, 2) cual es el problema que intentaron resolver, 3) que técnica aplicaron para resolverlo y por qué es novedosa, 4) que descubrieron en el proceso (un adelanto de conclusión). 
+
 
 La Ciencia Ciudadana involucra al público en proyectos de investigación científica. Las tareas de un voluntario o ciudadano científico pueden ser simples y no necesitar ningún conocimiento especial, o pueden ser más complejas y requerir capacitación previa. Ejemplos de tareas en proyectos de ciencia ciudadana pueden ser contar elementos que aparecen en una fotografía (si aparece un determinado animal o si puede reconocer una galaxia) o bien responder una serie de preguntas para recolectar información sobre un ambiente que el voluntario está observando (podría ser el ecosistema que rodea una laguna o un estuario). 
 
@@ -51,8 +55,10 @@ Samplers es un framework Android para construir aplicaciones que permitan la rec
 %En la sección bibliografía, van a aparecer automáticamente aquellos que se citan desde el texto 
 %utilizando el comando \cite con la etiqueta correspondiente - en la introducción hay un par de ejemplos. 
 
-\bibliographystyle{ieeetr}
-\bibliography{90-bibliografia}
+%\bibliographystyle{ieeetr}
+
+\bibliography{90-bibliografia}{}
+\bibliographystyle{plain}
 
 
 \end{document}
