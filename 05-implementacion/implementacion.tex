@@ -2,27 +2,19 @@
 
 \section{Propuesta general}
 Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana.
-**Se apoya sobre Android Studio**
 
 Brinda una solución simple al problema de la recolección de la muestra usando/aprovechando las funcionalidades de los dispositivos móviles.
 
-** por que decidimos que sea sobre Android y que queda la adaptacion a iOS para otra tesis
+En un principio se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. La idea inicial era que mediante una aplicación web el científico pudiera armar el protocolo de recolección de las muestras (el Workflow en Samplers) y se generara el archivo de configuración para Samplers. Con el archivo de configuración se pasaría a Samplers y se generaría la aplicación móvil. Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que que el archivo de configuración ya viene armado.
 
-** Estadistica de 2016 (cuando presentamos la propuesta) que dice que mas del 80\% de las ventas fueron de celulares con Android
+Por otro lado, abarcar los 3 sistemas operativos móviles más usados en ese momento (Android, iOS y Windows Phone) también haría muy grande el alcance de la tesis, por lo que se decidió optar por Android, que era el sistema operativo móvil más usado. Según una estadística de Gartner sobre las ventas de smartphones a nivel mundial en el último trimestre de 2016\cite{gartner}, mas del 80\% de las mismas fueron de celulares con Android.
 
-Según una estadística de Gartner sobre las ventas de smartphones en el último trimestre de 2016\cite{gartner} mas del 80\% de las ventas fueron de celulares con Android.
+Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de desarrollo integrado (IDE) oficial es Android Studio\cite{androidStudio}, por lo que Samplers se apoya sobre el mismo. Android Studio ha sido publicado de forma gratuita bajo Licencia Apache 2.0 y está disponible para las plataformas Microsoft Windows, MacOS y GNU/Linux.
 
-
-
-En un principio se pensó para que un científico pudiera crear su propia aplicación Android sin tener conocimientos de programación. La idea inicial era que mediante una aplicación web el científico pudiera armar el protocolo de recolección de las muestras (el Workflow en Samplers) y se generara el archivo de configuración para Samplers. Con el archivo de configuración se pasaría a Samplers y se generaría la aplicación Android. Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que que el archivo de configuración ya viene armado.
-Se eligió el formato JSON para el archivo de configuración porque nos pareció más fácil de escribir/leer a mano que XML, suponiendo que el científico tuviese que armarlo a mano. Se establecieron las opciones de configuración del archivo para poder armar el workflow, que representa el protocolo de recolección de las muestras.
+Para el archivo de configuración se eligió el formato JSON porque nos pareció más fácil de escribir/leer a mano que XML, suponiendo que el científico tuviese que armarlo a mano. Se establecieron las opciones de configuración del archivo para poder armar el workflow, que representa el protocolo de recolección de las muestras.
 
 
-
-
-
-
-Funciona de dos formas:
+Samplers funciona de dos formas:
 \begin{itemize}
 \item Usando el generador de clases de Gradle: 
 \item Extendiendo las clases: 
