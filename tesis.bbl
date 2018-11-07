@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{bonney2009citizen}
 R.~Bonney, C.~B. Cooper, J.~Dickinson, S.~Kelling, T.~Phillips, K.~V.
@@ -26,5 +26,38 @@ S.~Bartling and S.~Friesike, {\em Opening science: The evolving guide on how
 
 \bibitem{CBC}
 {Audubon}, ``{History of the Christmas Bird Count}.''
+
+\bibitem{cohn2008citizen}
+J.~P. Cohn, ``Citizen science: Can volunteers do real research?,'' {\em AIBS
+  Bulletin}, vol.~58, no.~3, pp.~192--197, 2008.
+
+\bibitem{GalaxyZoo}
+{Galaxy Zoo}, ``{The Science behind the Site}.''
+
+\bibitem{FossilFinders}
+{Fossil Finders}, ``{What is Fossil Finders?}.''
+
+\bibitem{gartner}
+{Gartner}, ``Gartner says worldwide sales of smartphones grew 7 percent in the
+  fourth quarter of 2016.''
+  https://www.gartner.com/en/newsroom/press-releases/2017-02-15-gartner-says-worldwide-sales-of-smartphones-grew-7-percent-in-the-fourth-quarter-of-2016,
+  Febrero 2017.
+\newblock [Online; último acceso: Octubre/2018].
+
+\bibitem{androidStudio}
+{Google}, ``Android studio.'' https://developer.android.com/studio/.
+\newblock [Online; último acceso: Octubre/2018].
+
+\bibitem{cientopolis}
+{LIFIA Centro asociado de la Comisión de Investigaciones Científicas, NOVA
+  (Nuevo Observatorio Virtual Argentino), CENIT (Centro de Investigaciones para
+  la Transformación, asociado a UNTREF), Facultad de Informática (UNLP),
+  Facultad de Ciencias Astronómicas y Geofísicas (UNLP)}, ``Cientópolis.''
+  https://www.cientopolis.org.
+\newblock [Online; último acceso: Octubre/2018].
+
+\bibitem{github}
+{GitHub}, ``Github.'' https://github.com.
+\newblock [Online; último acceso: Octubre/2018].
 
 \end{thebibliography}

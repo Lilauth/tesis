@@ -1,7 +1,53 @@
 \chapter{Samplers: Framework Android}
 
+\section{Propuesta general}
+Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra usando/aprovechando las funcionalidades de los dispositivos móviles.
+
+En un principio se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. La idea inicial era que mediante una aplicación web el científico pudiera armar el protocolo de recolección de las muestras (el Workflow en Samplers) de manera visual e intuitiva, y se generara un archivo de configuración para Samplers. Con el archivo de configuración se pasaría a Samplers y se generaría la aplicación móvil. Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que que el archivo de configuración ya viene armado.
+
+Por otro lado, abarcar los 3 sistemas operativos móviles más usados en ese momento (Android, iOS y Windows Phone) también haría muy grande el alcance de la tesis, por lo que se decidió optar por Android, que era el sistema operativo móvil más usado en ese momento. Según una estadística de Gartner sobre las ventas de smartphones a nivel mundial en el último trimestre de 2016\cite{gartner}, mas del 80\% de las mismas fueron de celulares con Android.
+
+Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de desarrollo integrado (IDE) oficial es Android Studio\cite{androidStudio}, por lo que Samplers se apoya sobre el mismo. Android Studio ha sido publicado de forma gratuita bajo Licencia Apache 2.0 y está disponible para las plataformas Microsoft Windows, MacOS y GNU/Linux.
+
+De este modo, Samplers sería un framework que funcionaría sobre Android Studio, que recibiría un archivo de configuración y generaría una aplicación lista para ejecutarse en un dispositivo móvil con Android.
+
+Para el archivo de configuración se eligió el formato JSON porque nos pareció más fácil de escribir/leer a mano (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que armarlo a mano. En el mismo vendría el workflow, que representa el protocolo de recolección de las muestras, y las demás configuraciones necesarias para armar la aplicación.
+
+El workflow estaría compuesto por los diferentes pasos (Steps en Samplers) necesarios para tomar la muestra con la aplicación. Estos pasos podrían ser:
+\begin{itemize}
+\item capturar de una foto, un video o un audio
+\item tomar la posición del GPS o grabar un recorrido con el mismo
+\item contestar una pregunta con respecto a la muestra. Esta pregunta puede tener una o múltiples respuestas posibles.
+\item introducir anotaciones (texto)
+\item seleccionar una fecha o una hora
+\item mostrar información de orientación para la toma de la muestra.
+\end{itemize}
+
+** Mostrar ayuda
+
+La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado y las almacenará y empaquetará en el dispositivo móvil hasta que pueda ser enviada a un servidor web, el cual vendrá establecido en el archivo de configuración.
+
+También se pensó en proveer algún mecanismo de autenticación, para poder identificar al usuario que toma las muestras, y de esta forma poder darle una devolución mostrándole información, o incentivarlo para que siga participando del proyecto a través de gamificación por ejemplo.
+Se pensó en poder iniciar sesión con alguna red social, como por ejemplo Facebook, Tweeter, Instagram, Google+, etc. y como en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones), se decidió incluir autenticación con Google y dejar preparado para que el usuario pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña). Samplers también debería quedar preparado para agregar autenticación con otras redes sociales en un futuro.
+
+Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo debería ser open source, por lo que se decidió usar un repositorio público en GitHub\cite{github}.
 
 
+
+Samplers funciona de dos formas:
+\begin{itemize}
+\item Usando el generador de clases de Gradle: 
+\item Extendiendo las clases: 
+\end{itemize}
+
+
+** hablar de FrozenSpots y HotSpots (ver la tesis de Spotters)
+
+
+** Configurable o Extensible nosotros creo que hicimos los dos... :P
+Segun Spotters:
+Al momento de comenzar a trasladar los conceptos de Spotters a un prototipo, se presentó  como  interrogante  cuál  sería  la  forma  que  tendría  el  programador  de  utilizar el  framework  para  poder  incluir  las  cuestiones  particulares  de  su  dominio.  Analizando diversas alternativas, se encontraron dos caminos posibles: Configuración y Extensión. 
+La  alternativa  de  Configuración  consiste  en  proveer  un  mecanismo  que  permita derivar el comportamiento de la instancia de Spotters a partir de información contenida en  un  archivo  con  directivas  o  una  base  de  datos.  La  alternativa  de Extensión,  consiste en  proveer  un  conjunto  de  clases  abstractas  que  el  programador  deba  sub  clasificar para crear las clases concretas necesarias para el funcionamiento de su instancia, tales como las preguntas que se realizan para la clasificación y los pasos del tutorial.
 
 \section{Jerarquía de Clases}
 Nuestras clases, las que permiten que se cree una app
@@ -9,27 +55,43 @@ Nuestras clases, las que permiten que se cree una app
 \includegraphics[scale=0.4]{05-implementacion/Steps.png} 
 
 
-\subsection{Workflow: Control de Ejecución}
+\subsection{Workflow}
+La clase Workflow representa el protocolo de recolección de muestras. Está formado por una colección de Steps que representan los pasos a seguir para completar dicho protocolo.
 
-\subsubsection{Step, el Paso}
 
-\subsubsection{StepResult, El Resultado de la Ejecución del Paso}
+Es el encargado de llevar el estado del paso en el que se encuentra.
 
-\subsubsection{Muestra, Conjunto de Resultados}
+
+
+los steps son...
+Los StepResult son el resultado obtenido de ejecutar un Step.
+Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
+Un StepResult tiene el Id del Step en base al cual se generó. También tiene un método....
+
+\subsubsection{Step: el Paso}
+
+\subsubsection{StepResult: El Resultado de la Ejecución del Paso}
+
+\subsubsection{Sample: la muestra}
+La clase Sample representa una muestra tomada a partir de seguir los pasos (Steps) del protocolo del recolección (Workflow). Contiene los resultados de la ejecución de cada paso (StepResult). También guarda fecha y hora de inicio y finalización. Esto es útil para sacar una estadística de cuanto tarda un usuario en recolectar una muestra y analizar optimizaciones para la aplicación final.
 
 \subsection{Envío de Muestras a Servidor Web}
 Acá explicamos un poco la estrategia que utilizamos para el envío de muestras y las librerías externas que nos ayudaron.
 
+Usuario afuera de la muestra porque cuando toma la muestra puede no estar logueado, y loguearse antes de enviarlas.
+
 \section{Instalación y uso del framework}
 \subsection{Instalación}
-Instalación. 
-Requerimientos mínimos:
+En esta sección se describe como instalar el framework en Android Studio y como instanciarlo para su uso, brindando algunos ejemplos concretos.
+
+\subsubsection{Requerimientos mínimos:}
+
 \begin{itemize}
 \item Android Studio (Java): Si bien esta pensado para y probado en Android Studio, podria funcionar bien en otro entorno que use Java y deje importar archivos Android Archive (.aar).
 \item Android SDK API17: Android 4.2 (Jelly Bean) o superior.
 \end{itemize}
 
-Instalación:
+\subsubsection{Pasos para la Instalación:}
 \begin{enumerate}
 	\item Crear en Android Studio un nuevo proyecto vacío (sin ninguna Activity).
 		\begin{itemize}
@@ -37,7 +99,7 @@ Instalación:
 		\end{itemize}
 	\item Importar la librería del framework en el proyecto creado
 		\begin{itemize}
-		\item Descargar la última versión de samplersFramework.aar desde https://github.com/			cientopolis/samplers/releases/
+		\item Descargar la última versión de samplersFramework.aar desde https://github.com/cientopolis/samplers/releases/
 		\item Importar la librería al proyecto: File -> New -> New Module -> Import .JAR/.AAR Package
 		\end{itemize}
 	\item Agregar el repositorio de Google
@@ -318,10 +380,16 @@ Ejemplo:
 	
 \end{itemize}
 
+Aca podriamos poner un ejemplo completo de un archivo JSON de los que estan en la wiki.
+
 \subsection{Configuración de los Servicios de Google}
 
-\section{Steps}
-los steps son aaaaaaaaaaaaaaaaaaaaaaaaaahhhh, bueno, lo explicamos despues...
+\section{Los diferentes Steps y sus resultados (StepResult)}
+Esto me parece que ya esta explicado arriba... hay que ver donde lo explicamos en forma generica y aca el detalle de cada uno.
+los steps son...
+Los StepResult son el resultado obtenido de ejecutar un Step.
+Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
+Un StepResult tiene el Id del Step en base al cual se generó. También tiene un método....
 
 \subsection{InformationStep: Mostrar información}
 
@@ -341,9 +409,14 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{InformationStepResult: El resultado de Mostrar información}
+El resultado de mostrar información es nulo, es una clase vacía. Solo está para cerrar el circuito.
 
 \subsection{SelectOneStep: Seleccionar una opción de un grupo de opciones}
-en forma de radio buttons
+Tiene un title
+Las opciones son una lista de objetos SelectOneOption
+Cada objeto SelectOneOption tiene un id, textToShow y nextStepId
+Explicar la bifurcación de caminos en el workflow a partir de este Step
+En forma de radio buttons
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -382,8 +455,12 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{SelectOneStepResult: El resultado de Seleccionar una opción de un grupo de opciones}
+El resultado tiene la opción seleccionada (un objeto SelectOneOption)
 
 \subsection{MultipleSelectStep: Seleccionar varias opciones de un grupo de opciones}
+Tiene un title
+Las opciones son una lista de objetos MultipleSelectOption
+Cada objeto MultipleSelectOption tiene un id y textToShow
 en forma de checkboxes
 
 En Android Studio (Java):
@@ -425,8 +502,10 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{MultipleSelectStepResult: El resultado de Seleccionar varias opciones de un grupo de opciones}
+El resultado tiene una lista de las opciones seleccionadas (una lista de objetos MultipleSelectOption)
 
 \subsection{PhotoStep: Tomar una foto}
+Tiene instructionsToShow que se muestran a modo de instrucciones o mensaje cuando la cámara esta encendida
 muestra un preview
 usa una camara dependiendo de la api
 
@@ -446,8 +525,12 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{PhotoStepResult: El resultado de Tomar una foto}
+guarda el imageFileName de la foto. 
+La foto va como archivo jpg en la carpeta de la muestra.
+Puede haber varias fotos si hay varios PhotoSteps en el workflow
 
 \subsection{SoundRecordStep: Grabar sonido}
+Tiene instructionsToShow a modo de instrucciones que se muestran.
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -464,9 +547,14 @@ Usando el generador de clases:
 }
 \end{lstlisting}
 
+\subsubsection{SoundRecordStepResult: El resultado de Grabar sonido}
+guarda el soundFileName del sonido.
+El sonido va como archivo mp4 en la carpeta de la muestra.
+Puede haber varios sonidos si hay varios SoundRecordSteps en el workflow
+
 
 \subsection{LocationStep: Posicionar la muestra en el mapa con el GPS}
-
+Tiene un textToShow a modo de instrucciones
 Permite usar el GPS o posicionar la muestra manualmente en el mapa
 
 En Android Studio (Java):
@@ -484,8 +572,11 @@ Usando el generador de clases:
 }
 \end{lstlisting}
 
+\subsubsection{LocationStepResult: El resultado de Posicionar la muestra en el mapa con el GPS}
+Guarda latitude y longitude
 
 \subsection{RouteStep: Grabar un recorrido en el mapa usando el GPS}
+Tiene un textToShow a modo de instrucciones
 Intervalo y mapZoom opcionales. Poner los valores por defecto
 
 En Android Studio (Java):
@@ -507,9 +598,16 @@ Usando el generador de clases:
 }
 \end{lstlisting}
 
+\subsubsection{RouteStepResult: El resultado de Grabar un recorrido en el mapa usando el GPS}
+guarda una lista de objetos Location
 
 \subsection{InsertTextStep: Ingresar texto}
+textToShow a modo de instrucciones
+sampleText a modo de ejmplo
+maxLength cantidad máxima de caracteres permitida
 Type Values allowed are: text, number or decimal
+optional indicando si se puede dejar vacío y no ingresar ningún texto (true) o si se requiere que ingrese algo si o si (false)
+
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -530,8 +628,11 @@ Usando el generador de clases:
 }
 \end{lstlisting}
 
+\subsubsection{InsertTextStepResult: El resultado de Ingresar texto}
+guarda el texto ingresado en insertedText
 
 \subsection{InsertDateStep y InsertTimeStep: Ingresar fecha y hora}
+ambos tienen textToShow a modo de instrucciones
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -563,5 +664,151 @@ Usando el generador de clases:
 }
 \end{lstlisting}
 
+\subsubsection{InsertDateStepResult y InsertTimeStep: El resultado de Ingresar fecha y hora}
+un objeto Date que tiene la fecha o la hora según corresponda
 
+\section{Mostrar Ayuda}
+
+\section{Usando autenticación}
+Por defecto provee autenticación con Google, porque al tener Android tiene una cuenta de Google si o si.
+Esta abierto a poder agregar autenticación con otras plataformas/APIs.
+
+Samplers provee autenticación con Google, pero ese necesario registrar la aplicación en la pagina de desarrolladores de google (https://developers.google.com/identity/sign-in/android/start-integrating). Ahí hay que seguir los pasos para [to Configure a Google API Console project]. Es necesario [proveer] el nombre de la aplicación, package name, y también el SHA-1 hash del certificado con el que se firma la aplicación.
+
+Una vez registrada la aplicación en Google, hay que configurar Samplers para habilitar la autenticación.
+
+Una vez configurado los valores de los parámetros de autenticación, Samplers mostrará un fragment de inicio de sesión la primera vez que el usuario intente tomar una muestra. Si la autentición es opcional, se mostrará un botón para omitir el inicio de sesión y continuar con la toma de la muestra. También se muestra un botón para iniciar sesión en la activity principal (si se está usando la que provee Samplers).
+
+Cuando la muestra es enviada, el id de usuario y el método de autenticación (por defecto 'google') se envían junto con esta.
+
+
+\subsection{Configurar autenticación con el generador de clases de Gradle}
+
+Para usar autenticación usando el generador de clases de Gradle, es necesario configurar los siguientes parámetros en el objeto \textbf{applicaction}:
+
+\begin{itemize}
+
+	\item \textbf{authenticationEnabled}: poner en true para habilitar la autenticación
+		
+	\item \textbf{authenticationOptional}: poner en true si se desea que la autenticación sea opcional, o en false si se desea que la autenticación sea obligatoria.
+	
+	\item Dentro del parámetro \textbf{networkConfiguration} es necesario establecer los parámetros \textbf{paramNameUserId} y \textbf{paramNameAuthenticationType} con los nombres de los parámetros con los que irán el id de usuario y el tipo de autenticación usada respectivamente dentro del mensaje HTTP POST.
+	
+
+\end{itemize}
+
+Ejemplo:
+
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "application": {
+    "title" : "Samplers Hello World App",
+    "welcomeMessage" : "Welcome to your first Samplers App!",
+    "networkConfiguration" : {
+      "url" : "http://192.168.1.10/samplers/upload.php",
+      "paramName" : "sample",
+      "paramNameUserId" : "user_id",
+      "paramNameAuthenticationType" : "authentication_type"
+    },
+    "authenticationEnabled" : true,
+    "authenticationOptional" : true
+  } 
+}
+\end{lstlisting}
+
+\subsection{Configurar autenticación [con instanciación manual]}
+
+Para usar autenticación [con instanciación manual], es necesario definir la configuración de red y de autenticación en el método \textbf{onCreate()} de la activity principal:
+
+\begin{lstlisting}[language=Java, frame=tlb]	
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+	
+  NetworkConfiguration.setURL("http://192.168.1.10/samplers/upload.php");
+  NetworkConfiguration.setPARAM_NAME_SAMPLE("sample");
+  // Set the authentication params of the Network Configuration
+  NetworkConfiguration.setPARAM_NAME_USER_ID("user_id");
+  NetworkConfiguration.setPARAM_NAME_AUTHENTICATION_TYPE("authentication_type");
+
+  // Set the authenticationconfiguration
+  AuthenticationManager.setAuthenticationEnabled(true);
+  AuthenticationManager.setAuthenticationOptional(true);
+}
+\end{lstlisting}
+
+\subsection{Usando un método de autenticación propio}
+
+Con Samplers también se puede usar un método de autenticación propio, definiendo un LoginFragment y una clase User (o varias clases si se desea proporcionar autenticación con diferentes APIs, como Facebook, Tweeter, Yahoo, etc.) y Samplers enviará junto con la muestra el id de usuario y el método de autenticación usado.
+
+
+\subsubsection{Definiendo un Login Fragment [personalizado]}
+
+Es necesario crear un fragment que herede de LoginFragment, y configurar la clase AuthenticationManager para que lo use, llamando al método setLoginFragmentClass() dentro del método onCreate() de la ativity principal:
+
+\begin{lstlisting}[language=Java, frame=tlb]	
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+	
+  AuthenticationManager.setLoginFragmentClass(MyCustomLoginFragment.class);
+}
+\end{lstlisting}
+
+El proceso de login y la interacción con las APIs responsabilidad del desarrollador, pero después de que el usuario inicia sesión en la API seleccionada, es necesario llamar al método login() en la clase AuthenticationManager y al método onLogin() en el objeto mListener heredado:
+
+\begin{lstlisting}[language=Java, frame=tlb]	
+if (loginOK) {
+  AuthenticationManager.login(user, getActivity().getApplicationContext());
+  mListener.onLogin(user);
+}
+\end{lstlisting}
+
+
+\subsubsection{Definiendo una clase User [personalizada]}
+
+Es necesario crear una clase usuario propia que implemente la interfaz User por cada método de autenticación que se use. Los objetos de dichas clases se usarán para llamar al método login() de la clase AuthenticationManager.
+
+Ejemplo de una clase usuario propia:
+\begin{lstlisting}[language=Java, frame=tlb]	
+public class EMailUser implements User {
+
+    public static final String AUTHENTICATION_TYPE = "email";
+
+    private String userName;
+    private String email;
+
+    public GoogleUser(String userName, String email) {
+        this.userName = userName;
+        this.email = email;
+    }
+
+    @Override
+    public String getAuthenticationType() {
+        return AUTHENTICATION_TYPE;
+    }
+
+    @Override
+    public String getUserName() {
+        return userName;
+    }
+
+    @Override
+    public String getUserId() {
+        return email;
+    }
+
+}
+\end{lstlisting}
+
+
+
+\section{Personalización}
+
+\subsection{Temas y colores}
+
+\subsection{Idiomas}
+
+
+** Ver Auth0
 
