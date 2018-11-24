@@ -20,7 +20,7 @@ El workflow estaría compuesto por los diferentes pasos (Steps en Samplers) nece
 \item contestar una pregunta con respecto a la muestra. Esta pregunta puede tener una o múltiples respuestas posibles.
 \item introducir anotaciones (texto)
 \item seleccionar una fecha o una hora
-\item mostrar información de orientación para la toma de la muestra.
+\item mostrar información (texto).
 \end{itemize}
 
 Además de éstos pasos, se debería contemplar algún mecanismo para poder mostrar ayuda para el usuario final de la aplicación (el científico ciudadano) que sirviera de orientación para tomar la muestra. Se pensó en poder mostrar ayuda asociada a un paso (Step) en particular y una ayuda general en la pantalla principal, y se optó por usar archivos HTML para mostrar las mismas por la variedad de opciones y posibilidades que conllevan, y por su simpleza para mostrarlos.
@@ -34,11 +34,19 @@ Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis
 
 Si bien, como se mencionó antes, Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana de manera sencilla y sin tener conocimientos de programación, también se pensó para que un usuario programador pudiese modificar la aplicación generada, personalizando la pantalla principal, modificando la vista de un Step, o agregando uno propio que no esté en los que provee Samplers. También para que pudiese ser incluido en una aplicación ya comenzada o una que recién arranca.
 
-De este modo, Samplers funciona de dos formas:
+Por lo tanto, Samplers funciona de dos formas:
 \begin{itemize}
 \item Extendiendo las clases: 
 \item Usando el generador de clases de Gradle: que básicamente lo que hace es extender e instanciar las clases necesarias para generar la aplicación en base al archivo de configuración JSON pasado.
 \end{itemize}
+
+** Configurable o Extensible nosotros creo que hicimos los dos... ------------------------------------- **
+** Segun Spotters: **
+
+Al momento de comenzar a trasladar los conceptos de Spotters a un prototipo, se presentó  como  interrogante  cuál  sería  la  forma  que  tendría  el  programador  de  utilizar el  framework  para  poder  incluir  las  cuestiones  particulares  de  su  dominio.  Analizando diversas alternativas, se encontraron dos caminos posibles: Configuración y Extensión. 
+La  alternativa  de  Configuración  consiste  en  proveer  un  mecanismo  que  permita derivar el comportamiento de la instancia de Spotters a partir de información contenida en  un  archivo  con  directivas  o  una  base  de  datos.  La  alternativa  de Extensión,  consiste en  proveer  un  conjunto  de  clases  abstractas  que  el  programador  deba  sub  clasificar para crear las clases concretas necesarias para el funcionamiento de su instancia, tales como las preguntas que se realizan para la clasificación y los pasos del tutorial.
+
+** ------------------------------------------------------- **
 
 
 \subsection{FrozenSpots y HotSpots}
@@ -53,7 +61,7 @@ El framework está compuesto por dos conceptos muy importantes que definen qué 
 \subsubsection{FrozenSpots}
 
 \begin{itemize}
-	\item Solo sirve para dispositivos móviles con Android.
+	\item Solo sirve para dispositivos móviles con sistema operativo Android.
 	\item El uso de la activity TakeSampleActivity... si bien se podría usar otra, hay que entender más como funciona el framework para poder hacer una propia.
 	\item La muestra se envía en un archivo comprimido, en formato ZIP. Dentro esta el objeto muestra en formato JSON y los archivos multimedia.
 	\item Las muestras se envían a través de internet, mediante un mensaje HTTP POST.
@@ -74,12 +82,9 @@ El framework está compuesto por dos conceptos muy importantes que definen qué 
 
 
 
-** Configurable o Extensible nosotros creo que hicimos los dos... :P
-Segun Spotters:
-Al momento de comenzar a trasladar los conceptos de Spotters a un prototipo, se presentó  como  interrogante  cuál  sería  la  forma  que  tendría  el  programador  de  utilizar el  framework  para  poder  incluir  las  cuestiones  particulares  de  su  dominio.  Analizando diversas alternativas, se encontraron dos caminos posibles: Configuración y Extensión. 
-La  alternativa  de  Configuración  consiste  en  proveer  un  mecanismo  que  permita derivar el comportamiento de la instancia de Spotters a partir de información contenida en  un  archivo  con  directivas  o  una  base  de  datos.  La  alternativa  de Extensión,  consiste en  proveer  un  conjunto  de  clases  abstractas  que  el  programador  deba  sub  clasificar para crear las clases concretas necesarias para el funcionamiento de su instancia, tales como las preguntas que se realizan para la clasificación y los pasos del tutorial.
 
-\section{Jerarquía de Clases}
+
+\section{Modelo del Framework}
 Nuestras clases, las que permiten que se cree una app
 
 \includegraphics[scale=0.4]{05-implementacion/Steps.png} 
