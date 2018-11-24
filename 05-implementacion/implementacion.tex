@@ -89,31 +89,55 @@ Nuestras clases, las que permiten que se cree una app
 
 \includegraphics[scale=0.4]{05-implementacion/Steps.png} 
 
+\subsection{Workflow, Step, StepResult y Sample}
+Es el core del framework.
 
-\subsection{Workflow}
-La clase Workflow representa el protocolo de recolección de muestras. Está formado por una colección de Steps que representan los pasos a seguir para completar dicho protocolo.
+\subsubsection{Workflow: el Protocolo de recolección de las muestras}
+La clase Workflow representa el protocolo de recolección de las muestras. Está formado por una colección de Steps, que representan los pasos a seguir para completar dicho protocolo, y un Step inicial que indica el inicio del mismo (el primer Step a ejecutar).
+
+El Workflow es el encargado de llevar el estado del paso en el que se encuentra, y posee operaciones para obtener el siguiente Step (que depende del Step actual) y el Step anterior (para lo que maneja una lista a modo de stack).
 
 
-Es el encargado de llevar el estado del paso en el que se encuentra.
+\subsubsection{Step: el Paso}
+Un Step representa un paso dentro del protocolo de recolección de las muestras (Workflow).
 
+esta asociado a un StepFragment
+genera un StepResult
+conoce el siguiente Step
 
-
-los steps son...
+\subsubsection{StepResult: el Resultado de la ejecución del Paso}
 Los StepResult son el resultado obtenido de ejecutar un Step.
 Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
 Un StepResult tiene el Id del Step en base al cual se generó. También tiene un método....
 
-\subsubsection{Step: el Paso}
-
-\subsubsection{StepResult: El Resultado de la Ejecución del Paso}
-
-\subsubsection{Sample: la muestra}
+\subsubsection{Sample: la Muestra}
 La clase Sample representa una muestra tomada a partir de seguir los pasos (Steps) del protocolo del recolección (Workflow). Contiene los resultados de la ejecución de cada paso (StepResult). También guarda fecha y hora de inicio y finalización. Esto es útil para sacar una estadística de cuanto tarda un usuario en recolectar una muestra y analizar optimizaciones para la aplicación final.
+
+\subsection{Persistencia local}
+Las muestras se guardan en el dispositivo móvil en un archivo JSON, junto con los archivos multimedia que pudiera tener, dentro de un directorio por cada muestra.
+Para pasar a JSON se us gson.
 
 \subsection{Envío de Muestras a Servidor Web}
 Acá explicamos un poco la estrategia que utilizamos para el envío de muestras y las librerías externas que nos ayudaron.
+Para comprimir usamos las librerias de java.util
+Se envían automáticamente cuando detecta conexión wi-fi o a petición del usuario.
 
+\subsection{Autenticación}
 Usuario afuera de la muestra porque cuando toma la muestra puede no estar logueado, y loguearse antes de enviarlas.
+
+\subsection{UI?}
+**Obligatoria:**
+
+TakeSampleActivity
+
+**Opcionales:**
+
+SamplersMainActivity
+
+SamplesListActivity
+
+HelpActivity
+
 
 \section{Instalación y uso del framework}
 \subsection{Instalación}
