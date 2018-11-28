@@ -114,19 +114,35 @@ Un StepResult tiene el Id del Step en base al cual se generó. También tiene un
 La clase Sample representa una muestra tomada a partir de seguir los pasos (Steps) del protocolo del recolección (Workflow). Contiene los resultados de la ejecución de cada paso (StepResult). También guarda fecha y hora de inicio y finalización. Esto es útil para sacar una estadística de cuanto tarda un usuario en recolectar una muestra y analizar optimizaciones para la aplicación final.
 
 \subsection{Persistencia local}
-Las muestras se guardan en el dispositivo móvil en un archivo JSON, junto con los archivos multimedia que pudiera tener, dentro de un directorio por cada muestra.
-Para pasar a JSON se us gson.
+Las muestras se guardan en el dispositivo móvil en un archivo JSON, junto con los archivos multimedia que pudiera tener, dentro de un directorio por cada muestra. Las mismas se guardan dentro del directorio samples en el almacenamiento interno del dispositivo.
+
+Se eligió el almacenamiento interno para guardar las muestras porque no se necesitan permisos especiales para acceder al mismo y, de forma predeterminada, los archivos que se guardan en el mismo son privados para la aplicación y otras aplicaciones no pueden tener acceso a ellos (tampoco el usuario). Cuando el usuario desinstala la aplicación, estos archivos se quitan\cite{androidInternalStorage}.
+
+Por ejemplo, una muestra con id 123456 y 2 fotos se guarda de la siguiente manera:
+\begin{lstlisting}[language=Java, frame=tlb]
+/samples/				// Directorio de muestras
+	sample_123456/			// Directorio de la muestra con id:123456 
+		sample_123456.json	// Objeto Sample en formato JSON
+		1524437599776.jpg	// Archivo de foto 1
+		1524441664170.jpg	// Archivo de foto 2
+\end{lstlisting}
+
+Para pasar la muestra a un archivo JSON se usó Gson\cite{gson}, una librería de Google distribuida bajo licencia Apache 2.0 que convierte objetos Java a JSON y viceversa de manera muy sencilla, con métodos \textit{toJson()} y \textit{fromJson()} para convertir a y desde JSON respectivamente.
 
 \subsection{Envío de Muestras a Servidor Web}
-Acá explicamos un poco la estrategia que utilizamos para el envío de muestras y las librerías externas que nos ayudaron.
-Para comprimir usamos las librerias de java.util
-Se envían automáticamente cuando detecta conexión wi-fi o a petición del usuario.
+Las muestras se envían al servidor web previamente configurado, mediante un mensaje HTTP POST.
+
+Para ello se usó la librería OkHttp\cite{okhttp}, distribuida por Square Inc. bajo licencia Apache 2.0, que resuelve de manera sencilla y muy eficiente el envío de mensajes HTTP en Android.
+
+Para comprimir usamos las librerías estándares de Java (java.util)
+
+Se envían automáticamente cuando se detecta conexión wi-fi o a petición del usuario.
 
 \subsection{Autenticación}
 Usuario afuera de la muestra porque cuando toma la muestra puede no estar logueado, y loguearse antes de enviarlas.
 
 \subsection{UI?}
-**Obligatoria:**
+**Obligatorias:**
 
 TakeSampleActivity
 

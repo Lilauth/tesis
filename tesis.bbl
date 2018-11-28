@@ -70,4 +70,18 @@ J.~A. Burke, D.~Estrin, M.~Hansen, A.~Parker, N.~Ramanathan, S.~Reddy, and
 {GitHub}, ``Github.'' https://github.com.
 \newblock [Online; último acceso: Octubre/2018].
 
+\bibitem{androidInternalStorage}
+{Android}, ``Documentación para desarrolladores android - opciones de
+  almacenamiento.''
+  https://developer.android.com/guide/topics/data/data-storage\#filesInternal.
+\newblock [Online; último acceso: Noviembre/2018].
+
+\bibitem{gson}
+{Google}, ``Gson.'' https://github.com/google/gson.
+\newblock [Online; último acceso: Noviembre/2018].
+
+\bibitem{okhttp}
+{Square Inc.}, ``Okhttp.'' http://square.github.io/okhttp/.
+\newblock [Online; último acceso: Noviembre/2018].
+
 \end{thebibliography}
