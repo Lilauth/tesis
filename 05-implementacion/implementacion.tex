@@ -89,7 +89,7 @@ Nuestras clases, las que permiten que se cree una app
 
 \includegraphics[scale=0.4]{05-implementacion/Steps.png} 
 
-\subsection{Workflow, Step, StepResult y Sample}
+\subsection{Workflow, Step, StepFragment, StepResult y Sample: el core del framework}
 Es el core del framework.
 
 \subsubsection{Workflow: el Protocolo de recolección de las muestras}
@@ -101,17 +101,47 @@ El Workflow es el encargado de llevar el estado del paso en el que se encuentra,
 \subsubsection{Step: el Paso}
 Un Step representa un paso dentro del protocolo de recolección de las muestras (Workflow).
 
-esta asociado a un StepFragment
+es una interfaz
+
+esta asociado a un StepFragment (debe conocerlo...)
+
 genera un StepResult
+
 conoce el siguiente Step
 
-\subsubsection{StepResult: el Resultado de la ejecución del Paso}
+se pueden agregar steps propios, solo tienen que implementar la interfaz.
+
+Samplers provee los siguientes Steps:
+\begin{itemize}
+	\item InformationStep: Muestra una información (texto) al usuario.
+	\item PhotoStep: Permite tomar una foto con la cámara del dispositivo móvil.
+	\item SoundRecordStep: Permite grabar un sonido con el micrófono del dispositivo móvil.
+	\item SelectOneStep: Muestra una pregunta con varias opciones como respuesta, de las cuales solo se puede seleccionar una sola.
+	\item MultipleSelectStep: Muestra una pregunta con varias opciones como respuesta, de las cuales solo se pueden seleccionar varias opciones.
+	\item LocationStep: Permite tomar la geo posición del dispositivo móvil.
+	\item RouteStep: Permite grabar un recorrido usando el GPS del dispositivo móvil.
+	\item InsertTextStep: Permite ingresar un texto.
+	\item InsertDateStep: Permite seleccionar una fecha.
+	\item InsertTimeStep: Permite seleccionar una hora.
+\end{itemize}
+
+\subsubsection{StepFragment: la vista del Step}
+es la encargada de generar el StepResult en base a un Step.
+
+
+\subsubsection{StepResult: el Resultado de la ejecución de un Paso}
 Los StepResult son el resultado obtenido de ejecutar un Step.
-Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
-Un StepResult tiene el Id del Step en base al cual se generó. También tiene un método....
+
+Cada ejecución de un mismo Step, puede generar un StepResult diferente.
+
+Un StepResult tiene el Id del Step en base al cual se generó. 
+
+También puede tener asociado un archivo multimedia.
 
 \subsubsection{Sample: la Muestra}
 La clase Sample representa una muestra tomada a partir de seguir los pasos (Steps) del protocolo del recolección (Workflow). Contiene los resultados de la ejecución de cada paso (StepResult). También guarda fecha y hora de inicio y finalización. Esto es útil para sacar una estadística de cuanto tarda un usuario en recolectar una muestra y analizar optimizaciones para la aplicación final.
+
+Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
 
 \subsection{Persistencia local}
 Las muestras se guardan en el dispositivo móvil en un archivo JSON, junto con los archivos multimedia que pudiera tener, dentro de un directorio por cada muestra. Las mismas se guardan dentro del directorio samples en el almacenamiento interno del dispositivo.
@@ -130,11 +160,22 @@ Por ejemplo, una muestra con id 123456 y 2 fotos se guarda de la siguiente maner
 Para pasar la muestra a un archivo JSON se usó Gson\cite{gson}, una librería de Google distribuida bajo licencia Apache 2.0 que convierte objetos Java a JSON y viceversa de manera muy sencilla, con métodos \textit{toJson()} y \textit{fromJson()} para convertir a y desde JSON respectivamente.
 
 \subsection{Envío de Muestras a Servidor Web}
+** TO-DO ------------------------------------- **
+
+Revisar si comprime el archivo zip (el txt en realidad)
+
+Ver si van los archivos sueltos o va el directorio dentro del zip
+
+** ------------------------------------- **
+
+
 Las muestras se envían al servidor web previamente configurado, mediante un mensaje HTTP POST.
 
 Para ello se usó la librería OkHttp\cite{okhttp}, distribuida por Square Inc. bajo licencia Apache 2.0, que resuelve de manera sencilla y muy eficiente el envío de mensajes HTTP en Android.
 
-Para comprimir usamos las librerías estándares de Java (java.util)
+Por cada muestra se envía el objeto sample en formato JSON junto con los archivos multimedia, todo comprimido en un solo archivo ZIP.
+
+Para comprimir se usaron las librerías estándares de Java (java.util.zip) que proporciona clases para leer y escribir archivos ZIP y GZIP estándares.
 
 Se envían automáticamente cuando se detecta conexión wi-fi o a petición del usuario.
 
