@@ -2,8 +2,32 @@
 
 \section{Frameworks}
 
-\subsection{Tipos de Frameworks}
-Podemos hablar de frameworks de código privativo y de código abierto.
+	Un framework es un diseño abstracto para un tipo particular de aplicación,y generalmente consiste de un conjunto de clases. Estas clases pueden pertenecer a una librería o pueden ser específicas de la aplicación. Lo frameworks se pueden construir sobre otros frameworks compartiendo clases abstractas.
+	
+	Brindan una manera de reutilizar código que es resistente frente a los intentos más comunes de reutilización. Los componentes independientes de una aplicación pueden ser reutilizados fácilmente, pero poder reutilizar la estructura que mantiene a los componentes juntos generalmente es posible copiando y editando. A diferencia de los programas esqueletos, que es el enfoque más convencional para reutilizar este tipo de código, los frameworks facilitan la tarea de asegurar que bajo requerimientos cambiantes la consistencia de todos sus componentes se va a mantener.
+	
+	Como hacen posible la reutilización en la granularidad más alta, no es ninguna sorpresa que diseñar un buen framework es mucho más difícil que diseñar una buena clase abstracta. También, tienden a ser específicos de la aplicación, a integrarse a otros frameworks mediante compartir clases abstractas, y a tener algunas clases abstractas especializadas para el framework. Diseñar un framework requiere experiencia y experimentación al igual que lo requiere el diseño de las clases abstractas de sus componentes.
+
+\subsection{Frameworks de Caja Blanca y de Caja Negra}
+\subsubsection{Frameworks de Caja Blanca}
+
+	Una de las características importantes de un framework es que los métodos definidos por el usuario para extender el comportamiento van a ser invocados desde el interior del framework más que del código de la aplicación del usuario. A menudo hace las veces de programa principal coordinando y secuenciando las actividades de la aplicación. Esa inversión de control le permite al framework servir como esqueleto extensible. El código brindado por los usuarios en los métodos extienden el algoritmo genérico del framework para una aplicación en particular. 
+	
+	El comportamiento específico de una aplicación que utiliza un framework usualmente se define agregando métodos a las subclases o a una o más de sus clases. Cada método que se agrega a una subclase debe continuar con las convenciones internas que adoptan las superclases. Este tipo de framework se denomina de caja blanca (white-box) porque debe comprenderse cómo está implementado para poder utilizarlo.
+	
+	El principal problema de los frameworks de caja blanca es que cada aplicación requiere la creación de una numerosa cantidad  de subclases. Y aunque muchas de estas subclases creadas son simples, es su número lo que para un desarrollador con poca experiencia puede volver difícil comprender el diseño de una aplicación los suficiente como para modificarla.
+	
+	Un segundo problema es que un framework de caja blanca puede ser difícil de aprender a utilizar, ya que entender cómo se utliza es lo mismo que entender cómo está construido.
+	
+\subsubsection{Frameworks de Caja Negra}
+
+	Otra manera de especializar un framework es incluir en él un conjunto de componentes que sean los que proveen el comportamiento específico de la aplicación. Cada uno de estos componentes debe entender un protocolo en particular. Todos o la mayoría de los componentes pueden tomarse de una librería de componentes. La interfaz entre componentes pueden se definidas con un protocolo, de esta manera el usuario sólo necesita entender la interfaz externa de los mismos. Este tipo de framework se denomina de caja negra.
+	
+	Los frameworks de caja negra son más fáciles de aprender a utilizar que los de caja blanca, pero son menos flexibles. 
+	
+	Una manera de caracterizar la diferencia entre un framework de caja blanca y uno de caja negra es observar que en el de caja blanca el estado de cada instancia está disponible de manera implícita en todos los métodos del framework, casi como las variables globales de Pascal. En un framework de caja negra, cualquier información que se pase a las partes constituyentes del framework debe pasarse de manera explícita. Un framework de caja blanca utiliza las reglas de alcance intra-objeto para evolucionar sin forzarlo a subscribirse a un protocolo explícito, rígido que podría restringir de manera prematura el proceso de diseño.
+	
+ \cite{johnson1988designing}
 
 \subsection{Jerarquías y Composición}
 De qué manera los frameworks permiten que los usuarios los configuren y les pongan comportamiento
@@ -20,7 +44,4 @@ Herencia de las clases Activity y Fragment como principal herramienta para imple
 	
 	La falta de expertos técnicos y de recursos son a menudo los mayores obstáculos a la hora de desarrollar una aplicación móvil. Los grupos que quieren desarrollar una aplicación móvil de ciencia ciudadana a menudo son organizaciones sin fines de lucro o pequeñas organizaciones regionales que no poseen ni los recursos económicos ni los expertos técnicos que necesitan para desarrollar o mantener ese tipo de aplicaciones. Y además de la programación en si, la administración de los datos recolectados también representan un desafío, ya que estas mismas organizaciones tampoco poseen los servidores para almacenar o analizar el volumen de datos que puedan ser recolectados. El monitoreo participativo es un paradigma computacional que permite la recolección por parte de los voluntarios de información que se encuentra diseminada. Permite que el creciente número de usuarios de teléfonos móviles puedan compartir la información adquirida mediante los sensores de sus dispositivos en variados dominios. 
 	
-	Los investigadores han explorado la utilización de plataformas existentes como una alternativa para Y aunque varias de ellas son robustas y flexibles, la mayoría necesita de habilidad para programar y/o conocimiento de infraestructura en mayor o menor medida. Aunque por ejemplo el Proyecto Noah y EpiCollect son dos ejemplos claros de plataformas que soportan autoría de aplicaciones sin necesidad de programación.
-	
-	
-	\cite{kim2013sensr}
+	Los investigadores han explorado la utilización de plataformas existentes como una alternativa para Y aunque varias de ellas son robustas y flexibles, la mayoría necesita de habilidad para programar y/o conocimiento de infraestructura en mayor o menor medida. Aunque por ejemplo el Proyecto Noah y EpiCollect son dos ejemplos claros de plataformas que soportan autoría de aplicaciones sin necesidad de programación. \cite{kim2013sensr}
