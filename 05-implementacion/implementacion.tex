@@ -85,31 +85,36 @@ El framework está compuesto por dos conceptos muy importantes que definen qué 
 
 
 \section{Modelo del Framework}
-Nuestras clases, las que permiten que se cree una app
-
-\includegraphics[scale=0.4]{05-implementacion/Steps.png} 
+En esta sección se explica el modelo de las clases que permiten que se cree una aplicación móvil con Samplers y su funcionamiento.
 
 \subsection{Workflow, Step, StepFragment, StepResult y Sample: el core del framework}
-Es el core del framework.
+Estas clases conforman el corazón del framework, y son las necesarias para poder definir la muestra y el protocolo de recolección de las mismas.
+
+A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCore}).
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.4]{05-implementacion/FrameworkCore.png} 
+   \caption{Diagrama de clases del core del framework}
+   \label{fig:umlFrameworkCore}
+\end{figure}
+
 
 \subsubsection{Workflow: el Protocolo de recolección de las muestras}
 La clase Workflow representa el protocolo de recolección de las muestras. Está formado por una colección de Steps, que representan los pasos a seguir para completar dicho protocolo, y un Step inicial que indica el inicio del mismo (el primer Step a ejecutar).
 
-El Workflow es el encargado de llevar el estado del paso en el que se encuentra, y posee operaciones para obtener el siguiente Step (que depende del Step actual) y el Step anterior (para lo que maneja una lista a modo de stack).
+El Workflow es el encargado de llevar el estado del paso en el que se encuentra, y posee operaciones para obtener el siguiente Step (\textit{nextStep()}  que depende del Step actual) y el Step anterior (\textit{previuosStep()}  para lo que maneja una lista a modo de stack).
 
+El Workflow es secuencial, puede ir hacia adelante o volver hacia atrás, pero esto no impide que pueda tener bifurcaciones, y así formar diferentes caminos para tomar la muestra. Por ejemplo, se le podría preguntar al científico ciudadano si observa una característica particular al momento de tomar la muestra, y si la observa solicitarle que tome una foto de la misma, y en caso contrario se puede saltear el paso de la foto.
 
 \subsubsection{Step: el Paso}
 Un Step representa un paso dentro del protocolo de recolección de las muestras (Workflow).
 
-es una interfaz
+Se definió como una interfaz, ya que su comportamiento depende de la implementación de cada tipo de Step que se defina. Con esto también se evita que los Steps creados por los usuarios programadores tengan que heredar de una clase en particular, y solo necesiten implementar la interfaz.
 
-esta asociado a un StepFragment (debe conocerlo...)
+El Step tiene asociado un StepFragment (la vista y controlador) que es el encargado de ejecutar el Step para generar un StepResult. El Step básicamente tiene los parámetros o información para que pueda ser ejecutado por el StepFragment, pero no tiene mucho comportamiento.
 
-genera un StepResult
-
-conoce el siguiente Step
-
-se pueden agregar steps propios, solo tienen que implementar la interfaz.
+El Step conoce cuál es el siguiente Step (su id) a ejecutar y a veces éste depende del StepResult generado, como es el caso de SelectOneStep en el que el siguiente paso depende de la opción seleccionada, y con esto se pueden crear bifurcaciones en el Workflow.
 
 Samplers provee los siguientes Steps:
 \begin{itemize}
@@ -125,23 +130,29 @@ Samplers provee los siguientes Steps:
 	\item InsertTimeStep: Permite seleccionar una hora.
 \end{itemize}
 
-\subsubsection{StepFragment: la vista del Step}
+El detalle de estos Steps y su funcionamiento se explican en la sección \ref{sec:instalacion_uso}.
+
+\subsubsection{StepFragment: la vista y controlador del Step}
 es la encargada de generar el StepResult en base a un Step.
 
 
 \subsubsection{StepResult: el Resultado de la ejecución de un Paso}
-Los StepResult son el resultado obtenido de ejecutar un Step.
-
-Cada ejecución de un mismo Step, puede generar un StepResult diferente.
+Los StepResult son el resultado obtenido de ejecutar un Step. Cada ejecución de un mismo Step, puede generar un StepResult diferente.
 
 Un StepResult tiene el Id del Step en base al cual se generó. 
 
-También puede tener asociado un archivo multimedia.
+También puede tener asociado un archivo multimedia, por ejemplo en los casos de PhotoStep y SoundRecordStep que guardan una foto y un archivo de sonido respectivamente.
+
+se pueden agregar steps propios, solo tienen que implementar la interfaz.
 
 \subsubsection{Sample: la Muestra}
-La clase Sample representa una muestra tomada a partir de seguir los pasos (Steps) del protocolo del recolección (Workflow). Contiene los resultados de la ejecución de cada paso (StepResult). También guarda fecha y hora de inicio y finalización. Esto es útil para sacar una estadística de cuanto tarda un usuario en recolectar una muestra y analizar optimizaciones para la aplicación final.
+La clase Sample representa una muestra tomada a partir de seguir los pasos (Steps) del protocolo del recolección (Workflow). Contiene los resultados (StepResult) de la ejecución de cada paso. Cada ejecución del workflow puede generar una colección de StepResults diferente.
 
-Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
+También guarda fecha y hora de inicio y finalización. Esto es útil para sacar una estadística de cuanto tarda un usuario en recolectar una muestra y analizar optimizaciones para la aplicación final.
+
+Una vez recolectadas, las muestras se guardan el dispositivo móvil y son enviadas a través de Internet a un servidor web previamente configurado.
+
+\subsection{Toma de la Muestra: TakeSampleActivity}
 
 \subsection{Persistencia local}
 Las muestras se guardan en el dispositivo móvil en un archivo JSON, junto con los archivos multimedia que pudiera tener, dentro de un directorio por cada muestra. Las mismas se guardan dentro del directorio samples en el almacenamiento interno del dispositivo.
@@ -157,14 +168,14 @@ Por ejemplo, una muestra con id 123456 y 2 fotos se guarda de la siguiente maner
 		1524441664170.jpg	// Archivo de foto 2
 \end{lstlisting}
 
-Para pasar la muestra a un archivo JSON se usó Gson\cite{gson}, una librería de Google distribuida bajo licencia Apache 2.0 que convierte objetos Java a JSON y viceversa de manera muy sencilla, con métodos \textit{toJson()} y \textit{fromJson()} para convertir a y desde JSON respectivamente.
+Para pasar la muestra a un archivo JSON se usó Gson\cite{gson}, una librería de Google distribuida bajo licencia Apache 2.0 que convierte objetos Java a JSON y viceversa de manera muy sencilla, con métodos \textit{toJson()} y \textit{fromJson()} para convertir hacia y desde JSON respectivamente.
 
 \subsection{Envío de Muestras a Servidor Web}
 ** TO-DO ------------------------------------- **
 
-Revisar si comprime el archivo zip (el txt en realidad)
+Revisar si comprime el archivo zip (el txt en realidad): SI COMPRIME
 
-Ver si van los archivos sueltos o va el directorio dentro del zip
+Ver si van los archivos sueltos o va el directorio dentro del zip: LOS ARCHIVOS SUELTOS
 
 ** ------------------------------------- **
 
@@ -196,7 +207,7 @@ SamplesListActivity
 HelpActivity
 
 
-\section{Instalación y uso del framework}
+\section{Instalación y uso del framework} \label{sec:instalacion_uso}
 \subsection{Instalación}
 En esta sección se describe como instalar el framework en Android Studio y como instanciarlo para su uso, brindando algunos ejemplos concretos.
 
