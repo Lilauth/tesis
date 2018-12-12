@@ -20,69 +20,202 @@ El workflow estaría compuesto por los diferentes pasos (Steps en Samplers) nece
 \item contestar una pregunta con respecto a la muestra. Esta pregunta puede tener una o múltiples respuestas posibles.
 \item introducir anotaciones (texto)
 \item seleccionar una fecha o una hora
-\item mostrar información de orientación para la toma de la muestra.
+\item mostrar información (texto).
 \end{itemize}
 
-** Mostrar ayuda
+Además de éstos pasos, se debería contemplar algún mecanismo para poder mostrar ayuda para el usuario final de la aplicación (el científico ciudadano) que sirviera de orientación para tomar la muestra. Se pensó en poder mostrar ayuda asociada a un paso (Step) en particular y una ayuda general en la pantalla principal, y se optó por usar archivos HTML para mostrar las mismas por la variedad de opciones y posibilidades que conllevan, y por su simpleza para mostrarlos.
 
 La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado y las almacenará y empaquetará en el dispositivo móvil hasta que pueda ser enviada a un servidor web, el cual vendrá establecido en el archivo de configuración.
 
 También se pensó en proveer algún mecanismo de autenticación, para poder identificar al usuario que toma las muestras, y de esta forma poder darle una devolución mostrándole información, o incentivarlo para que siga participando del proyecto a través de gamificación por ejemplo.
 Se pensó en poder iniciar sesión con alguna red social, como por ejemplo Facebook, Tweeter, Instagram, Google+, etc. y como en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones), se decidió incluir autenticación con Google y dejar preparado para que el usuario pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña). Samplers también debería quedar preparado para agregar autenticación con otras redes sociales en un futuro.
 
-Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo debería ser open source, por lo que se decidió usar un repositorio público en GitHub\cite{github}.
+Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo debería ser open source, por lo que se decidió usar un repositorio público en GitHub\cite{github} para dejar el código fuente disponible para todo el mundo.
 
+Si bien, como se mencionó antes, Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana de manera sencilla y sin tener conocimientos de programación, también se pensó para que un usuario programador pudiese modificar la aplicación generada, personalizando la pantalla principal, modificando la vista de un Step, o agregando uno propio que no esté en los que provee Samplers. También para que pudiese ser incluido en una aplicación ya comenzada o una que recién arranca.
 
-
-Samplers funciona de dos formas:
+Por lo tanto, Samplers funciona de dos formas:
 \begin{itemize}
-\item Usando el generador de clases de Gradle: 
-\item Extendiendo las clases: 
+\item Extendiendo las clases: **FALTA DESARROLLAR**
+\item Usando el generador de clases de Gradle: que básicamente lo que hace es extender e instanciar las clases necesarias para generar la aplicación en base al archivo de configuración JSON pasado. **FALTA DESARROLLAR**
 \end{itemize}
 
+** Configurable o Extensible nosotros creo que hicimos los dos... ------------------------------------- **
+** Segun Spotters: **
 
-** hablar de FrozenSpots y HotSpots (ver la tesis de Spotters)
-
-
-** Configurable o Extensible nosotros creo que hicimos los dos... :P
-Segun Spotters:
 Al momento de comenzar a trasladar los conceptos de Spotters a un prototipo, se presentó  como  interrogante  cuál  sería  la  forma  que  tendría  el  programador  de  utilizar el  framework  para  poder  incluir  las  cuestiones  particulares  de  su  dominio.  Analizando diversas alternativas, se encontraron dos caminos posibles: Configuración y Extensión. 
 La  alternativa  de  Configuración  consiste  en  proveer  un  mecanismo  que  permita derivar el comportamiento de la instancia de Spotters a partir de información contenida en  un  archivo  con  directivas  o  una  base  de  datos.  La  alternativa  de Extensión,  consiste en  proveer  un  conjunto  de  clases  abstractas  que  el  programador  deba  sub  clasificar para crear las clases concretas necesarias para el funcionamiento de su instancia, tales como las preguntas que se realizan para la clasificación y los pasos del tutorial.
 
-\section{Jerarquía de Clases}
-Nuestras clases, las que permiten que se cree una app
-
-\includegraphics[scale=0.4]{05-implementacion/Steps.png} 
+** ------------------------------------------------------- **
 
 
-\subsection{Workflow}
-La clase Workflow representa el protocolo de recolección de muestras. Está formado por una colección de Steps que representan los pasos a seguir para completar dicho protocolo.
+\subsection{FrozenSpots y HotSpots}
+** OJO: ROBADO DE SPOTTERS!! ------------------------------------- **
+
+Podemos definir un framework como una aplicación que por sí misma no tiene una funcionalidad concreta y no se encuentra finalizada, pero que fue pensada y desarrollada para que pueda ser ampliada fácilmente, y de esta manera, resuelva problemas determinados de un dominio específico; es decir, poder construir múltiples aplicaciones de un dominio específico a partir de una aplicación ya existente que sirve como punto de inicio, y que ya resuelve aspectos y requerimientos comunes al dominio donde se está trabajando.
+
+El framework está compuesto por dos conceptos muy importantes que definen qué aspectos pueden editarse del framework (HotSpots) y qué aspectos son estáticos y por lo tanto el programador no podría modificar, ya que sirven de base común a todas las aplicaciones (FrozenSpots).
+
+** ------------------------------------------------------- **
+
+\subsubsection{FrozenSpots}
+
+\begin{itemize}
+	\item Solo sirve para dispositivos móviles con sistema operativo Android.
+	\item El uso de la activity TakeSampleActivity... si bien se podría usar otra, hay que entender más como funciona el framework para poder hacer una propia.
+	\item La muestra se envía en un archivo comprimido, en formato ZIP. Dentro esta el objeto muestra en formato JSON y los archivos multimedia.
+	\item Las muestras se envían a través de internet, mediante un mensaje HTTP POST.
+	\item Para definir una nueva vista (fragment) para un step, se debe heredar de StepFragment.
+\end{itemize}
+
+\subsubsection{HotSpots}
+
+\begin{itemize}
+	\item Se puede configurar un workflow con la cantidad de steps que se quiera. Se pueden armar bifurcaciones usando el step SelectOneStep.
+	\item Se puede definir una nueva vista (fragment) personalizada para los steps provistos por Samplers.
+	\item Se puede definir nuevos steps personalizados, solo tienen que implementar la interfaz Step.
+	\item Se puede definir un archivo para mostrar ayuda (en HTML) para cada step y una general.
+	\item Se puede definir el servidor al cual se envían las muestras.
+	\item Se puede configurar para que se use autenticación, requerida u opcional para el usuario final de la aplicación, con Google y también se pueden agregar otros métodos propios de autenticación.
+	\item Se puede configurar para soportar múltiples idiomas.
+\end{itemize}
 
 
-Es el encargado de llevar el estado del paso en el que se encuentra.
 
 
 
-los steps son...
-Los StepResult son el resultado obtenido de ejecutar un Step.
-Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
-Un StepResult tiene el Id del Step en base al cual se generó. También tiene un método....
+\section{Modelo del Framework}
+En esta sección se explica el modelo de las clases que permiten que se cree una aplicación móvil con Samplers y su funcionamiento.
+
+\subsection{Workflow, Step, StepFragment, StepResult y Sample: el core del framework}
+Estas clases conforman el corazón del framework, y son las necesarias para poder definir la muestra y el protocolo de recolección de las mismas.
+
+A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCore}).
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.4]{05-implementacion/FrameworkCore.png} 
+   \caption{Diagrama de clases del core del framework}
+   \label{fig:umlFrameworkCore}
+\end{figure}
+
+
+\subsubsection{Workflow: el Protocolo de recolección de las muestras}
+La clase Workflow representa el protocolo de recolección de las muestras. Está formado por una colección de Steps, que representan los pasos a seguir para completar dicho protocolo, y un Step inicial que indica el inicio del mismo (el primer Step a ejecutar).
+
+El Workflow es el encargado de llevar el estado del paso en el que se encuentra, y posee operaciones para obtener el siguiente Step (\textit{nextStep()}  que depende del Step actual) y el Step anterior (\textit{previuosStep()}  para lo que maneja una lista a modo de stack).
+
+El Workflow es secuencial, puede ir hacia adelante o volver hacia atrás, pero esto no impide que pueda tener bifurcaciones, y así formar diferentes caminos para tomar la muestra. Por ejemplo, se le podría preguntar al científico ciudadano si observa una característica particular al momento de tomar la muestra, y si la observa solicitarle que tome una foto de la misma, y en caso contrario se puede omitir el paso de la foto.
 
 \subsubsection{Step: el Paso}
+Un Step representa un paso dentro del protocolo de recolección de las muestras (Workflow).
 
-\subsubsection{StepResult: El Resultado de la Ejecución del Paso}
+Se definió como una interfaz, ya que su comportamiento depende de la implementación de cada tipo de Step que se defina. Con esto también se evita que los Steps creados por los usuarios programadores tengan que heredar de una clase en particular, y solo necesiten implementar la interfaz.
 
-\subsubsection{Sample: la muestra}
-La clase Sample representa una muestra tomada a partir de seguir los pasos (Steps) del protocolo del recolección (Workflow). Contiene los resultados de la ejecución de cada paso (StepResult). También guarda fecha y hora de inicio y finalización. Esto es útil para sacar una estadística de cuanto tarda un usuario en recolectar una muestra y analizar optimizaciones para la aplicación final.
+El Step tiene asociado un StepFragment (la vista y controlador) que es el encargado de ejecutar el Step para generar un StepResult. El Step básicamente tiene los parámetros o información para que pueda ser ejecutado por el StepFragment, pero no tiene mucho comportamiento.
+
+El Step conoce cuál es el siguiente Step (su id) a ejecutar y a veces éste depende del StepResult generado, como es el caso de SelectOneStep en el que el siguiente paso depende de la opción seleccionada, y con esto se pueden crear bifurcaciones en el Workflow.
+
+Samplers provee los siguientes Steps:
+\begin{itemize}
+	\item InformationStep: Muestra una información (texto) al usuario.
+	\item PhotoStep: Permite tomar una foto con la cámara del dispositivo móvil.
+	\item SoundRecordStep: Permite grabar un sonido con el micrófono del dispositivo móvil.
+	\item SelectOneStep: Muestra una pregunta con varias opciones como respuesta, de las cuales solo se puede seleccionar una sola.
+	\item MultipleSelectStep: Muestra una pregunta con varias opciones como respuesta, de las cuales solo se pueden seleccionar varias opciones.
+	\item LocationStep: Permite tomar la geo posición del dispositivo móvil.
+	\item RouteStep: Permite grabar un recorrido usando el GPS del dispositivo móvil.
+	\item InsertTextStep: Permite ingresar un texto.
+	\item InsertDateStep: Permite seleccionar una fecha.
+	\item InsertTimeStep: Permite seleccionar una hora.
+\end{itemize}
+
+El detalle de estos Steps y su funcionamiento se explican en la sección \ref{sec:steps_detallados}.
+
+Si bien estos son los Steps que provee Samplers de manera predeterminada, un usuario programado podría definir y agregar sus propios Steps, junto con sus StepFragments y StepResults como se explica en la sección \ref{sec:definir_steps}.
+
+\subsubsection{StepFragment: la vista y controlador del Step}
+**FALTA DESARROLLAR**
+
+es la encargada de generar el StepResult en base a un Step.
+
+
+\subsubsection{StepResult: el Resultado de la ejecución de un Paso}
+Los StepResult son el resultado obtenido de ejecutar un Step. Cada ejecución de un mismo Step, puede generar un StepResult diferente.
+
+Un StepResult tiene el Id del Step en base al cual se generó. 
+
+También puede tener asociado un archivo multimedia, por ejemplo en los casos de PhotoStep y SoundRecordStep que guardan una foto y un archivo de sonido respectivamente.
+
+**FALTA DESARROLLAR**
+
+se pueden agregar steps propios, solo tienen que implementar la interfaz.
+
+\subsubsection{Sample: la Muestra}
+La clase Sample representa una muestra tomada a partir de seguir los pasos (Steps) del protocolo del recolección (Workflow). Contiene los resultados (StepResult) de la ejecución de cada paso. Cada ejecución del workflow puede generar una colección de StepResults diferente.
+
+También guarda fecha y hora de inicio y finalización. Esto es útil para sacar una estadística de cuanto tarda un usuario en recolectar una muestra y analizar optimizaciones para la aplicación final.
+
+Una vez recolectadas, las muestras se guardan el dispositivo móvil y son enviadas a través de Internet a un servidor web previamente configurado.
+
+\subsection{TakeSampleActivity: Toma de la Muestra}
+La clase TakeSampleActivity es la encargada de ejecutar el Worflow para tomar la muestra. Es una activity que recibe un objeto Workflow como parámetro y y va iterando sobre los Steps del mismo. A cada Step le pide su StepFragment...
+
+**FALTA DESARROLLAR**
+
+\subsection{Persistencia local}
+Las muestras se guardan en el dispositivo móvil en un archivo JSON, junto con los archivos multimedia que pudiera tener, dentro de un directorio por cada muestra. Las mismas se guardan dentro del directorio samples en el almacenamiento interno del dispositivo.
+
+Se eligió el almacenamiento interno para guardar las muestras porque no se necesitan permisos especiales para acceder al mismo y, de forma predeterminada, los archivos que se guardan en el mismo son privados para la aplicación y otras aplicaciones no pueden tener acceso a ellos (tampoco el usuario). Cuando el usuario desinstala la aplicación, estos archivos se quitan\cite{androidInternalStorage}.
+
+Por ejemplo, una muestra con id 123456 y 2 fotos se guarda de la siguiente manera:
+\begin{lstlisting}[language=Java, frame=tlb]
+/samples/				// Directorio de muestras
+	sample_123456/			// Directorio de la muestra con id:123456 
+		sample_123456.json	// Objeto Sample en formato JSON
+		1524437599776.jpg	// Archivo de foto 1
+		1524441664170.jpg	// Archivo de foto 2
+\end{lstlisting}
+
+Para pasar la muestra a un archivo JSON se usó Gson\cite{gson}, una librería de Google distribuida bajo licencia Apache 2.0 que convierte objetos Java a JSON y viceversa de manera muy sencilla, con métodos \textit{toJson()} y \textit{fromJson()} para convertir hacia y desde JSON respectivamente.
 
 \subsection{Envío de Muestras a Servidor Web}
-Acá explicamos un poco la estrategia que utilizamos para el envío de muestras y las librerías externas que nos ayudaron.
+**ESTAS SON LAS IDEAS SUELTAS:**
+
+Las muestras se envían al servidor web previamente configurado, mediante un mensaje HTTP POST.
+
+Para ello se usó la librería OkHttp\cite{okhttp}, distribuida por Square Inc. bajo licencia Apache 2.0, que resuelve de manera sencilla y muy eficiente el envío de mensajes HTTP en Android.
+
+Por cada muestra se envía el objeto sample en formato JSON junto con los archivos multimedia, todo comprimido en un solo archivo ZIP.
+
+Para comprimir se usaron las librerías estándares de Java (java.util.zip) que proporciona clases para leer y escribir archivos ZIP y GZIP estándares.
+
+Se envían automáticamente cuando se detecta conexión wi-fi o a petición del usuario.
+
+\subsection{Autenticación}
+**FALTA DESARROLLAR**
 
 Usuario afuera de la muestra porque cuando toma la muestra puede no estar logueado, y loguearse antes de enviarlas.
 
-\section{Instalación y uso del framework}
-\subsection{Instalación}
+\subsection{UI?}
+**Obligatorias:**
+
+TakeSampleActivity
+
+**Opcionales:**
+
+SamplersMainActivity
+
+SamplesListActivity
+
+HelpActivity
+
+
+\section{Instalación y uso del framework} \label{sec:instalacion_uso}
 En esta sección se describe como instalar el framework en Android Studio y como instanciarlo para su uso, brindando algunos ejemplos concretos.
+
+\subsection{Instalación}
+A continuación se detallan los requisitos y los pasos a seguir para la instalación del framework en Android Studio.
 
 \subsubsection{Requerimientos mínimos:}
 
@@ -382,16 +515,19 @@ Ejemplo:
 
 Aca podriamos poner un ejemplo completo de un archivo JSON de los que estan en la wiki.
 
-\subsection{Configuración de los Servicios de Google}
+\subsection{Configuración de los Servicios de Google??}
 
-\section{Los diferentes Steps y sus resultados (StepResult)}
+\section{Los diferentes Steps y sus resultados (StepResult)} \label{sec:steps_detallados}
+**FALTA DESARROLLAR**
+
 Esto me parece que ya esta explicado arriba... hay que ver donde lo explicamos en forma generica y aca el detalle de cada uno.
-los steps son...
+
+Los steps representan un paso en el protocolo de recolección de la muestra (workflow).
 Los StepResult son el resultado obtenido de ejecutar un Step.
 Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
-Un StepResult tiene el Id del Step en base al cual se generó. También tiene un método....
 
 \subsection{InformationStep: Mostrar información}
+InformationStep se usa para mostrar una información (texto) al científico ciudadano. 
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -408,8 +544,70 @@ Usando el generador de clases:
 }
 \end{lstlisting}
 
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.4]{05-implementacion/InformationStep.png} 
+   \caption{Ejemplo de un InformationStep en ejecución}
+   \label{fig:imgInformationStep}
+\end{figure}
+
 \subsubsection{InformationStepResult: El resultado de Mostrar información}
 El resultado de mostrar información es nulo, es una clase vacía. Solo está para cerrar el circuito.
+
+\subsection{PhotoStep: Tomar una foto}
+PhotoStep se usa para solicitarle al científico ciudadano que tome una foto. Tiene un texto (instructionsToShow) que se muestran a modo de instrucciones o mensaje cuando la cámara esta encendida. Luego de tomada la foto, se muestra una vista preliminar de la misma, con un botón que da la opción de volver a tomar la foto.
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+PhotoStep step = new PhotoStep(1,"Por favor tome una foto de su gato",2);
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "id" : 1,
+  "type" : "Photo",
+  "text" : "Por favor tome una foto de su gato",
+  "nextStepId" : 2
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.4]{05-implementacion/PhotoStep1.png} 
+    \includegraphics[scale=0.4]{05-implementacion/PhotoStep2.png}     
+   \caption{Ejemplo de un PhotoStep en ejecución. A la izquierda al momento de tomar la foto, y a la derecha al momento de mostrar la vista preliminar.}
+   \label{fig:imgPhotoStep}
+\end{figure}
+
+\subsubsection{PhotoStepResult: El resultado de Tomar una foto}
+guarda el imageFileName de la foto. 
+La foto va como archivo jpg en la carpeta de la muestra.
+Puede haber varias fotos si hay varios PhotoSteps en el workflow
+
+\subsection{SoundRecordStep: Grabar sonido}
+Tiene instructionsToShow a modo de instrucciones que se muestran.
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+SoundRecordStep step = new SoundRecordStep(1,"Grabe el sonido de su auto",2); 
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "id" : 1,
+  "type" : "Sound",
+  "text" : "Grabe el sonido de su auto",
+  "nextStepId" : 2
+}
+\end{lstlisting}
+
+\subsubsection{SoundRecordStepResult: El resultado de Grabar sonido}
+guarda el soundFileName del sonido.
+El sonido va como archivo mp4 en la carpeta de la muestra.
+Puede haber varios sonidos si hay varios SoundRecordSteps en el workflow
+
 
 \subsection{SelectOneStep: Seleccionar una opción de un grupo de opciones}
 Tiene un title
@@ -504,53 +702,6 @@ Usando el generador de clases:
 \subsubsection{MultipleSelectStepResult: El resultado de Seleccionar varias opciones de un grupo de opciones}
 El resultado tiene una lista de las opciones seleccionadas (una lista de objetos MultipleSelectOption)
 
-\subsection{PhotoStep: Tomar una foto}
-Tiene instructionsToShow que se muestran a modo de instrucciones o mensaje cuando la cámara esta encendida
-muestra un preview
-usa una camara dependiendo de la api
-
-En Android Studio (Java):
-\begin{lstlisting}[language=Java, frame=tlb]	
-PhotoStep step = new PhotoStep(1,"Por favor tome una foto de su gato",2);
-\end{lstlisting}
-
-Usando el generador de clases:
-\begin{lstlisting}[language=XML, frame=tlb]	
-{
-  "id" : 1,
-  "type" : "Photo",
-  "text" : "Por favor tome una foto de su gato",
-  "nextStepId" : 2
-}
-\end{lstlisting}
-
-\subsubsection{PhotoStepResult: El resultado de Tomar una foto}
-guarda el imageFileName de la foto. 
-La foto va como archivo jpg en la carpeta de la muestra.
-Puede haber varias fotos si hay varios PhotoSteps en el workflow
-
-\subsection{SoundRecordStep: Grabar sonido}
-Tiene instructionsToShow a modo de instrucciones que se muestran.
-
-En Android Studio (Java):
-\begin{lstlisting}[language=Java, frame=tlb]	
-SoundRecordStep step = new SoundRecordStep(1,"Grabe el sonido de su auto",2); 
-\end{lstlisting}
-
-Usando el generador de clases:
-\begin{lstlisting}[language=XML, frame=tlb]	
-{
-  "id" : 1,
-  "type" : "Sound",
-  "text" : "Grabe el sonido de su auto",
-  "nextStepId" : 2
-}
-\end{lstlisting}
-
-\subsubsection{SoundRecordStepResult: El resultado de Grabar sonido}
-guarda el soundFileName del sonido.
-El sonido va como archivo mp4 en la carpeta de la muestra.
-Puede haber varios sonidos si hay varios SoundRecordSteps en el workflow
 
 
 \subsection{LocationStep: Posicionar la muestra en el mapa con el GPS}
@@ -809,6 +960,7 @@ public class EMailUser implements User {
 
 \subsection{Idiomas}
 
+\section{Definir un nuevo Step, StepFragment y StepResult ??} \label{sec:definir_steps}
 
 ** Ver Auth0
 
