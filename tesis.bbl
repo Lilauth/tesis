@@ -47,6 +47,12 @@ J.~L. Shirk, H.~L. Ballard, C.~C. Wilderman, T.~Phillips, A.~Wiggins,
 J.~A. Burke, D.~Estrin, M.~Hansen, A.~Parker, N.~Ramanathan, S.~Reddy, and
   M.~B. Srivastava, ``Participatory sensing,'' 2006.
 
+\bibitem{kim2013sensr}
+S.~Kim, J.~Mankoff, and E.~Paulos, ``Sensr: evaluating a flexible framework for
+  authoring mobile data-collection tools for citizen science,'' in {\em
+  Proceedings of the 2013 conference on Computer supported cooperative work},
+  pp.~1453--1462, ACM, 2013.
+
 \bibitem{gartner}
 {Gartner}, ``Gartner says worldwide sales of smartphones grew 7 percent in the
   fourth quarter of 2016.''
