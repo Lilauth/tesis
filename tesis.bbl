@@ -47,6 +47,10 @@ J.~L. Shirk, H.~L. Ballard, C.~C. Wilderman, T.~Phillips, A.~Wiggins,
 J.~A. Burke, D.~Estrin, M.~Hansen, A.~Parker, N.~Ramanathan, S.~Reddy, and
   M.~B. Srivastava, ``Participatory sensing,'' 2006.
 
+\bibitem{johnson1988designing}
+R.~E. Johnson and B.~Foote, ``Designing reusable classes,'' {\em Journal of
+  object-oriented programming}, vol.~1, no.~2, pp.~22--35, 1988.
+
 \bibitem{kim2013sensr}
 S.~Kim, J.~Mankoff, and E.~Paulos, ``Sensr: evaluating a flexible framework for
   authoring mobile data-collection tools for citizen science,'' in {\em
