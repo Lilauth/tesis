@@ -229,6 +229,7 @@ A continuación se detallan los requisitos y los pasos a seguir para la instalac
 \end{itemize}
 
 \subsubsection{Pasos para la Instalación:}
+
 \begin{enumerate}
 	\item Crear en Android Studio un nuevo proyecto vacío (sin ninguna Activity).
 		\begin{itemize}
@@ -236,8 +237,8 @@ A continuación se detallan los requisitos y los pasos a seguir para la instalac
 		\end{itemize}
 	\item Importar la librería del framework en el proyecto creado
 		\begin{itemize}
-		\item Descargar la última versión de samplersFramework.aar desde https://github.com/cientopolis/samplers/releases/
-		\item Importar la librería al proyecto: File -> New -> New Module -> Import .JAR/.AAR Package
+		\item Descargar la última versión de \textbf{samplersFramework.aar} desde https://github.com/cientopolis/samplers/releases/
+		\item Importar la librería al proyecto: File -$>$ New -$>$ New Module -$>$ Import .JAR/.AAR Package
 		\end{itemize}
 	\item Agregar el repositorio de Google
 		\begin{itemize}
@@ -256,22 +257,24 @@ allprojects {
 			\item En el archivo build.gradle de la aplicación agregar: 
 			\begin{lstlisting}[language=XML, frame=tlb]
 dependencies {
-  // here the standards dependencies created by Android Studio
+  // acá estarían las dependencias predeterminadas creadas por Android Studio:
   // ...
 
-  // if not added automatically, add this dependency 
-  // you should use the latest version e.j. 25.+
+  // si no son agregadas automáticamente, agregar las siguientes dependencias:
+  // (se deberían agregar las de la ultima versión disponible)
   compile 'com.android.support:design:24.2.1' 
   compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
-  // if you will use maps and location services, add this dependencies (you should use the latest version)
+  // para usar mapas y los servicios de geolocalización se deben agregar las 
+  // siguientes dependencias (usar la ultima versión disponible)
   compile ('com.google.android.gms:play-services-location:12.0.1')
   compile ('com.google.android.gms:play-services-maps:12.0.1')
   
-  // if you will use authentication with Google, add this dependencies (you should use the latest version)
+  // para usar autenticación con Google se deben agregar las 
+  // siguientes dependencias (usar la ultima versión disponible)  
   compile ('com.google.android.gms:play-services-auth:12.0.1')
 
-  // the framework dependency
+  // agregar la dependencia del framework Samplers
   compile project(":samplersFramework")
 }
 			\end{lstlisting}	
@@ -284,8 +287,7 @@ dependencies {
 \end{enumerate}	
 
 \subsection{Instanciación}
-Una vez instalado el framework...
-La instanciación puede ser manual o usando el generador de clases de Gradle.
+Una vez instalado el framework el siguiente paso es instanciarlo para usarlo. La instanciación puede ser manual o usando el generador de clases de Gradle.
 
 \subsubsection{Instanciación manual}
 Básicamente se tiene que crear un objeto Workflow, agregarle los objetos Steps, y llamar a la activity TakeSampleActivity pasándole el workflow como parámetro.
@@ -296,55 +298,52 @@ Se puede usar una activity principal propia o se puede heredar de SamplersMainAc
 		\begin{lstlisting}[language=Java, frame=tlb]
 NetworkConfiguration.setURL("http://192.168.1.10/samplers/upload.php");
 NetworkConfiguration.setPARAM_NAME_SAMPLE("sample");
-// Optional if you will use authentication
+
+// Opcional, si se desea usar autenticación (*)
 NetworkConfiguration.setPARAM_NAME_USER_ID("user_id");
 NetworkConfiguration.setPARAM_NAME_AUTHENTICATION_TYPE("authentication_type");
 
-// Optional if you will use authentication, set the configuration
 AuthenticationManager.setAuthenticationEnabled(true);
 AuthenticationManager.setAuthenticationOptional(true);
 		\end{lstlisting}
+(*) Ver la sección \ref{sec:usando_autenticacion} para más detalles sobre como usar Autenticación.
 
-	\item Crear un Workflow. Si se está heredando de SamplersMainActivity se debe hacer sobreescribiendo el método onCreate.
+
+	\item Crear un Workflow. Si se está heredando de SamplersMainActivity se debe hacer sobreescribiendo el método getWorkflow.
 		\begin{lstlisting}[language=Java, frame=tlb]
 @Override
 protected Workflow getWorkflow() {
-	Workflow workflow = new Workflow();
+  Workflow workflow = new Workflow();
     	
-	Step step = new InformationStep(2,"Por favor tome una foto de su gato", null);
-	workflow.add(step);
+  Step step = new InformationStep(2,"Por favor tome una foto de su gato", null);
+  workflow.add(step);
     	
-	step = new PhotoStep(1,"Bienvenido a la app de prueba", 2);
-	workflow.add(step);
+  step = new PhotoStep(1,"Bienvenido a la app de prueba", 2);
+  workflow.add(step);
     	
-	return workflow;
-    	
+  return workflow;
 }		
 		\end{lstlisting}
-Nota: en el ejemplo anterior se muestra un Workflow que tiene dos Steps. El primero muestra un mensaje de bienvenida y el segundo pide para tomar una foto. Para ver los distintos Steps que se pueden usar vea la sección de Steps.
+Nota: en el ejemplo anterior se muestra un Workflow que tiene dos Steps. El primero muestra un mensaje de bienvenida y el segundo pide para tomar una foto. Para ver los distintos Steps que se pueden usar vea la sección \ref{sec:steps_detallados}.
 
-	\item Iniciar la activity TakeSampleActivity. Si se está heredando de SamplersMainActivity esto se hace solo en el método onClick del botón "tomar muestra". De lo contrario, deberá iniciarla de la siguiente forma, en el método onClick de un botón por ejemplo:
+	\item Iniciar la activity TakeSampleActivity. Si se está heredando de SamplersMainActivity esto se hace automáticamente en el método onClick del botón "tomar muestra". De lo contrario, deberá iniciarla de la siguiente forma, en el método onClick de un botón por ejemplo:
 		\begin{lstlisting}[language=Java, frame=tlb]
 @Override
 public void takeSampleClick(View view) {
-	Workflow workflow = getWorkflow();
+  Workflow workflow = getWorkflow();
 
-	Intent intent = new Intent(this, TakeSampleActivity.class);        
-	intent.putExtra(TakeSampleActivity.EXTRA_WORKFLOW, workflow);
-	startActivity(intent);
-    	
+  Intent intent = new Intent(this, TakeSampleActivity.class);        
+  intent.putExtra(TakeSampleActivity.EXTRA_WORKFLOW, workflow);
+  startActivity(intent);
 }		
 		\end{lstlisting}
-
-
-
 
 \end{itemize}
 
 
 \subsubsection{Instanciación usando el  generador de clases de Gradle}
 
-Básicamente, el generador de clases de Gradle se encarga de hacer una instanciación manual a partir de un archivo de configuración (JSON). Está pensado para desarrolladores que no tienen muchos conocimientos en Android, o para servir de interfaz entre una aplicación que genere apps a través de Samplers (esto hay que escribirlo mejor).
+Básicamente, el generador de clases de Gradle se encarga de hacer una instanciación manual a partir de un archivo de configuración (JSON). Está pensado para desarrolladores que no tienen muchos conocimientos en Android, o para servir de interfaz entre una aplicación que genere apps a través de Samplers (***esto hay que escribirlo mejor***).
 
 Los pasos para usar el generador de clases de Gradle son:
 \begin{enumerate}
@@ -370,7 +369,7 @@ apply from: '../samplers.gradle'
 			\item Si se necesita volver a generar esta activity (si se quieren modificar algunas opciones por ejemplo ) se puede eliminar la misma, hacer las modificaciones en el archivo SamplersConfig.json y volver a generar el proyecto (en el menu Build -> Make Project)
 		\end{itemize}
 		
-	\item Eliminar o (customizar) el archivo \textbf{style.xml} que está en \textbf{res/values} en la aplicación
+	\item Eliminar o personalizar el archivo \textbf{style.xml} que está en \textbf{res/values} en la aplicación
 	
 	\item Ejecutar la aplicación y listo.
 
@@ -829,7 +828,7 @@ un objeto Date que tiene la fecha o la hora según corresponda
 
 \section{Mostrar Ayuda}
 
-\section{Usando autenticación}
+\section{Usando autenticación} \label{sec:usando_autenticacion}
 Por defecto provee autenticación con Google, porque al tener Android tiene una cuenta de Google si o si.
 Esta abierto a poder agregar autenticación con otras plataformas/APIs.
 
