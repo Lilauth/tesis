@@ -36,10 +36,13 @@ Si bien, como se mencionó antes, Samplers se pensó para que un científico pud
 
 Por lo tanto, Samplers funciona de dos formas:
 \begin{itemize}
-\item Extendiendo las clases: **FALTA DESARROLLAR**
-\item Usando el generador de clases de Gradle: que básicamente lo que hace es extender e instanciar las clases necesarias para generar la aplicación en base al archivo de configuración JSON pasado. **FALTA DESARROLLAR**
+\item Instanciando y/o extendiendo las clases necesarias para armar la aplicación: es decir, instanciando un Workflow con instancias de los Steps que provee Samplers (o extendiendo los propios) para pasárselo a la una instancia de la clase TakeSampleActivity que es la encargada de ejecutarlo y generar las muestras (Samples).
+\item Usando el generador de clases de Gradle: que básicamente lo que hace es extender e instanciar las clases necesarias para generar la aplicación en base al archivo de configuración JSON pasado. 
 \end{itemize}
 
+
+
+**FALTA DESARROLLAR**
 ** Configurable o Extensible nosotros creo que hicimos los dos... ------------------------------------- **
 ** Segun Spotters: **
 
@@ -62,7 +65,7 @@ El framework está compuesto por dos conceptos muy importantes que definen qué 
 
 \begin{itemize}
 	\item Solo sirve para dispositivos móviles con sistema operativo Android.
-	\item El uso de la activity TakeSampleActivity... si bien se podría usar otra, hay que entender más como funciona el framework para poder hacer una propia.
+	\item El uso de la activity TakeSampleActivity es casi obligatorio... si bien se podría usar otra, hay que entender más como funciona el framework para poder hacer una propia.
 	\item La muestra se envía en un archivo comprimido, en formato ZIP. Dentro esta el objeto muestra en formato JSON y los archivos multimedia.
 	\item Las muestras se envían a través de internet, mediante un mensaje HTTP POST.
 	\item Para definir una nueva vista (fragment) para un step, se debe heredar de StepFragment.
@@ -349,24 +352,24 @@ Los pasos para usar el generador de clases de Gradle son:
 \begin{enumerate}
 	\item Crear un archivo JSON con el nombre SamplersConfig.json
 		\begin{itemize}
-			\item El formato y las opciones están explicadas en la siguiente sección.
-			\item Para validar sintaxis se puede usar el validador online: jsonformatter.curiousconcept.com (Ver si se puede poner esto o hay que tener permisos?)
-			\item Al final de la sección se provee un archivo de ejemplo
+			\item El formato y las opciones están explicadas sección \ref{sec:archivo_config_detallado}.
+			\item Para validar sintaxis se puede usar por ejemplo el validador online https://jsonformatter.curiousconcept.com que es gratuito.
+			\item Al final de esta sección se provee un archivo de ejemplo.
 		\end{itemize}
 		
-	\item Copiar el archivo creado en el item anterior al directorio raíz del proyecto Android
+	\item Copiar el archivo creado en el item anterior al directorio raíz del proyecto Android creado.
 	
-	\item Descargar la última versión de los archivos \textbf{samplers.gradle} y \textbf{samplersclassgenerator.jar} del repositorio de Samplers (https://github.com/cientopolis/samplers/releases/) y copiarlos también al directorio raíz del proyecto Android
+	\item Descargar la última versión de los archivos \textbf{samplers.gradle} y \textbf{samplersclassgenerator.jar} del repositorio de Samplers (https://github.com/cientopolis/samplers/releases/) y copiarlos también al directorio raíz del proyecto Android.
 	
-	\item Enlazar el archivo samplers.gradle en el archivo build.gradle de la aplicación
+	\item Enlazar el archivo samplers.gradle en el archivo \textbf{build.gradle} de la aplicación:
 		\begin{itemize}
-			\item Android Studio crea por defecto dos archivos build.gradle, uno a nivel de aplicación y otro a nivel de proyecto. Debe usarse el de aplicación
+			\item Android Studio crea por defecto dos archivos build.gradle, uno a nivel de aplicación y otro a nivel de proyecto. Debe usarse el de aplicación.
 			\item Al final del archivo build.gradle de aplicación agregar:
 \begin{lstlisting}[language=XML, frame=tlb]
 apply from: '../samplers.gradle'
 \end{lstlisting}
 			\item Al guardar los cambios, Android Studio sugerirá hacer una sincronización del proyecto, hacerla. Esto generará en la aplicación una activity llamada MyMainSamplersActivity en base a las opciones configuradas en el archivo SamplersConfig.json.
-			\item Si se necesita volver a generar esta activity (si se quieren modificar algunas opciones por ejemplo ) se puede eliminar la misma, hacer las modificaciones en el archivo SamplersConfig.json y volver a generar el proyecto (en el menu Build -> Make Project)
+			\item Si se necesita volver a generar esta activity (si se quieren modificar algunas opciones por ejemplo ) se puede eliminar la misma, hacer las modificaciones en el archivo SamplersConfig.json y volver a generar el proyecto (en el menu Build -$>$ Make Project)
 		\end{itemize}
 		
 	\item Eliminar o personalizar el archivo \textbf{style.xml} que está en \textbf{res/values} en la aplicación
@@ -376,7 +379,7 @@ apply from: '../samplers.gradle'
 \end{enumerate}
 
 
-\subsection{Secciones del Archivo}
+\subsection{Secciones del Archivo} \label{sec:archivo_config_detallado}
 
 El archivo SamplersConfig.json es un archivo JSON con 3 objetos:
 \begin{itemize}
