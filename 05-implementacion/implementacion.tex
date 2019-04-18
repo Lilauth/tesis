@@ -1,11 +1,21 @@
 \chapter{Samplers: Framework Android}
 
 \section{Propuesta general}
-Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra usando/aprovechando las funcionalidades de los dispositivos móviles.
+
+\subsection{Descripción del problema}
+Nativo en vez de web porque permite la toma de muestras sin conexion a internet.
 
 En un principio se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. La idea inicial era que mediante una aplicación web el científico pudiera armar el protocolo de recolección de las muestras (el Workflow en Samplers) de manera visual e intuitiva, y se generara un archivo de configuración para Samplers. Con el archivo de configuración se pasaría a Samplers y se generaría la aplicación móvil. Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que que el archivo de configuración ya viene armado.
 
+\subsection{Alcance de la solución propuesta}
+En un principio se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. La idea inicial era que mediante una aplicación web el científico pudiera armar el protocolo de recolección de las muestras (el Workflow en Samplers) de manera visual e intuitiva, y se generara un archivo de configuración para Samplers. Con el archivo de configuración se pasaría a Samplers y se generaría la aplicación móvil. Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que que el archivo de configuración ya viene armado.
+
 Por otro lado, abarcar los 3 sistemas operativos móviles más usados en ese momento (Android, iOS y Windows Phone) también haría muy grande el alcance de la tesis, por lo que se decidió optar por Android, que era el sistema operativo móvil más usado en ese momento. Según una estadística de Gartner sobre las ventas de smartphones a nivel mundial en el último trimestre de 2016\cite{gartner}, mas del 80\% de las mismas fueron de celulares con Android.
+
+
+\subsection{Descripción de la propuesta}
+Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
+
 
 Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de desarrollo integrado (IDE) oficial es Android Studio\cite{androidStudio}, por lo que Samplers se apoya sobre el mismo. Android Studio ha sido publicado de forma gratuita bajo Licencia Apache 2.0 y está disponible para las plataformas Microsoft Windows, MacOS y GNU/Linux.
 
@@ -16,7 +26,7 @@ Para el archivo de configuración se eligió el formato JSON porque nos pareció
 El workflow estaría compuesto por los diferentes pasos (Steps en Samplers) necesarios para tomar la muestra con la aplicación. Estos pasos podrían ser:
 \begin{itemize}
 \item capturar una foto, un video o un audio
-\item tomar la posición del GPS o grabar un recorrido con el mismo
+\item tomar la posición del GPS o grabar un recorrido con el GPS
 \item contestar una pregunta con respecto a la muestra. Esta pregunta puede tener una o múltiples respuestas posibles.
 \item introducir anotaciones (texto)
 \item seleccionar una fecha o una hora
