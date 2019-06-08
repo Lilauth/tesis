@@ -3,44 +3,65 @@
 \section{Propuesta general}
 
 \subsection{Descripción del problema}
-Nativo en vez de web porque permite la toma de muestras sin conexion a internet y aprovecha mejor los recursos del celular (camara, gps, etc.).
 
-En un principio se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. La idea inicial era que mediante una aplicación web el científico pudiera armar el protocolo de recolección de las muestras (el Workflow en Samplers) de manera visual e intuitiva, y se generara un archivo de configuración para Samplers. Con el archivo de configuración se pasaría a Samplers y se generaría la aplicación móvil. Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que que el archivo de configuración ya viene armado.
+Como se vio antes, se necesitaba de un [entorno/framework/algo] que permitiera a un científico poder crear una aplicación móvil con facilidad para poder incluir ciencia ciudadana en sus proyectos, mas precisamente, en proyectos de recolección.
 
-\subsection{Alcance de la solución propuesta}
-En un principio se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. La idea inicial era que mediante una aplicación web el científico pudiera armar el protocolo de recolección de las muestras (el Workflow en Samplers) de manera visual e intuitiva, y se generara un archivo de configuración para Samplers. Con el archivo de configuración se pasaría a Samplers y se generaría la aplicación móvil. Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que que el archivo de configuración ya viene armado.
+La idea es que un científico pueda crear una aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. Por ejemplo, desde una página web armar el protocolo de recolección de las muestras y con el mismo poder generar una aplicación móvil que sirva para tomar las muestras siguiendo dicho protocolo.
 
-Como se mencionó antes, se requerían aplicaciones nativas pero abarcar los 3 sistemas operativos móviles más usados en ese momento (Android, iOS y Windows Phone) era mucho para el alcance de esta tesis, por lo que se decidió optar por Android, que era el sistema operativo móvil más usado en ese momento. Según una estadística de Gartner sobre las ventas de smartphones a nivel mundial en el último trimestre de 2016\cite{gartner}, mas del 80\% de las mismas fueron de celulares con Android.
-
-
-\subsection{Descripción de la propuesta}
-Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
-
-
-Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de desarrollo integrado (IDE) oficial es Android Studio\cite{androidStudio}, por lo que Samplers se apoya sobre el mismo. Android Studio ha sido publicado de forma gratuita bajo Licencia Apache 2.0 y está disponible para las plataformas Microsoft Windows, MacOS y GNU/Linux.
-
-De este modo, Samplers sería un framework que funcionaría sobre Android Studio, que recibiría un archivo de configuración y generaría una aplicación lista para ejecutarse en un dispositivo móvil con Android.
-
-Para el archivo de configuración se eligió el formato JSON porque nos pareció más fácil de escribir/leer a mano (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que armarlo a mano. En el mismo vendría el workflow, que representa el protocolo de recolección de las muestras, y las demás configuraciones necesarias para armar la aplicación.
-
-El workflow estaría compuesto por los diferentes pasos (Steps en Samplers) necesarios para tomar la muestra con la aplicación. Estos pasos podrían ser:
+El protocolo de recolección estaría compuesto por los diferentes pasos necesarios para tomar la muestra con la aplicación. Estos pasos deben permitir:
 \begin{itemize}
 \item capturar una foto, un video o un audio
 \item tomar la posición del GPS o grabar un recorrido con el GPS
 \item contestar una pregunta con respecto a la muestra. Esta pregunta puede tener una o múltiples respuestas posibles.
 \item introducir anotaciones (texto)
 \item seleccionar una fecha o una hora
-\item mostrar información (texto).
+\item mostrar información de orientación para la toma de la muestra.
 \end{itemize}
 
-Además de éstos pasos, se debería contemplar algún mecanismo para poder mostrar ayuda para el usuario final de la aplicación (el científico ciudadano) que sirviera de orientación para tomar la muestra. Se pensó en poder mostrar ayuda asociada a un paso (Step) en particular y una ayuda general en la pantalla principal, y se optó por usar archivos HTML para mostrar las mismas por la variedad de opciones y posibilidades que conllevan, y por su simpleza para mostrarlos.
+Las muestras recolectadas con la aplicación deben ser enviadas por Internet a un servidor web previamente configurado para dicho propósito.
 
-La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado y las almacenará y empaquetará en el dispositivo móvil hasta que pueda ser enviada a un servidor web, el cual vendrá establecido en el archivo de configuración.
+La aplicación generada debe ser una aplicación nativa, y no una solución web por ejemplo, para poder aprovechar mejor las características de los dispositivos móviles (cámara, GPS, etc.). Además se debe contemplar que al momento de tomar una muestra es posible que no se cuente con conexión a Internet en el dispositivo móvil, pero igualmente se debe permitir la toma de la muestra y se la debe almacenar en el dispositivo móvil hasta que haya conexión a Internet y pueda ser enviada a un servidor web.
 
-También se pensó en proveer algún mecanismo de autenticación, para poder identificar al usuario que toma las muestras, y de esta forma poder darle una devolución mostrándole información, o incentivarlo para que siga participando del proyecto a través de gamificación por ejemplo.
-Se pensó en poder iniciar sesión con alguna red social, como por ejemplo Facebook, Twitter, Instagram, Google+, etc. y como en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones), se decidió incluir autenticación con Google y dejar preparado para que el usuario pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña). Samplers también debería quedar preparado para agregar autenticación con otras redes sociales en un futuro.
+La aplicación generada debería servir para tomar muestras siguiendo el protocolo de recolección especificado, almacenarlas y empaquetarlas en el dispositivo móvil hasta que puedan ser enviada a un servidor web.
 
-Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo debería ser open source, por lo que se decidió usar un repositorio público en GitHub\cite{github} para dejar el código fuente disponible para todo el mundo.
+Además de éstos pasos, se debería contemplar algún mecanismo para poder mostrar ayuda para el usuario final de la aplicación (el científico ciudadano) que sirviera de orientación para tomar la muestra. 
+
+También se debe contemplar algún mecanismo de identificación del usuario que toma las muestras, con usuario y contraseña, o con alguna red social (Facebook, Twitter, Instagram, Google, etc.) para así poder darle una devolución mostrándole información, o incentivarlo para que siga participando del proyecto a través de gamificación por ejemplo.
+
+
+
+\subsection{Alcance de la solución propuesta}
+Si bien en un principio Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. 
+La idea inicial era que mediante una aplicación web el científico pudiera armar el protocolo de recolección de las muestras (el Workflow en Samplers) de manera visual e intuitiva, y se generara un archivo de configuración para Samplers. 
+Con el archivo de configuración se pasaría a Samplers y se generaría la aplicación móvil. 
+Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que que el archivo de configuración ya viene armado.
+
+Como se mencionó antes se requerían aplicaciones nativas, pero abarcar los 3 sistemas operativos móviles más usados en ese momento (Android, iOS y Windows Phone) era mucho para el alcance de esta tesis, por lo que se decidió optar por Android, que era el sistema operativo móvil más usado en ese momento. Según una estadística de Gartner sobre las ventas de smartphones a nivel mundial en el último trimestre de 2016\cite{gartner}, mas del 80\% de las mismas fueron de celulares con Android. [Ademas para iOS se puede aprovechar Sensr.
+y porque esta Sensr para iOS http://www.sensr.org]
+
+Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de desarrollo integrado (IDE) oficial es Android Studio\cite{androidStudio}, por lo que Samplers se apoya sobre el mismo. Android Studio ha sido publicado de forma gratuita bajo Licencia Apache 2.0 y está disponible para las plataformas Microsoft Windows, MacOS y GNU/Linux.
+
+\subsection{Descripción de la propuesta: Samplers}
+Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
+
+
+
+Samplers recibe un archivo de configuración y genera una aplicación lista para ejecutarse en un dispositivo móvil con Android.
+
+Para el archivo de configuración se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que armarlo a mano. En el mismo viene el workflow, que representa el protocolo de recolección de las muestras, y las demás configuraciones necesarias para armar la aplicación.
+
+
+También provee un mecanismo de identificación del usuario final de la aplicación usando su cuenta de Google, y está preparado para que se pueda agregar un método propio o con una API de alguna red social, como Facebook, Twitter, Instagram, etc.
+
+ para poder identificar al usuario que toma las muestras, y de esta forma poder darle una devolución mostrándole información, o incentivarlo para que siga participando del proyecto a través de gamificación por ejemplo.
+
+ como en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones), se decidió incluir identificación con Google y dejar preparado para que el usuario pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña). Samplers también debería quedar preparado para agregar autenticación con otras redes sociales en un futuro.
+ 
+
+
+Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Step) en particular y una ayuda general en la pantalla principal, usando archivos HTML. Se optó por los mismos por la variedad de opciones y posibilidades que conllevan, y por su simpleza para mostrarlos.
+
+
 
 Si bien, como se mencionó antes, Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana de manera sencilla y sin tener conocimientos de programación, también se pensó para que un usuario programador pudiese modificar la aplicación generada, personalizando la pantalla principal, modificando la vista de un Step, o agregando uno propio que no esté en los que provee Samplers. También para que pudiese ser incluido en una aplicación ya comenzada o una que recién arranca.
 
@@ -49,6 +70,24 @@ Por lo tanto, Samplers funciona de dos formas:
 \item Instanciando y/o extendiendo las clases necesarias para armar la aplicación: es decir, instanciando un Workflow con instancias de los Steps que provee Samplers (o extendiendo los propios) para pasárselo a la una instancia de la clase TakeSampleActivity que es la encargada de ejecutarlo y generar las muestras (Samples).
 \item Usando el generador de clases de Gradle: que básicamente lo que hace es extender e instanciar las clases necesarias para generar la aplicación en base al archivo de configuración JSON pasado. 
 \end{itemize}
+
+La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado y las almacenará y empaquetará en el dispositivo móvil hasta que pueda ser enviada a un servidor web.
+
+
+Además de éstos pasos, se debería contemplar algún mecanismo para poder mostrar ayuda para el usuario final de la aplicación (el científico ciudadano) que sirviera de orientación para tomar la muestra. 
+
+
+
+
+La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado y las almacenará y empaquetará en el dispositivo móvil hasta que pueda ser enviada a un servidor web, el cual vendrá establecido en el archivo de configuración.
+
+También se pensó en proveer algún mecanismo de autenticación, para poder identificar al usuario que toma las muestras, y de esta forma poder darle una devolución mostrándole información, o incentivarlo para que siga participando del proyecto a través de gamificación por ejemplo.
+Se pensó en poder iniciar sesión con alguna red social, como por ejemplo Facebook, Twitter, Instagram, Google+, etc. y como en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones), se decidió incluir autenticación con Google y dejar preparado para que el usuario pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña). Samplers también debería quedar preparado para agregar autenticación con otras redes sociales en un futuro.
+
+
+
+Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo debería ser open source, por lo que se decidió usar un repositorio público en GitHub\cite{github} para dejar el código fuente disponible para todo el mundo.
+
 
 
 
