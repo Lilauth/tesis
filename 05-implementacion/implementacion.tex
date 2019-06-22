@@ -44,6 +44,24 @@ Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de
 \subsection{Descripción de la propuesta: Samplers}
 Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
 
+Es un framework de caja gris, ya que funciona instanciando y configurando las clases que se proveen...
+
+Funciona de dos formas:
+\begin{itemize}
+\item Instanciando las clases necesarias para armar la aplicación: es decir, instanciando un Workflow con instancias de los Steps que provee Samplers (o creando los propios) para pasárselo a la una instancia de la clase TakeSampleActivity que es la encargada de ejecutarlo y generar las muestras (Samples).
+\item Usando el generador de clases de Gradle: que básicamente lo que hace es extender e instanciar las clases necesarias para generar la aplicación en base al archivo de configuración JSON pasado. 
+\end{itemize}
+
+
+
+Si bien, como se mencionó antes, Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana de manera sencilla y sin tener conocimientos de programación, también se pensó para que un usuario programador pudiese modificar la aplicación generada, personalizando la pantalla principal, modificando la vista de un Step, o agregando uno propio que no esté en los que provee Samplers. También para que pudiese ser incluido en una aplicación ya comenzada o una que recién arranca.
+
+
+
+
+La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado y las almacenará y empaquetará en el dispositivo móvil hasta que pueda ser enviada a un servidor web, el cual vendrá establecido en el archivo de configuración.
+
+
 
 
 Samplers recibe un archivo de configuración y genera una aplicación lista para ejecutarse en un dispositivo móvil con Android.
@@ -51,38 +69,13 @@ Samplers recibe un archivo de configuración y genera una aplicación lista para
 Para el archivo de configuración se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que armarlo a mano. En el mismo viene el workflow, que representa el protocolo de recolección de las muestras, y las demás configuraciones necesarias para armar la aplicación.
 
 
-También provee un mecanismo de identificación del usuario final de la aplicación usando su cuenta de Google, y está preparado para que se pueda agregar un método propio o con una API de alguna red social, como Facebook, Twitter, Instagram, etc.
+También provee un mecanismo de identificación del usuario final de la aplicación usando su cuenta de Google, ya que en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones).  Ademas esta preparado para que el usuario del framework pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña) o con una API de alguna red social, como Facebook, Twitter, Instagram, etc.
 
- para poder identificar al usuario que toma las muestras, y de esta forma poder darle una devolución mostrándole información, o incentivarlo para que siga participando del proyecto a través de gamificación por ejemplo.
 
- como en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones), se decidió incluir identificación con Google y dejar preparado para que el usuario pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña). Samplers también debería quedar preparado para agregar autenticación con otras redes sociales en un futuro.
- 
 
 
 Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Step) en particular y una ayuda general en la pantalla principal, usando archivos HTML. Se optó por los mismos por la variedad de opciones y posibilidades que conllevan, y por su simpleza para mostrarlos.
 
-
-
-Si bien, como se mencionó antes, Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana de manera sencilla y sin tener conocimientos de programación, también se pensó para que un usuario programador pudiese modificar la aplicación generada, personalizando la pantalla principal, modificando la vista de un Step, o agregando uno propio que no esté en los que provee Samplers. También para que pudiese ser incluido en una aplicación ya comenzada o una que recién arranca.
-
-Por lo tanto, Samplers funciona de dos formas:
-\begin{itemize}
-\item Instanciando y/o extendiendo las clases necesarias para armar la aplicación: es decir, instanciando un Workflow con instancias de los Steps que provee Samplers (o extendiendo los propios) para pasárselo a la una instancia de la clase TakeSampleActivity que es la encargada de ejecutarlo y generar las muestras (Samples).
-\item Usando el generador de clases de Gradle: que básicamente lo que hace es extender e instanciar las clases necesarias para generar la aplicación en base al archivo de configuración JSON pasado. 
-\end{itemize}
-
-La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado y las almacenará y empaquetará en el dispositivo móvil hasta que pueda ser enviada a un servidor web.
-
-
-Además de éstos pasos, se debería contemplar algún mecanismo para poder mostrar ayuda para el usuario final de la aplicación (el científico ciudadano) que sirviera de orientación para tomar la muestra. 
-
-
-
-
-La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado y las almacenará y empaquetará en el dispositivo móvil hasta que pueda ser enviada a un servidor web, el cual vendrá establecido en el archivo de configuración.
-
-También se pensó en proveer algún mecanismo de autenticación, para poder identificar al usuario que toma las muestras, y de esta forma poder darle una devolución mostrándole información, o incentivarlo para que siga participando del proyecto a través de gamificación por ejemplo.
-Se pensó en poder iniciar sesión con alguna red social, como por ejemplo Facebook, Twitter, Instagram, Google+, etc. y como en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones), se decidió incluir autenticación con Google y dejar preparado para que el usuario pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña). Samplers también debería quedar preparado para agregar autenticación con otras redes sociales en un futuro.
 
 
 
