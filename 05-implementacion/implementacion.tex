@@ -4,7 +4,7 @@
 
 \subsection{Descripción del problema}
 
-Como se vio antes, se necesitaba de un [entorno/framework/algo] que permitiera a un científico poder crear una aplicación móvil con facilidad para poder incluir ciencia ciudadana en sus proyectos, mas precisamente, en proyectos de recolección.
+Como se vio antes, se necesitaba de un [entorno/framework/algo] que permitiera a un científico poder crear una aplicación móvil con facilidad para poder incluir ciencia ciudadana en sus proyectos de ciencia ciudadana, mas precisamente, en proyectos de recolección.
 
 La idea es que un científico pueda crear una aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. Por ejemplo, desde una página web armar el protocolo de recolección de las muestras y con el mismo poder generar una aplicación móvil que sirva para tomar las muestras siguiendo dicho protocolo.
 
@@ -20,11 +20,11 @@ El protocolo de recolección estaría compuesto por los diferentes pasos necesar
 
 Las muestras recolectadas con la aplicación deben ser enviadas por Internet a un servidor web previamente configurado para dicho propósito.
 
-La aplicación generada debe ser una aplicación nativa, y no una solución web por ejemplo, para poder aprovechar mejor las características de los dispositivos móviles (cámara, GPS, etc.). Además se debe contemplar que al momento de tomar una muestra es posible que no se cuente con conexión a Internet en el dispositivo móvil, pero igualmente se debe permitir la toma de la muestra y se la debe almacenar en el dispositivo móvil hasta que haya conexión a Internet y pueda ser enviada a un servidor web.
+La aplicación generada debe ser una aplicación nativa, y no una solución web por ejemplo, para poder aprovechar mejor las características de los dispositivos móviles (cámara, GPS, etc.). Además se debe contemplar que al momento de tomar una muestra es posible que no se cuente con conexión a Internet en el dispositivo móvil, pero igualmente se debe permitir la toma de la muestra y se la debe almacenar en el dispositivo móvil hasta que haya conexión a Internet y pueda ser enviada al servidor web.
 
-La aplicación generada debería servir para tomar muestras siguiendo el protocolo de recolección especificado, almacenarlas y empaquetarlas en el dispositivo móvil hasta que puedan ser enviada a un servidor web.
+La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado, almacenarlas y empaquetarlas en el dispositivo móvil hasta que puedan ser enviada al servidor web.
 
-Además de éstos pasos, se debería contemplar algún mecanismo para poder mostrar ayuda para el usuario final de la aplicación (el científico ciudadano) que sirviera de orientación para tomar la muestra. 
+Además se deberá contemplar algún mecanismo para poder mostrar ayuda para el usuario final de la aplicación (el científico ciudadano) que sirviera de orientación para tomar la muestra. 
 
 También se debe contemplar algún mecanismo de identificación del usuario que toma las muestras, con usuario y contraseña, o con alguna red social (Facebook, Twitter, Instagram, Google, etc.) para así poder darle una devolución mostrándole información, o incentivarlo para que siga participando del proyecto a través de gamificación por ejemplo.
 
@@ -41,10 +41,12 @@ y porque esta Sensr para iOS http://www.sensr.org]
 
 Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de desarrollo integrado (IDE) oficial es Android Studio\cite{androidStudio}, por lo que Samplers se apoya sobre el mismo. Android Studio ha sido publicado de forma gratuita bajo Licencia Apache 2.0 y está disponible para las plataformas Microsoft Windows, MacOS y GNU/Linux.
 
-\subsection{Descripción de la propuesta: Samplers}
+\subsection{Descripción de la solución propuesta: Samplers}
 Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
 
+**************************
 Es un framework de caja gris, ya que funciona instanciando y configurando las clases que se proveen...
+**************************
 
 Funciona de dos formas:
 \begin{itemize}
@@ -57,19 +59,17 @@ Funciona de dos formas:
 Si bien, como se mencionó antes, Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana de manera sencilla y sin tener conocimientos de programación, también se pensó para que un usuario programador pudiese modificar la aplicación generada, personalizando la pantalla principal, modificando la vista de un Step, o agregando uno propio que no esté en los que provee Samplers. También para que pudiese ser incluido en una aplicación ya comenzada o una que recién arranca.
 
 
-
-
-La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado y las almacenará y empaquetará en el dispositivo móvil hasta que pueda ser enviada a un servidor web, el cual vendrá establecido en el archivo de configuración.
+Samplers genera una aplicación Android que sirve para tomar muestras siguiendo el protocolo de recolección especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas al servidor web previamente configurado. 
 
 
 
 
 Samplers recibe un archivo de configuración y genera una aplicación lista para ejecutarse en un dispositivo móvil con Android.
 
-Para el archivo de configuración se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que armarlo a mano. En el mismo viene el workflow, que representa el protocolo de recolección de las muestras, y las demás configuraciones necesarias para armar la aplicación.
+Para el archivo de configuración se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que editarlo manualmente. En el mismo viene el workflow, que representa el protocolo de recolección de las muestras, y las demás configuraciones necesarias para armar la aplicación.
 
 
-También provee un mecanismo de identificación del usuario final de la aplicación usando su cuenta de Google, ya que en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones).  Ademas esta preparado para que el usuario del framework pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña) o con una API de alguna red social, como Facebook, Twitter, Instagram, etc.
+También provee un mecanismo de identificación del usuario final de la aplicación (el científico ciudadano) usando su cuenta de Google, ya que en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones).  Ademas esta preparado para que el usuario del framework pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña) o con una API de alguna red social, como Facebook, Twitter, Instagram, etc.
 
 
 
@@ -82,16 +82,6 @@ Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Ste
 Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo debería ser open source, por lo que se decidió usar un repositorio público en GitHub\cite{github} para dejar el código fuente disponible para todo el mundo.
 
 
-
-
-**FALTA DESARROLLAR**
-** Configurable o Extensible nosotros creo que hicimos los dos... ------------------------------------- **
-** Segun Spotters: **
-
-Al momento de comenzar a trasladar los conceptos de Spotters a un prototipo, se presentó  como  interrogante  cuál  sería  la  forma  que  tendría  el  programador  de  utilizar el  framework  para  poder  incluir  las  cuestiones  particulares  de  su  dominio.  Analizando diversas alternativas, se encontraron dos caminos posibles: Configuración y Extensión. 
-La  alternativa  de  Configuración  consiste  en  proveer  un  mecanismo  que  permita derivar el comportamiento de la instancia de Spotters a partir de información contenida en  un  archivo  con  directivas  o  una  base  de  datos.  La  alternativa  de Extensión,  consiste en  proveer  un  conjunto  de  clases  abstractas  que  el  programador  deba  sub  clasificar para crear las clases concretas necesarias para el funcionamiento de su instancia, tales como las preguntas que se realizan para la clasificación y los pasos del tutorial.
-
-** ------------------------------------------------------- **
 
 
 \subsection{FrozenSpots y HotSpots}
@@ -121,7 +111,7 @@ El framework está compuesto por dos conceptos muy importantes que definen qué 
 	\item Se puede definir nuevos steps personalizados, solo tienen que implementar la interfaz Step.
 	\item Se puede definir un archivo para mostrar ayuda (en HTML) para cada step y una general.
 	\item Se puede definir el servidor al cual se envían las muestras.
-	\item Se puede configurar para que se use autenticación, requerida u opcional para el usuario final de la aplicación, con Google y también se pueden agregar otros métodos propios de autenticación.
+	\item Se puede configurar para que se use identificación, requerida u opcional para el usuario final de la aplicación, con Google y también se pueden agregar otros métodos propios de identificación.
 	\item Se puede configurar para soportar múltiples idiomas.
 \end{itemize}
 
