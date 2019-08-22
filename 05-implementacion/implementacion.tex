@@ -138,9 +138,9 @@ A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCo
 \subsubsection{Workflow: el Protocolo de recolección de las muestras}
 La clase Workflow representa el protocolo de recolección de las muestras. Está formado por una colección de Steps, que representan los pasos a seguir para completar dicho protocolo, y un Step inicial que indica el inicio del mismo (el primer Step a ejecutar).
 
-El Workflow es el encargado de llevar el estado del paso en el que se encuentra, y posee operaciones para obtener el siguiente Step (\textit{nextStep()}  que depende del Step actual) y el Step anterior (\textit{previuosStep()}  para lo que maneja una lista a modo de stack).
+El Workflow es el encargado de llevar el estado del paso en el que se encuentra, y posee métodos para obtener el siguiente Step (\textit{nextStep()}  que depende del Step actual) y el Step anterior (\textit{previuosStep()}  para lo que maneja una lista a modo de pila\footnote{Stack en inglés, una lista ordenada con acceso a sus elementos de tipo «último en entrar, primero en salir»}).
 
-El Workflow es secuencial, puede ir hacia adelante o volver hacia atrás, pero esto no impide que pueda tener bifurcaciones, y así formar diferentes caminos para tomar la muestra. Por ejemplo, se le podría preguntar al científico ciudadano si observa una característica particular al momento de tomar la muestra, y si la observa solicitarle que tome una foto de la misma, pero en caso contrario se puede omitir el paso de la foto.
+El Workflow se comporta de manera secuencial, puede ir hacia adelante o volver hacia atrás, pero esto no impide que pueda tener bifurcaciones, y así formar diferentes caminos para tomar la muestra. Por ejemplo, se le podría preguntar al científico ciudadano si observa una característica particular al momento de tomar la muestra, y si la observa solicitarle que tome una foto de la misma, pero en caso contrario se puede omitir el paso de la foto.
 
 \subsubsection{Step: el Paso}
 Un Step representa un paso dentro del protocolo de recolección de las muestras (Workflow).
@@ -149,9 +149,9 @@ Se definió como una interfaz, ya que su comportamiento depende de la implementa
 
 El Step tiene asociado un StepFragment (la vista y controlador) que es el encargado de ejecutar el Step para generar un resultado (StepResult). El Step básicamente tiene los parámetros o información para que pueda ser ejecutado por el StepFragment, y no tiene mucho comportamiento.
 
-Por ejemplo, para el caso en que el paso sea contestar una pregunta, el Step tendrá la pregunta en sí (un String) y una colección con las posibles respuestas (id y descripción) .
+Por ejemplo, para el caso en que el paso sea contestar una pregunta, el Step tendrá la pregunta en sí (un String) y una colección con las posibles respuestas (id y descripción).
 
-El Step conoce cuál es el siguiente Step (su id) a ejecutar aunque a veces éste depende del StepResult generado, como es el caso de SelectOneStep en el que el siguiente paso depende de la opción seleccionada, y con esto se pueden crear bifurcaciones en el Workflow.
+El Step conoce cuál es el siguiente Step a ejecutar aunque a veces éste depende del StepResult generado, como es el caso de SelectOneStep en el que el siguiente paso depende de la opción seleccionada, y con esto se pueden crear bifurcaciones en el Workflow.
 
 Samplers provee los siguientes Steps:
 \begin{itemize}
@@ -224,22 +224,22 @@ Para pasar la muestra a un archivo JSON se usó Gson\cite{gson}, una librería d
 
 \subsection{Envío de Muestras a Servidor Web}
 
-Una vez guardadas localmente, las muestras se envían al servidor web previamente configurado, mediante un mensaje HTTP POST. Para ello se usó la librería OkHttp\cite{okhttp}, distribuida por Square Inc. bajo licencia Apache 2.0, que resuelve de manera sencilla y muy eficiente el envío de mensajes HTTP en Android.
+Una vez guardadas localmente, las muestras se envían al servidor web previamente configurado, mediante un mensaje HTTP POST. Para ello se usó la librería OkHttp\cite{okhttp}, distribuida por Square Inc. bajo licencia Apache 2.0, que resuelve de manera sencilla y eficiente el envío de mensajes HTTP en Android.
 
 Por cada muestra se envía el objeto Sample en formato JSON junto con los archivos multimedia que pudiera tener, todo comprimido en un solo archivo ZIP. Para comprimir las mismas se usaron las librerías estándares de Java (java.util.zip) que proporciona clases para leer y escribir archivos ZIP y GZIP estándares.
 
-Las muestras se envían automáticamente cuando se detecta conexión wi-fi o a petición del usuario.
+Las muestras se envían automáticamente cuando se detecta conexión wifi o a petición del usuario.
 
-Para el envío automático, se controla al momento de guardar la muestra si hay conexión wi-fi y se intenta enviar la muestra; caso contrario queda pendiente de envío y se intenta enviar cuando se detecta conexión wi-fi. Para el caso que es a petición del usuario, se listan las muestras tomadas en la SamplesListActivity con un botón que permite el envío de la misma usando cualquier tipo de conexión a Internet.
+Para el envío automático, se controla al momento de guardar la muestra si hay conexión wifi y se intenta enviar la muestra; caso contrario queda pendiente de envío y se intenta enviar cuando se detecta conexión wifi. Para el caso que es a petición del usuario, se listan las muestras tomadas en la SamplesListActivity con un botón que permite el envío de la misma usando cualquier tipo de conexión a Internet.
 
-\subsection{Autenticación}
-Samplers provee un sistema de autenticación (login), el cual se puede habilitar o no de acuerdo a las necesidades del proyecto. Si se habilita el mismo puede ser opcional, permitiendo al científico ciudadano tomar y enviar muestras habiéndose o no autenticado, o puede ser obligatorio, requiriendo que el científico ciudadano se autentifique para poder tomar y enviar las muestras.
+\subsection{Identificación}
+Samplers provee un sistema de identificación (login), el cual se puede habilitar o no de acuerdo a las necesidades del proyecto. Si se habilita el mismo puede ser opcional, permitiendo al científico ciudadano tomar y enviar muestras habiéndose o no identificado, o puede ser obligatorio, requiriendo que el científico ciudadano se identifique para poder tomar y enviar las muestras.
 
-De manera predeterminada Samplers incluye autenticación con la API de Google, es decir que el científico ciudadano puede usar su cuenta de Google que tiene configurada en el dispositivo móvil Android para autenticarse en la aplicación.
+De manera predeterminada Samplers incluye identificación con la API de Google, es decir que el científico ciudadano puede usar su cuenta de Google que tiene configurada en el dispositivo móvil Android para identificarse en la aplicación.
 
-Además, un usuario programador puede definir su propio método de autenticación, ya sea con usuario y contraseña o usando alguna otra API de redes sociales por ejemplo, como son Facebook, Twitter, etc. como se explica en la sección \ref{sec:usar_auth_propia}.
+Además, un usuario programador puede definir su propio método de identificación, ya sea con usuario y contraseña o usando alguna otra API de redes sociales por ejemplo, como son Facebook, Twitter, etc. como se explica en la sección \ref{sec:usar_auth_propia}.
 
-Cuando se envía la muestra también se incluyen dos parámetros que son el id del usuario autenticado y el método usado para autenticar (que puede ser google o uno personalizado). Se envían de esta forma porque al momento de tomar la muestra el científico ciudadano puede no estar autenticado, y autenticarse antes de enviarlas.
+Cuando se envía la muestra también se incluyen dos parámetros que son el id del usuario identificado y el método usado para identificar (que puede ser google o uno personalizado). Se envían de esta forma porque al momento de tomar la muestra el científico ciudadano puede no estar identificado, e identificarse antes de enviarlas.
 
 \subsection{Resto de la UI?? ANALIZAR}
 
