@@ -1,28 +1,27 @@
 \chapter{Marco Teórico}
-\section{Ciencia Ciudadana}
 		
 	
-\subsection{Introducción}
+\section{Introducción a la Ciencia Ciudadana}
     
     Ciencia Ciudadana es un termino que engloba las diferentes maneras en las que los ciudadanos participan en ciencia. Estas actividades pueden ser enviar información desde aplicaciones instaladas en sus dispositivos móviles acerca de especies invasivas, comportamiento de las aves, la cantidad de mariposas presentes al comienzo de la primavera o cualquier otro tema generalmente relacionado a la ecología y la conservación; como así también participar en debates locales de políticas que afectan directamente el ecosistema de una determinada ciudad o zona, como puede ser el fracking, la minería y los pesticidas en la agricultura y de esta manera influir en las políticas locales respecto de cómo regular esas actividades.\cite{envCitizenScience}
     
 	Algunos de estos proyectos cuantan con una larga historia de investigación (como el CBC, Christmas Bird Count), otros con gran cantidad de participantes, quienes interactúan a través de foros y aplicaciones web desde la comodidad de sus hogares (como sucede en proyectos como Zooniverse) o bien abarcando grandes extensiones geográficas (como puede ser en The Big Butterfly Count). \cite{shirk2012public} 
 		
-	Aunque la ciencia ciudadana no es un concepto nuevo (de hecho es más antiguo que el concepto de investigador como trabajo rentado), su notoriedad es relativamente reciente. Los científicos ciudadanos ahora participan de proyectos relacionados con el cambio climático, las especies invasivas, la conservación de ecosistemas biológicos, monitoreo de la calidad del agua y varios tópicos más. Esta popularidad se vio impulsada principalmente por tres factores:
+	Aunque la ciencia ciudadana no es un concepto nuevo, su notoriedad es relativamente reciente. Los científicos ciudadanos o voluntarios ahora participan de proyectos relacionados con el cambio climático, las especies invasivas, la conservación de ecosistemas biológicos, el monitoreo de la calidad del agua y varios tópicos más. Esta popularidad se vio impulsada principalmente por tres factores:
 
 \begin{itemize}
 	\item {Disponibilidad Tecnológica}
 	La disponibilidad de herramientas tecnológicas que permitan distribuir información acerca de los proyectos y también permitan recolectar la información generada por los voluntarios. De estas herramientas internet es la más representativa, pero la tecnología móvil está jugando un rol fundamental con la popularización de smartphones. \cite{silvertown2009new}
-	\item {Reconocimiento de los Profesionales del aporte de los voluntarios}
+	\item {Reconocimiento del Aporte de los Voluntarios por parte de los Profesionales}
 	La participación de voluntarios en un proyecto de investigación aporta diferentes atributos que pueden ser trabajo, poder de cómputo o habilidad \cite{cohn2008citizen}
-	\item {Inclusión del público general en proyectos científicos}
+	\item {Inclusión del Público General en Proyectos Científicos}
 	La mejor manera para que el común de la gente entienda y se involucre en proyectos científicos es siendo parte de ellos. \cite{silvertown2009new}
 \end{itemize} 
 
 	En ciencias como pueden ser la arqueología, la astronomía o las ciencias naturales la capacidad de observación es a veces es más importante que el equipamiento costoso. Los voluntarios o científicos ciudadanos realizan actividades como parte de un proyecto científico que está especialmente diseñado o bien fue adaptado para que cumplan un rol, ya sea para fines educativos de los mismos voluntarios o para beneficio del proyecto. En los mejores ejemplos, se benefician ambos: los voluntarios y el proyecto.\cite{silvertown2009new}
 	Para ello vamos a utilizar la clasificación provista por Wiggins and Crowston para tener un marco de lo que son los proyectos de recolección según esta clasificación, y por qué son los que mejor se relacionan con los proyectos de Ciencia Ciudadana en donde los colaboradores actúan como investigadores de campo recolectando muestras para introducirel tema de la toma y el envío de muestras recolectadas mediante aplicaciones móviles.	
 
-\subsubsection{Clasificación de Proyectos}	
+\section{Clasificación de los Proyectos de Ciencia Ciudadana}	
 
 \begin{itemize}
 	\item {Acción}
@@ -63,30 +62,29 @@
 	
 	Los proyectos de Ciencia Ciudadana buscan resultados que generalmente caen en tres grandes categorías: resultados que sirven a la investigación; resultados que le sirven a los participantes como pueden ser adquirir nuevas habilidades o conocimientos y/o resultados que tienen que ver con sistemas socio-ecológicos, como es influenciar políticas, construir bases para la toma de decisiones en una comunidad o participar de acciones para la conservación del medio ambiente. \cite{shirk2012public}
 
-\subsection{Proyectos de Recolección}	 
+\section{Proyectos de Recolección}	 
 	En los proyectos de recolección, según la clasificación antes descripta, es en donde Samplers  brindaría su aporte, ya que está pensado para crear aplicaciones Android que sirvan para recolectar muestras en proyectos de Ciencia Ciudadana.
 	
 	Hay tres puntos en los que se debe enfatizar para que los voluntarios pueden recolectar y enviar información confiable: proveer información clara acerca de los protocolos de recolección, proveer formularios para el ingreso de datos que sean lo más lógicos y simples posibles y por último brindar soporte para que los participantes entiendan cómo seguir los protocolos y cómo enviar la información.\cite{bonney2009citizen}
 
 \begin{itemize}
 	\item {Protocolos}	
-		Los datos que se obtienen en proyectos de Ciencia Ciudadana son recolectados mediante protocolos que especifican dónde, cuándo y cómo esos datos deben ser recolectados. Los protocolos deben definir un diseño formal o un plan de acción que permita combinar las muestras que fueron tomadas por múltiples participantes en diferentes ubicaciones para su posterior análisis. Los protocolos utilizados en proyectos de ciencia ciudadana deben ser fáciles de ejecutar, deben poder ser explicados de manera simple y directa, y deben ser desafiantes para los voluntarios.\cite{bonney2009citizen}
+			Los datos que se obtienen en proyectos de Ciencia Ciudadana son recolectados mediante protocolos que especifican dónde, cuándo y cómo esos datos deben ser recolectados. Los protocolos deben definir un diseño formal o un plan de acción que permita combinar las muestras que fueron tomadas por múltiples participantes en diferentes ubicaciones para su posterior análisis. Los protocolos utilizados en proyectos de ciencia ciudadana deben ser fáciles de ejecutar, deben poder ser explicados de manera simple y directa, y deben ser desafiantes para los voluntarios.\cite{bonney2009citizen}
 		Como se explica más adelante, la implementación del protocolo de recolección de muestras es el workflow de Samplers.
+		
 	\item {Formularios de ingreso de Datos}	
 			En conjunto con un protocolo de recolección bien diseñado están los formularios de ingreso de datos. Los formularios en los que los usuarios ingresan sus observaciones deben ser fáciles de entender y completar. En cada paso de su wokflow, Samplers provee formularios de ingreso de datos que pueden ser preguntas de respuesta simple o compuesta (como componentes radio o checkbox), permite sacar fotografías o informar una ubicación entre otras funcionalidad provistas. 
 			Es recomendable definir límites en el rango de datos que los formularios recogen para simplificar su posterior análisis. Por ejemplo, si la respuesta esperada a la pregunta 'Cuántos árboles cuenta en una cuadra' debería ser un número entre cero y 15 una respuesta como 150 podría indicar un error de tipeo. Entonces, es aconsejable pedirle al usuario que reporta que chequee si la información ingresada es correcta. De esta manera, los usuarios pueden revisar sus respuestas cvuando están fuera de los rangos establecidos. Aun así, suponiendo que el usuario indique un respuesta de esas características, es decir, una respuesta que se salga de los límites esperados; ese formulario debería guardarse con alguna marca que permita identificarlo para que los responsables del proyecto puedan analizarlo con más detalle y ver si se debe a un cambio en el entorno que está siendo observado o si es realmente un error de ingreso de datos del usuario.
 			
-		
 	\item {Material Educativo}
+		Los participantes deben ser provistos de material educativo para entender y seguir de manera satisfactoria los protocolos del proyecto. El material educativo puede incluir guías de identificación, posters, manuales, videos, podcasts, listas de correo y FAQ para que los participantes puedan consultar e incluso participar en foros y discusiones acerca del relevamiento que están haciendo o de cómo se espera que completen los formularios provistos. 
+		Samplers ofrece ayuda en cada formulario o ventana de ingreso de datos que puede ser configurada para brindar información acerca de cómo se espera que el voluntario la complete.
+		
 \end{itemize} 
 
 	
-\subsubsection{Calidad de la Información Obtenida}	
+\section{Ciencia Ciudadana y Dispositivos Móviles}	
 
-Depender de voluntarios no es lo mismo que depender de asistentes. Los voluntarios pueden cometer errores y pueden no entender completamente el contexto del proyecto de investigación. Se destacan dos motivos para utilizar voluntarios: uno de ellos económico y el otro es educativo. Incluir voluntarios permite recolectar datos grandes extensiones geográficas y durante largos períodos de tiempo, que de otra manera no se podrían obtener. Esto sirve para detectar anomalías en la información y comparar datos entre áreas o períodos de tiempo entre otros. Incluir voluntarios hace que los participantes tomen contacto con el mundo natural y participen en el proceso de hacer ciencia. Los proyectos que incluyen ciencia ciudadana muchas veces buscan involucrar a la comunidad de esa manera: haciendo ciencia con sus propias manos.
-
-Con respecto a la calidad de los datos generados, los voluntarios pueden manejar equipamiento, leer resultados y recolectar datos tan bien como cualquier científico o asistente si se les explica cómo hacerlo. Muchas veces recolectar datos no es más que sacar una foto y adjuntarla a un correo electrónico. De todas maneras, los pasos de la recolección de datos deben estar pensados para científicos ciudadanos. También hay que corroborar los datos para determinar si realmente son fiables. En los primeros proyectos de ciencia ciudadana los datos no eran lo suficientemente precisos. Los datos generados por los voluntarios son más parecidos a un rango de valores que a valores específicos y hace más complejo el proceso de obtener resultados comparables o respaldar conclusiones. 
-
-Es recomendable no solicitar que los voluntarios recolecten información compleja y detallada. Pero no es una regla que hay que cumplir. Los voluntarios de proyectos de ciencia ciudadana son en su mayoría científicos, profesores con sus estudiantes, mochileros, integrantes de grupos de conservación, es decir, gente que disfruta del aire libre y que tiene conocimientos sobre temas de biología o ecología y muchas veces son expertos en el tema de investigación. Una estrategia que utilizan los investigadores es entrenar asistentes que tomen muestras en los mismos lugares que los voluntarios y medir los resultados de unos y otros. De esa manera pueden establecer un parámetro de calidad de la información reportada. En un proyecto de investigación que busca identificar cangrejos nativos de la zona con introducidos, en la Costa Atlántica desde New Jersey hasta Maine, encontraron que las tasas de aciertos a la hora de identificar los especímenes es del 95 por ciento para alumnos de séptimo grado y del ochenta por ciento para alumnos de tercer grado. Esta tasa es bastante aceptable para la mayoría de los estudios de ecología. Estos datos sirven para que los investigadores midan la expansión de especies invasoras y puedan generar estrategias de control. \cite{cohn2008citizen}
+Para hablar de esto tengo que agarrar el paper de Sensr y el de The Future of Citizen Science
 
 
