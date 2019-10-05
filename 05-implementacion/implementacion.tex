@@ -43,6 +43,8 @@ Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de
 \subsection{Descripción de la solución propuesta: Samplers}
 Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
 
+Configurando el protocolo de recolección (Workflow en Samplers)
+
 **************************
 Es un framework de caja gris, ya que funciona instanciando y configurando las clases que se proveen... 
 **************************
@@ -75,7 +77,7 @@ Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Ste
 
 
 
-Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo debería ser open source, por lo que se decidió usar un repositorio público en GitHub\cite{github} para dejar el código fuente disponible para todo el mundo.
+Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo es open source y se usó un repositorio público en GitHub\cite{github} para dejar el código fuente disponible para todo el mundo.
 
 
 
@@ -233,7 +235,7 @@ Samplers provee un sistema de identificación (login), el cual se puede habilita
 
 De manera predeterminada Samplers incluye identificación con la API de Google, es decir que el científico ciudadano puede usar su cuenta de Google que tiene configurada en el dispositivo móvil Android para identificarse en la aplicación.
 
-Además, un usuario programador puede definir su propio método de identificación, ya sea con usuario y contraseña o usando alguna otra API de redes sociales por ejemplo, como son Facebook, Twitter, etc. como se explica en la sección \ref{sec:usar_auth_propia}.
+Además, un usuario programador del framework puede definir su propio método de identificación, ya sea con usuario y contraseña o usando alguna otra API de redes sociales por ejemplo, como son Facebook, Instagram, Twitter, etc. como se explica en la sección \ref{sec:usar_auth_propia}.
 
 Cuando se envía la muestra también se incluyen dos parámetros que son el id del usuario identificado y el método usado para identificar (que puede ser google o uno personalizado). Se envían de esta forma porque al momento de tomar la muestra el científico ciudadano puede no estar identificado, e identificarse antes de enviarlas.
 
