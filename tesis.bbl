@@ -19,13 +19,16 @@ J.~Zobel, {\em {Another Title}}.
 J.~Silvertown, ``A new dawn for citizen science,'' {\em Trends in ecology \&
   evolution}, vol.~24, no.~9, pp.~467--471, 2009.
 
-\bibitem{bartling2014opening}
-S.~Bartling and S.~Friesike, {\em Opening science: The evolving guide on how
-  the internet is changing research, collaboration and scholarly publishing}.
-\newblock Springer, 2014.
+\bibitem{envCitizenScience}
+E.~C.~D. Environment, ``Science for environment policy indepth report:
+  Environmental citizen science,'' {\em Science Communication Unit, University
+  of the West of England, Bristol}, vol.~9, 2013.
 
-\bibitem{CBC}
-{Audubon}, ``{History of the Christmas Bird Count}.''
+\bibitem{shirk2012public}
+J.~L. Shirk, H.~L. Ballard, C.~C. Wilderman, T.~Phillips, A.~Wiggins,
+  R.~Jordan, E.~McCallie, M.~Minarchek, B.~V. Lewenstein, M.~E. Krasny, {\em
+  et~al.}, ``Public participation in scientific research: a framework for
+  deliberate design,'' {\em Ecology and Society}, vol.~17, no.~2, 2012.
 
 \bibitem{cohn2008citizen}
 J.~P. Cohn, ``Citizen science: Can volunteers do real research?,'' {\em AIBS
@@ -37,11 +40,27 @@ J.~P. Cohn, ``Citizen science: Can volunteers do real research?,'' {\em AIBS
 \bibitem{FossilFinders}
 {Fossil Finders}, ``{What is Fossil Finders?}.''
 
-\bibitem{shirk2012public}
-J.~L. Shirk, H.~L. Ballard, C.~C. Wilderman, T.~Phillips, A.~Wiggins,
-  R.~Jordan, E.~McCallie, M.~Minarchek, B.~V. Lewenstein, M.~E. Krasny, {\em
-  et~al.}, ``Public participation in scientific research: a framework for
-  deliberate design,'' {\em Ecology and Society}, vol.~17, no.~2, 2012.
+\bibitem{INDEC}
+{INDEC}, ``{Acceso y uso de tecnologías de la información y la
+  comunicación}.''
+
+\bibitem{carrier}
+{Carrier y Asoc.}, ``Mercado celular argentino 2019.''
+  https://carrieryasoc.com/index.php/2019/04/10/mercado-celular-argentino-2019/,
+  Agosto 2019.
+\newblock [Online; último acceso: Noviembre/2019].
+
+\bibitem{kim2013sensr}
+S.~Kim, J.~Mankoff, and E.~Paulos, ``Sensr: evaluating a flexible framework for
+  authoring mobile data-collection tools for citizen science,'' in {\em
+  Proceedings of the 2013 conference on Computer supported cooperative work},
+  pp.~1453--1462, ACM, 2013.
+
+\bibitem{newman2012future}
+G.~Newman, A.~Wiggins, A.~Crall, E.~Graham, S.~Newman, and K.~Crowston, ``The
+  future of citizen science: emerging technologies and shifting paradigms,''
+  {\em Frontiers in Ecology and the Environment}, vol.~10, no.~6, pp.~298--304,
+  2012.
 
 \bibitem{burke2006participatory}
 J.~A. Burke, D.~Estrin, M.~Hansen, A.~Parker, N.~Ramanathan, S.~Reddy, and
@@ -50,12 +69,6 @@ J.~A. Burke, D.~Estrin, M.~Hansen, A.~Parker, N.~Ramanathan, S.~Reddy, and
 \bibitem{johnson1988designing}
 R.~E. Johnson and B.~Foote, ``Designing reusable classes,'' {\em Journal of
   object-oriented programming}, vol.~1, no.~2, pp.~22--35, 1988.
-
-\bibitem{kim2013sensr}
-S.~Kim, J.~Mankoff, and E.~Paulos, ``Sensr: evaluating a flexible framework for
-  authoring mobile data-collection tools for citizen science,'' in {\em
-  Proceedings of the 2013 conference on Computer supported cooperative work},
-  pp.~1453--1462, ACM, 2013.
 
 \bibitem{gartner}
 {Gartner}, ``Gartner says worldwide sales of smartphones grew 7 percent in the
