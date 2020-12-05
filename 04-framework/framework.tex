@@ -32,13 +32,67 @@
 \subsection{Jerarquías y Composición}
 De qué manera los frameworks permiten que los usuarios los configuren y les pongan comportamiento
 
-\subsection{El Entorno de Android}
-Herencia de las clases Activity y Fragment como principal herramienta para implementar código nativo Android.
+\section{El Entorno de Android}
 
 Android es un sistema operativo móvil desarrollado por Google, basado en Kernel de Linux. Si bien está pensado para diferentes dispositivos móviles con pantalla táctil como teléfonos inteligentes, tablets, relojes inteligentes (Wear OS), automóviles (Android Auto) y televisores (Android TV), 
 
-\subsection{Estado del Arte}
-\subsubsection{Sensr: un framework flexible para crear herramientas de recolección de datos con dispositivos móviles para ciencia ciudadana}
+
+Para escribir aplicaciones (app) para Android, se pueden usar los lenguajes Java, Kotlin y C++. Las herramientas de Android SDK compilan el código, junto con los archivos de recursos y datos, en un APK: un paquete de Android, que es un archivo de almacenamiento con el sufijo .apk. Un archivo APK incluye todos los contenidos de una app de Android y es el archivo que usan los dispositivos con tecnología Android para instalar la app.
+
+Cada app de Android reside en su propio entorno aislado de seguridad y está protegida por las siguientes características de seguridad de Android:
+\begin{itemize}
+	\item El sistema operativo Android es un sistema Linux multiusuario en el que cada app es un usuario diferente.
+	\item De forma predeterminada, el sistema le asigna a cada app un ID de usuario de Linux único (solo el sistema utiliza el ID y la app lo desconoce). El sistema establece permisos para todos los archivos en una app de modo que solo el ID de usuario asignado a esa app pueda acceder a ellos.
+	\item Cada proceso tiene su propia máquina virtual (VM), por lo que el código de una app se ejecuta de forma independiente de otras apps.
+	\item De forma predeterminada, cada app ejecuta su propio proceso de Linux. El sistema Android inicia el proceso cuando se requiere la ejecución de alguno de los componentes de la app y, luego, lo cierra cuando el proceso ya no es necesario o cuando el sistema debe recuperar memoria para otras apps.
+\end{itemize}
+
+De esta manera, el sistema Android implementa el principio de mínimo privilegio. Es decir, de forma predeterminada, cada app tiene acceso solo a los componentes que necesita para llevar a cabo su trabajo y nada más. Esto crea un entorno muy seguro, en el que una app no puede acceder a partes del sistema para las que no tiene permiso. Sin embargo, hay maneras en las que una app puede compartir datos con otras apps y en las puede acceder a servicios del sistema solicitando permiso para acceder a datos del dispositivo, como los contactos de un usuario, los mensajes de texto, el dispositivo de almacenamiento (tarjeta SD), la cámara y la conexión Bluetooth. El usuario debe conceder de manera explícita estos permisos. 
+
+\cite{androidDocs}
+
+\subsection{Activities}
+La clase Activity es un componente clave de una app para Android, y la forma en que se inician y se crean las Activities es una parte fundamental del modelo de aplicación de la plataforma. A diferencia de los paradigmas de programación en los que las apps se inician con un método main(), el sistema Android inicia el código en una instancia de Activity invocando métodos de devolución de llamada específicos que corresponden a etapas específicas de su ciclo de vida. 
+
+La experiencia con la app para dispositivos móviles difiere de la versión de escritorio, ya que la interacción del usuario con la app no siempre comienza en el mismo lugar. En este caso, no hay un lugar específico desde donde el usuario comienza su actividad. Por ejemplo, si abres una app de correo electrónico desde la pantalla principal, es posible que veas una lista de correos electrónicos. Por el contrario, si usas una app de redes sociales que luego inicia tu app de correo electrónico, es posible que accedas directamente a la pantalla de la app de correo electrónico para redactar uno.
+
+La clase Activity está diseñada para facilitar este paradigma y se debe heredar de ella para implementar las Activities de una app. 
+
+Cuando una app invoca a otra, la app que realiza la llamada invoca una Activity en la otra, en lugar de a la app en sí. De esta manera, la Activity sirve como el punto de entrada para la interacción de una app con el usuario
+
+Una Activity proporciona la ventana en la que la app dibuja su IU. Por lo general, esta ventana llena la pantalla, pero puede ser más pequeña y flotar sobre otras ventanas. Generalmente, una Activity implementa una pantalla en una app. Por ejemplo, una Activity de una app puede implementar una pantalla Preferencias mientras otra implementa una pantalla Seleccionar foto. 
+
+Cada Activity administra su propio diseño, que se carga desde un archivo XML en donde se definen los diferentes elementos de diseño (existen herramientas en las que se puede definir el diseño visualmente y éste se traduce al formato XML). Un diseño define la estructura de una interfaz de usuario está compuesto por una jerarquía de objetos View y ViewGroup. Una View suele mostrar un elemento que el usuario puede ver y con el que puede interactuar; suelen llamarse 'widgets' y pueden ser una de las muchas subclases, como Button (que muestra un botón) o TextView (que muestra un texto). Por su parte, ViewGroup es un contenedor invisible que define la estructura de diseño de View y otros objetos ViewGroup; se denominan generalmente 'layouts'  y pueden ser de muchos tipos que proporcionan una estructura diferente, como LinearLayout (que posiciona los elementos de forma linear, ya sea horizontal o verticalmente) o RelativeLayout (que posiciona los elementos en relación a otros elementos o a los bordes de la pantalla).
+También se puede crear el diseño de una Activity declarando instancias de elementos de diseño en tiempo de ejecución.
+\cite{androidDocs}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.4]{04-framework/activity_lifecycle.png} 
+   \caption{Ciclo de vida de una Activity}
+   \label{fig:umlFrameworkCore}
+\end{figure}
+
+
+\subsection{Fragments}
+Un Fragment representa una sección modular y reusable de la IU de una Activity, el cual se puede agregar o quitar mientras la Activity se esté ejecutando (algo así como una "sub-Activity"). Se pueden combinar varios Fragments en una sola Activity para crear una IU multipanel y volver a usar un Fragment en diferentes Activities.
+
+Un Fragment define y administra su propio diseño, su propio ciclo de vida, y recibe sus propios eventos de entrada. Un Fragment no puede "vivir" por si mismo, debe ser hospedado por una Activity, y el ciclo de vida del Fragment se ve afectado directamente por el ciclo de vida de la Activity anfitriona. Por ejemplo, cuando la Activity está pausada, también lo están todos sus Fragments, y cuando la Activity se destruye, lo mismo ocurre con todos los Fragments.
+\cite{androidDocs}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.4]{04-framework/fragment_lifecycle.png} 
+   \caption{Ciclo de vida de un Fragment}
+   \label{fig:umlFrameworkCore}
+\end{figure}
+
+\subsection{Services}
+...
+
+
+\section{Estado del Arte}
+\subsection{Sensr: un framework flexible para crear herramientas de recolección de datos con dispositivos móviles para ciencia ciudadana}
 
 	Los dispositivos móviles son ideales para que las personas puedan de manera espontánea recolectar información. Sin embargo, esa simplicidad yace sobre una base que requiere fuertes conocimientos técnicos una infraestructura compleja. Por lo tanto, construir aplicaciones móviles implican una inversión que puede ser limitante para organizaciones pequeñas. Sensr es una herramienta que permite que personas que no son desarrolladoras tengan la posibilidad de crear herramientas que permitan la recolección de información para proyectos de ciencia ciudadana con dispositivos móviles. Esta herramienta aprovecha que el proceso y la estructura de la información en las actividades de recolección de datos de los proyectos de ciencia ciudadana son similares independientemente del dominio o la diversidad de los mismos. Sensr combina un ambiente de programación gráfico con una aplicación móvil para que las personas que no necesariamente poseen conocimientos técnicos puedan construir herramientas de recolección de información para dispositivos móviles y administrar la información recabada de manera colectiva.
 	
