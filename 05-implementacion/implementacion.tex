@@ -135,15 +135,18 @@ A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCo
 \end{figure}
 
 
-\subsubsection{Workflow: el Protocolo de recolección de las muestras}
+\subsubsection{Workflow: el protocolo de recolección de las muestras}
 La clase Workflow representa el protocolo de recolección de las muestras. Está formado por una colección de Steps, que representan los pasos a seguir para completar dicho protocolo, y un Step inicial que indica el inicio del mismo (el primer Step a ejecutar).
 
 El Workflow es el encargado de llevar el estado del paso en el que se encuentra, y posee métodos para obtener el siguiente Step (\textit{nextStep()}  que depende del Step actual) y el Step anterior (\textit{previuosStep()}  para lo que maneja una lista a modo de pila\footnote{Stack en inglés, una lista ordenada con acceso a sus elementos de tipo «último en entrar, primero en salir»}).
 
 El Workflow se comporta de manera secuencial, puede ir hacia adelante o volver hacia atrás, pero esto no impide que pueda tener bifurcaciones, y así formar diferentes caminos para tomar la muestra. Por ejemplo, se le podría preguntar al científico ciudadano si observa una característica particular al momento de tomar la muestra, y si la observa solicitarle que tome una foto de la misma, pero en caso contrario se puede omitir el paso de la foto.
 
-\subsubsection{Step: el Paso}
-Un Step representa un paso dentro del protocolo de recolección de las muestras (Workflow).
+\subsubsection{Step: el paso}
+Un Step representa un paso dentro del Workflow.
+
+### ACA FALTA CORREGIR  ###
+
 
 Se definió como una interfaz, ya que su comportamiento depende de la implementación de cada tipo de Step que se defina. Con esto también se evita que los Steps creados por los usuarios programadores tengan que heredar de una clase en particular, y solo necesiten implementar la interfaz.
 
@@ -184,7 +187,7 @@ Por cada Step que provee Samplers de manera predeterminada, también se provee u
 
 
 
-\subsubsection{StepResult: el Resultado de la ejecución de un Paso}
+\subsubsection{StepResult: el resultado de la ejecución de un Step}
 El StepResult representa el resultado que se obtiene de ejecutar un Step. Contiene los datos obtenidos de ejecutar el Step asociado. Cada ejecución de un mismo Step, puede generar un StepResult diferente.
 
 Por ejemplo, para el caso en que el paso (Step) sea contestar una pregunta, el StepResult contendrá la respuesta seleccionada, si solo se admite seleccionar una única respuesta, o una colección de respuestas, si se permite seleccionar más de una.
@@ -201,7 +204,7 @@ También guarda fecha y hora de inicio y finalización. Esto es útil para sacar
 
 Una vez recolectadas, las muestras se guardan el dispositivo móvil y son enviadas a través de Internet a un servidor web previamente configurado.
 
-\subsection{TakeSampleActivity: Toma de la Muestra}
+\subsection{TakeSampleActivity: toma de la muestra}
 La clase TakeSampleActivity es la encargada de ejecutar el Worflow para tomar la muestra. Es una activity que recibe un objeto Workflow como parámetro y va iterando sobre los Steps del mismo. A cada Step le pide su StepFragment y lo muestra en pantalla para que, interactuando con el científico ciudadano, se genere el StepResult para la muestra (Sample). Una vez finalizado el Workflow, guarda la muestra, controla si se puede enviar la mima y finaliza.
 
 
@@ -222,7 +225,7 @@ Por ejemplo, una muestra con id 123456 y 2 fotos se guarda de la siguiente maner
 
 Para pasar la muestra a un archivo JSON se usó Gson\cite{gson}, una librería de Google distribuida bajo licencia Apache 2.0 que convierte objetos Java a JSON y viceversa de manera muy sencilla, con métodos \textit{toJson()} y \textit{fromJson()} para convertir hacia y desde JSON respectivamente.
 
-\subsection{Envío de Muestras a Servidor Web}
+\subsection{Envío de muestras a servidor web}
 
 Una vez guardadas localmente, las muestras se envían al servidor web previamente configurado, mediante un mensaje HTTP POST. Para ello se usó la librería OkHttp\cite{okhttp}, distribuida por Square Inc. bajo licencia Apache 2.0, que resuelve de manera sencilla y eficiente el envío de mensajes HTTP en Android.
 

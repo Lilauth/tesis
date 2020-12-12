@@ -47,7 +47,7 @@ Cada app de Android reside en su propio entorno aislado de seguridad y está pro
 	\item De forma predeterminada, cada app ejecuta su propio proceso de Linux. El sistema Android inicia el proceso cuando se requiere la ejecución de alguno de los componentes de la app y, luego, lo cierra cuando el proceso ya no es necesario o cuando el sistema debe recuperar memoria para otras apps.
 \end{itemize}
 
-De esta manera, el sistema Android implementa el principio de mínimo privilegio. Es decir, de forma predeterminada, cada app tiene acceso solo a los componentes que necesita para llevar a cabo su trabajo y nada más. Esto crea un entorno muy seguro, en el que una app no puede acceder a partes del sistema para las que no tiene permiso. Sin embargo, hay maneras en las que una app puede compartir datos con otras apps y en las puede acceder a servicios del sistema solicitando permiso para acceder a datos del dispositivo, como los contactos de un usuario, los mensajes de texto, el dispositivo de almacenamiento (tarjeta SD), la cámara y la conexión Bluetooth. El usuario debe conceder de manera explícita estos permisos. 
+De esta manera, el sistema Android implementa el principio de mínimo privilegio. Es decir, de forma predeterminada, cada app tiene acceso solo a los componentes que necesita para llevar a cabo su trabajo y nada más. Esto crea un entorno muy seguro, en el que una app no puede acceder a partes del sistema para las que no tiene permiso. Sin embargo, hay maneras en las que una app puede compartir datos con otras apps y en las que puede acceder a servicios del sistema solicitando permiso para acceder a datos del dispositivo, como los contactos de un usuario, los mensajes de texto, el dispositivo de almacenamiento (tarjeta SD), la cámara y la conexión Bluetooth. El usuario debe conceder de manera explícita estos permisos. 
 
 \cite{androidDocs}
 
@@ -64,7 +64,29 @@ Una Activity proporciona la ventana en la que la app dibuja su IU. Por lo genera
 
 Cada Activity administra su propio diseño, que se carga desde un archivo XML en donde se definen los diferentes elementos de diseño (existen herramientas en las que se puede definir el diseño visualmente y éste se traduce al formato XML). Un diseño define la estructura de una interfaz de usuario está compuesto por una jerarquía de objetos View y ViewGroup. Una View suele mostrar un elemento que el usuario puede ver y con el que puede interactuar; suelen llamarse 'widgets' y pueden ser una de las muchas subclases, como Button (que muestra un botón) o TextView (que muestra un texto). Por su parte, ViewGroup es un contenedor invisible que define la estructura de diseño de View y otros objetos ViewGroup; se denominan generalmente 'layouts'  y pueden ser de muchos tipos que proporcionan una estructura diferente, como LinearLayout (que posiciona los elementos de forma linear, ya sea horizontal o verticalmente) o RelativeLayout (que posiciona los elementos en relación a otros elementos o a los bordes de la pantalla).
 También se puede crear el diseño de una Activity declarando instancias de elementos de diseño en tiempo de ejecución.
+
+El sistema Android administra las Activities como una pila (stack). Cuando se crea una nueva Activity, esta es puesta en la cima de la pila actual y se convierte en la Activity actual; la Activity anterior siempre permanece abajo en la pila, y no vuelve a estar en primer plano de nuevo hasta que la nueva Activity finalice, y puede haber una o muchas Activities en la pila.
+Es por esto que a lo largo de su vida útil, una Activity pasa por varios estados. Para administrar las transiciones entre estados, se deben usar una serie de devoluciones de llamadas.
+
+Una Activity tiene básicamente cuatro estados:
+
+\begin{itemize}
+	\item Si una Activity esta en primer plano de la pantalla (en la posición más alta de la pila) está 'activa' o 'running'. Es generalmente la Activity con la que el usuario está interactuando.
+	\item Si una Activity ha perdido el foco pero todavía se muestra al usuario, entonces está 'visible'. Esto sucede cuando hay otra Activity 
+	\item 
+	\item 
+\end{itemize}
+
+
+If an activity has lost focus but is still presented to the user, it is visible. It is possible if a new non-full-sized or transparent activity has focus on top of your activity, another activity has higher position in multi-window mode, or the activity itself is not focusable in current windowing mode. Such activity is completely alive (it maintains all state and member information and remains attached to the window manager).
+
+If an activity is completely obscured by another activity, it is stopped or hidden. It still retains all state and member information, however, it is no longer visible to the user so its window is hidden and it will often be killed by the system when memory is needed elsewhere.
+
+The system can drop the activity from memory by either asking it to finish, or simply killing its process, making it destroyed. When it is displayed again to the user, it must be completely restarted and restored to its previous state.
+
 \cite{androidDocs}
+\\
+The following diagram shows the important state paths of an Activity. The square rectangles represent callback methods you can implement to perform operations when the Activity moves between states. The colored ovals are major states the Activity can be in.
 
 \begin{figure}[H]
   \centering
