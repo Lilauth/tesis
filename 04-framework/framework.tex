@@ -34,8 +34,9 @@ De qué manera los frameworks permiten que los usuarios los configuren y les pon
 
 \section{El Entorno de Android}
 
-Android es un sistema operativo móvil desarrollado por Google, basado en Kernel de Linux. Si bien está pensado para diferentes dispositivos móviles con pantalla táctil como teléfonos inteligentes, tablets, relojes inteligentes (Wear OS), automóviles (Android Auto) y televisores (Android TV), 
+Android es un sistema operativo móvil desarrollado por Google, basado en Kernel de Linux. Está pensado para diferentes dispositivos móviles con pantalla táctil como teléfonos inteligentes, tablets, relojes inteligentes (Wear OS), automóviles (Android Auto) y televisores (Android TV).
 
+Inicialmente fue desarrollado por Android Inc., adquirido por Google en 2005 y presentado en 2007 junto con la fundación del Open Handset Alliance (un consorcio de compañías de hardware, software y telecomunicaciones) para avanzar en los estándares abiertos de los dispositivos móviles. El código fuente principal de Android se conoce como Android Open Source Project (AOSP), que se licencia principalmente bajo la Licencia Apache. Android es el sistema operativo móvil más utilizado del mundo, con una cuota de mercado superior al 90\% al año 2018, muy por encima de IOS. \cite{carrier}
 
 Para escribir aplicaciones (app) para Android, se pueden usar los lenguajes Java, Kotlin y C++. Las herramientas de Android SDK compilan el código, junto con los archivos de recursos y datos, en un APK: un paquete de Android, que es un archivo de almacenamiento con el sufijo .apk. Un archivo APK incluye todos los contenidos de una app de Android y es el archivo que usan los dispositivos con tecnología Android para instalar la app.
 
@@ -47,8 +48,26 @@ Cada app de Android reside en su propio entorno aislado de seguridad y está pro
 	\item De forma predeterminada, cada app ejecuta su propio proceso de Linux. El sistema Android inicia el proceso cuando se requiere la ejecución de alguno de los componentes de la app y, luego, lo cierra cuando el proceso ya no es necesario o cuando el sistema debe recuperar memoria para otras apps.
 \end{itemize}
 
-De esta manera, el sistema Android implementa el principio de mínimo privilegio. Es decir, de forma predeterminada, cada app tiene acceso solo a los componentes que necesita para llevar a cabo su trabajo y nada más. Esto crea un entorno muy seguro, en el que una app no puede acceder a partes del sistema para las que no tiene permiso. Sin embargo, hay maneras en las que una app puede compartir datos con otras apps y en las que puede acceder a servicios del sistema solicitando permiso para acceder a datos del dispositivo, como los contactos de un usuario, los mensajes de texto, el dispositivo de almacenamiento (tarjeta SD), la cámara y la conexión Bluetooth. El usuario debe conceder de manera explícita estos permisos. 
+De esta manera, el sistema Android implementa el principio de mínimo privilegio. Es decir, de forma predeterminada, cada app tiene acceso solo a los componentes que necesita para llevar a cabo su trabajo y nada más. Esto crea un entorno muy seguro, en el que una app no puede acceder a partes del sistema para las que no tiene permiso. Sin embargo, hay maneras en las que una app puede compartir datos con otras apps y en las que puede acceder a servicios del sistema solicitando permiso para acceder a datos del dispositivo, como los contactos de un usuario, los mensajes de texto, el dispositivo de almacenamiento (tarjeta SD), la cámara, la conexión Bluetooth, etc. El usuario debe conceder de manera explícita estos permisos.
 
+Una app en Android esta compuesta por uno o varios componentes de app. Los componentes de app son los bloques de compilación fundamentales, y cada uno es un punto de entrada a través del cual el sistema o un usuario puede entrar a la app. Algunos componentes dependen unos de otros y hay 4 tipos diferentes de componentes de app. Cada tipo sirve para diferentes propósitos y tienen diferentes ciclos de vida que definen como se crea y destruye el componente. Los 4 tipos de componentes de app son:
+
+\begin{itemize}
+	\item \textbf{Activities:} Una Activity es un punto de entrada para interactuar con el usuario. Representa una simple pantalla con interfaz de usuario.
+	
+	\item \textbf{Services:} Un Service es un punto de entrada de propósito general para mantener una app corriendo en segundo plano por múltiples razones. Es un componente que corre en segundo plano para realizar operaciones de larga duración o procesar trabajos para un proceso remoto. Un Service no proporciona una interfaz de usuario.
+	
+	\item \textbf{BroadcastReceivers:} Un BroadcastReceiver es un componente que habilita al sistema a entregar eventos a una app fuera del flujo de usuario regular, permitiendo a la app responder a una gran variedad de anuncios del sistema. Como los BroadcastReceivers son otro punto de entrada a una app, el sistema puede entregar eventos de difusión a apps que incluso no se estén ejecutando en ese momento.
+	
+	
+	\item \textbf{ContentProviders:} Un ContentProvider administra un conjunto de datos de la app que se pueden compartir y que se almacenan en el sistema de archivos, en una base de datos SQLite, en la web, o en cualquier otro almacenamiento persistente. A través del ContentProvider, otras apps pueden consultar o modificar los datos si el ContentProvider lo permite.
+	
+	
+\end{itemize}
+
+Más adelante se explican con más detalle los componentes que influyeron en el desarrollo de Samplers.
+
+Un aspecto único del diseño del sistema Android es que cualquier app puede iniciar un componente de otra app (por medio de una petición al sistema). Por ejemplo, si se desea tomar una foto con la cámara del dispositivo, seguramente ya hay otra app que lo hace, y se puede llamar a esa app en lugar de desarrollar una Activity que tome una foto.
 \cite{androidDocs}
 
 \subsection{Activities}
@@ -72,21 +91,13 @@ Una Activity tiene básicamente cuatro estados:
 
 \begin{itemize}
 	\item Si una Activity esta en primer plano de la pantalla (en la posición más alta de la pila) está 'activa' o 'running'. Es generalmente la Activity con la que el usuario está interactuando.
-	\item Si una Activity ha perdido el foco pero todavía se muestra al usuario, entonces está 'visible'. Esto sucede cuando hay otra Activity 
-	\item 
-	\item 
+	\item Si una Activity ha perdido el foco pero todavía se muestra al usuario, entonces está 'visible'. Esto sucede por ejemplo cuando hay otra Activity encima pero que no cubre toda la pantalla. La Activity en este estado esta completamente 'viva' (conserva todos sus estados e información y se mantiene ligada en el administrador de ventanas).
+	\item Si una Activity esta cubierta completamente por otra, entonces esta 'detenida' u 'oculta'. Aun conserva todos sus estados e información, pero ya no es visible al usuario por lo que su ventana esta oculta, y podría ser destruida por el sistema si se necesita memoria para otra propósito.
+	\item El sistema puede bajar de la memoria a la Activity solicitándole que finalice, o simplemente destruyendo su proceso, pasándola al estado 'destruida'. Cuando se necesita mostrarla al usuario de nuevo, la Activity debe ser restaurada completamente y se debe restaurar su estado anterior.
 \end{itemize}
 
-
-If an activity has lost focus but is still presented to the user, it is visible. It is possible if a new non-full-sized or transparent activity has focus on top of your activity, another activity has higher position in multi-window mode, or the activity itself is not focusable in current windowing mode. Such activity is completely alive (it maintains all state and member information and remains attached to the window manager).
-
-If an activity is completely obscured by another activity, it is stopped or hidden. It still retains all state and member information, however, it is no longer visible to the user so its window is hidden and it will often be killed by the system when memory is needed elsewhere.
-
-The system can drop the activity from memory by either asking it to finish, or simply killing its process, making it destroyed. When it is displayed again to the user, it must be completely restarted and restored to its previous state.
-
+El siguiente diagrama muestra los estados mas importantes por los que pasa una Activity. Los rectángulos representan métodos de respuesta a llamada que se pueden implementar para realizar operaciones cuando la Activity se mueve entre un estado y otro. Los óvalos representan los estados más importantes por los que pasa una Activity.
 \cite{androidDocs}
-\\
-The following diagram shows the important state paths of an Activity. The square rectangles represent callback methods you can implement to perform operations when the Activity moves between states. The colored ovals are major states the Activity can be in.
 
 \begin{figure}[H]
   \centering
