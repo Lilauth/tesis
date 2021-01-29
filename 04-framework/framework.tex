@@ -36,7 +36,7 @@ De qué manera los frameworks permiten que los usuarios los configuren y les pon
 
 Android es un sistema operativo móvil desarrollado por Google, basado en Kernel de Linux. Está pensado para diferentes dispositivos móviles con pantalla táctil como teléfonos inteligentes, tablets, relojes inteligentes (Wear OS), automóviles (Android Auto) y televisores (Android TV).
 
-Inicialmente fue desarrollado por Android Inc., adquirido por Google en 2005 y presentado en 2007 junto con la fundación del Open Handset Alliance (un consorcio de compañías de hardware, software y telecomunicaciones) para avanzar en los estándares abiertos de los dispositivos móviles. El código fuente principal de Android se conoce como Android Open Source Project (AOSP), que se licencia principalmente bajo la Licencia Apache. Android es el sistema operativo móvil más utilizado del mundo, con una cuota de mercado superior al 90\% al año 2018, muy por encima de IOS. \cite{carrier}
+Inicialmente fue desarrollado por Android Inc., adquirido por Google en 2005 y presentado en 2007 junto con la fundación del Open Handset Alliance (un consorcio de compañías de hardware, software y telecomunicaciones) para avanzar en los estándares abiertos de los dispositivos móviles. El código fuente principal de Android se conoce como Android Open Source Project (AOSP), que se licencia principalmente bajo la Licencia Apache. 
 
 Para escribir aplicaciones (app) para Android, se pueden usar los lenguajes Java, Kotlin y C++. Las herramientas de Android SDK compilan el código, junto con los archivos de recursos y datos, en un APK: un paquete de Android, que es un archivo de almacenamiento con el sufijo .apk. Un archivo APK incluye todos los contenidos de una app de Android y es el archivo que usan los dispositivos con tecnología Android para instalar la app.
 
@@ -57,7 +57,7 @@ Una app en Android esta compuesta por uno o varios componentes de app. Los compo
 	
 	\item \textbf{Services:} Un Service es un punto de entrada de propósito general para mantener una app corriendo en segundo plano por múltiples razones. Es un componente que corre en segundo plano para realizar operaciones de larga duración o procesar trabajos para un proceso remoto. Un Service no proporciona una interfaz de usuario.
 	
-	\item \textbf{BroadcastReceivers:} Un BroadcastReceiver es un componente que habilita al sistema a entregar eventos a una app fuera del flujo de usuario regular, permitiendo a la app responder a una gran variedad de anuncios del sistema. Como los BroadcastReceivers son otro punto de entrada a una app, el sistema puede entregar eventos de difusión a apps que incluso no se estén ejecutando en ese momento.
+	\item \textbf{BroadcastReceivers:} Un BroadcastReceiver es un componente que habilita al sistema a entregar eventos a una app fuera del flujo de usuario habitual, permitiendo a la app responder a una gran variedad de anuncios del sistema. Como los BroadcastReceivers son otro punto de entrada a una app, el sistema puede entregar eventos de difusión a apps que incluso no se estén ejecutando en ese momento.
 	
 	
 	\item \textbf{ContentProviders:} Un ContentProvider administra un conjunto de datos de la app que se pueden compartir y que se almacenan en el sistema de archivos, en una base de datos SQLite, en la web, o en cualquier otro almacenamiento persistente. A través del ContentProvider, otras apps pueden consultar o modificar los datos si el ContentProvider lo permite.
@@ -81,10 +81,10 @@ Cuando una app invoca a otra, la app que realiza la llamada invoca una Activity 
 
 Una Activity proporciona la ventana en la que la app dibuja su IU. Por lo general, esta ventana llena la pantalla, pero puede ser más pequeña y flotar sobre otras ventanas. Generalmente, una Activity implementa una pantalla en una app. Por ejemplo, una Activity de una app puede implementar una pantalla Preferencias mientras otra implementa una pantalla Seleccionar foto. 
 
-Cada Activity administra su propio diseño, que se carga desde un archivo XML en donde se definen los diferentes elementos de diseño (existen herramientas en las que se puede definir el diseño visualmente y éste se traduce al formato XML). Un diseño define la estructura de una interfaz de usuario está compuesto por una jerarquía de objetos View y ViewGroup. Una View suele mostrar un elemento que el usuario puede ver y con el que puede interactuar; suelen llamarse 'widgets' y pueden ser una de las muchas subclases, como Button (que muestra un botón) o TextView (que muestra un texto). Por su parte, ViewGroup es un contenedor invisible que define la estructura de diseño de View y otros objetos ViewGroup; se denominan generalmente 'layouts'  y pueden ser de muchos tipos que proporcionan una estructura diferente, como LinearLayout (que posiciona los elementos de forma linear, ya sea horizontal o verticalmente) o RelativeLayout (que posiciona los elementos en relación a otros elementos o a los bordes de la pantalla).
+Cada Activity administra su propio diseño, que se carga desde un archivo XML en donde se definen los diferentes elementos de diseño (existen herramientas en las que se puede definir el diseño visualmente y éste se traduce al formato XML). Un diseño define la estructura de una interfaz de usuario que está compuesto por una jerarquía de objetos View y ViewGroup. Una View suele mostrar un elemento que el usuario puede ver y con el que puede interactuar; suelen llamarse 'widgets' y pueden ser una de las muchas subclases, como Button (que muestra un botón) o TextView (que muestra un texto). Por su parte, ViewGroup es un contenedor invisible que define la estructura de diseño de View y otros objetos ViewGroup; se denominan generalmente 'layouts'  y pueden ser de muchos tipos que proporcionan una estructura diferente, como LinearLayout (que posiciona los elementos de forma linear, ya sea horizontal o verticalmente) o RelativeLayout (que posiciona los elementos en relación a otros elementos o a los bordes de la pantalla).
 También se puede crear el diseño de una Activity declarando instancias de elementos de diseño en tiempo de ejecución.
 
-El sistema Android administra las Activities como una pila (stack). Cuando se crea una nueva Activity, esta es puesta en la cima de la pila actual y se convierte en la Activity actual; la Activity anterior siempre permanece abajo en la pila, y no vuelve a estar en primer plano de nuevo hasta que la nueva Activity finalice, y puede haber una o muchas Activities en la pila.
+El sistema Android administra las Activities como una pila (stack\footnote{Stack en inglés, una lista ordenada con acceso a sus elementos de tipo «último en entrar, primero en salir»}). Cuando se crea una nueva Activity, esta es puesta en la cima de la pila actual y se convierte en la Activity actual; la Activity anterior siempre permanece abajo en la pila, y no vuelve a estar en primer plano de nuevo hasta que la nueva Activity finalice, y puede haber una o muchas Activities en la pila.
 Es por esto que a lo largo de su vida útil, una Activity pasa por varios estados. Para administrar las transiciones entre estados, se deben usar una serie de devoluciones de llamadas.
 
 Una Activity tiene básicamente cuatro estados:
@@ -92,7 +92,7 @@ Una Activity tiene básicamente cuatro estados:
 \begin{itemize}
 	\item Si una Activity esta en primer plano de la pantalla (en la posición más alta de la pila) está 'activa' o 'running'. Es generalmente la Activity con la que el usuario está interactuando.
 	\item Si una Activity ha perdido el foco pero todavía se muestra al usuario, entonces está 'visible'. Esto sucede por ejemplo cuando hay otra Activity encima pero que no cubre toda la pantalla. La Activity en este estado esta completamente 'viva' (conserva todos sus estados e información y se mantiene ligada en el administrador de ventanas).
-	\item Si una Activity esta cubierta completamente por otra, entonces esta 'detenida' u 'oculta'. Aun conserva todos sus estados e información, pero ya no es visible al usuario por lo que su ventana esta oculta, y podría ser destruida por el sistema si se necesita memoria para otra propósito.
+	\item Si una Activity esta cubierta completamente por otra, entonces esta 'detenida' u 'oculta'. Aun conserva todos sus estados e información, pero ya no es visible al usuario por lo que su ventana esta oculta, y podría ser destruida por el sistema si se necesita memoria para otro propósito.
 	\item El sistema puede bajar de la memoria a la Activity solicitándole que finalice, o simplemente destruyendo su proceso, pasándola al estado 'destruida'. Cuando se necesita mostrarla al usuario de nuevo, la Activity debe ser restaurada completamente y se debe restaurar su estado anterior.
 \end{itemize}
 
@@ -110,7 +110,25 @@ El siguiente diagrama muestra los estados mas importantes por los que pasa una A
 \subsection{Fragments}
 Un Fragment representa una sección modular y reusable de la IU de una Activity, el cual se puede agregar o quitar mientras la Activity se esté ejecutando (algo así como una "sub-Activity"). Se pueden combinar varios Fragments en una sola Activity para crear una IU multipanel y volver a usar un Fragment en diferentes Activities.
 
-Un Fragment define y administra su propio diseño, su propio ciclo de vida, y recibe sus propios eventos de entrada. Un Fragment no puede "vivir" por si mismo, debe ser hospedado por una Activity, y el ciclo de vida del Fragment se ve afectado directamente por el ciclo de vida de la Activity anfitriona. Por ejemplo, cuando la Activity está pausada, también lo están todos sus Fragments, y cuando la Activity se destruye, lo mismo ocurre con todos los Fragments.
+Fragments introduce modularity and reusability into your activity’s UI by allowing you to divide the UI into discrete chunks. Activities are an ideal place to put global elements around your app's user interface, such as a navigation drawer. Conversely, fragments are better suited to define and manage the UI of a single screen or portion of a screen.
+
+Un Fragment define y administra su propio diseño, su propio ciclo de vida, y recibe sus propios eventos de entrada. Un Fragment no es un componente de app, por lo que no es un punto de entrada a la app como lo es una Activity. Un Fragment no puede "vivir" por si mismo, debe ser hospedado por una Activity, y el ciclo de vida del Fragment se ve afectado directamente por el ciclo de vida de la Activity anfitriona. Por ejemplo, cuando la Activity está pausada, también lo están todos sus Fragments, y cuando la Activity se destruye, lo mismo ocurre con todos los Fragments. Sin embargo, mientras una Activity se está ejecutando (está en el estado del ciclo de vida 'running'), se puede manipular cada Fragment de forma independiente, por ejemplo, para agregarlo o quitarlo. Cuando se realiza una transacción de Fragments como esta, también se pueden agregar a una pila administrada por la Activity; cada entrada de la pila de la Activity es un registro de la transacción de Fragments realizada. La pila le permite al usuario invertir una transacción de Fragments (navegar hacia atrás) al presionar el botón Atrás.
+
+You can use multiple instances of the same fragment class within the same activity, in multiple activities, or even as a child of another fragment. With this in mind, you should only provide a fragment with the logic necessary to manage its own UI. You should avoid depending on or manipulating one fragment from another.
+
+Por ejemplo, una aplicación de noticias puede usar un Fragment para mostrar una lista de artículos a la izquierda y otro Fragment para mostrar un artículo a la derecha; ambos Fragments aparecen en una Activity, uno al lado del otro, y cada Fragment tiene su propio conjunto de métodos de devolución de llamada del ciclo de vida y administra sus propios eventos de entrada del usuario. Entonces, en lugar de usar una Activity para seleccionar un artículo y otra Activity para leer el artículo, el usuario puede seleccionar un artículo y leerlo dentro de la misma Activity, tal como se ilustra en el diseño de tableta en la siguiente figura.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.4]{04-framework/fragments.png} 
+   \caption{Ejemplo de la manera en que dos módulos de la IU definidos por Fragments se pueden combinar en una Activiy para un diseño de tableta y se presentan por separado para un diseño de teléfono}
+   \label{fig:umlFrameworkCore}
+\end{figure}
+
+Para crear un Fragment, se debe crear una subclase Fragment (o una subclase existente de ella). La clase Fragment tiene un código que se asemeja bastante a una Activity. Contiene métodos de devolución de llamada similares a los de una actividad, como onCreate(), onStart(), onPause() y onStop(). ...
+
+El siguiente diagrama muestra los estados mas importantes por los que pasa un Fragment. Los rectángulos representan métodos de respuesta a llamada que se pueden implementar para realizar operaciones cuando el Fragment se mueve entre un estado y otro. Los óvalos representan los estados más importantes por los que pasa un Fragment.
+
 \cite{androidDocs}
 
 \begin{figure}[H]

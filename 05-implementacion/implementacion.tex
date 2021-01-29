@@ -31,10 +31,10 @@ También se debe contemplar algún mecanismo de identificación del usuario que 
 
 
 \subsection{Alcance de la solución propuesta}
-Si bien en un principio Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana sin tener conocimientos de programación....FALTA.... [...
-La idea inicial era que mediante una aplicación web el científico pudiera armar el protocolo de recolección de las muestras (el Workflow en Samplers) de manera visual e intuitiva, y se generara un archivo de configuración para Samplers. 
-Con el archivo de configuración se pasaría a Samplers y se generaría la aplicación móvil. 
-Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que que el archivo de configuración ya viene armado...]
+En un principio Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. 
+La idea inicial era que, mediante una aplicación web, el científico pudiera armar el protocolo de recolección de las muestras de manera visual e intuitiva, y se generara un archivo de configuración para Samplers. 
+Con el archivo de configuración se pasaría a Samplers y se generaría la app para Android (el archivo APK para instalarla). 
+Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que que el archivo de configuración ya viene armado.
 
 Como se mencionó antes se requerían aplicaciones nativas, pero abarcar los 3 sistemas operativos móviles más usados en ese momento (Android, iOS y Windows Phone) era mucho para el alcance de esta tesis, por lo que se decidió optar por Android, que era el sistema operativo móvil más usado en ese momento. Según una estadística de Gartner sobre las ventas de smartphones a nivel mundial en el último trimestre de 2016\cite{gartner}, mas del 80\% de las mismas fueron de celulares con Android, y ese porcentaje fue creciendo hasta obtener una cuota del mercado del 88\% a nivel mundial a mediados de 2018. En la actualidad, en Argentina esa cuota de mercado es mas grande, llegando al 93\% según datos publicados por Carrier y Asociados en su reporte Mercado Celular Argentino 2019\cite{carrier}.
 
@@ -43,13 +43,15 @@ Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de
 \subsection{Descripción de la solución propuesta: Samplers}
 Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
 
-Configurando el protocolo de recolección (Workflow en Samplers) y unos parámetros más, y Samplers genera una aplicación lista para ejecutarse en un dispositivo móvil Android que  sirve para tomar muestras siguiendo el protocolo de recolección especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas al servidor web.
+Configurando el protocolo de recolección (Workflow en Samplers) y unos parámetros más, Samplers genera una aplicación lista para ejecutarse en un dispositivo móvil Android que  sirve para tomar muestras siguiendo el protocolo de recolección especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas al servidor web.
 
 
 %**************************
 %Es un framework de caja gris, ya que funciona instanciando y configurando las clases que se proveen... 
 %**************************
 
+%**************************
+% Encarar de forma que lo primero (mas facil) es armar el arvhivo de cofiguracion y generar la app, y despues (mas avanzado) es usar las clases (que se pueden usar en una app existente)
 
 Funciona de dos formas:
 \begin{itemize}
@@ -58,8 +60,11 @@ Funciona de dos formas:
 \end{itemize}
 
 
-
 Si bien, como se mencionó antes, Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana de manera sencilla y sin tener conocimientos de programación, también se pensó para que un usuario programador pudiese modificar la aplicación generada, personalizando la pantalla principal, modificando la vista de un Step, o agregando uno propio que no esté en los que provee Samplers. También para que pudiese ser incluido en una aplicación ya comenzada o una que recién arranca.
+
+
+%**************************
+
 
 
 Samplers genera una aplicación Android que sirve para tomar muestras siguiendo el protocolo de recolección especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas al servidor web previamente configurado. 
@@ -72,50 +77,16 @@ Para el archivo de configuración se eligió el formato JSON porque nos pareció
 También provee un mecanismo de identificación del usuario final de la aplicación (el científico ciudadano) usando su cuenta de Google, ya que en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones).  Ademas esta preparado para que el usuario del framework pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña) o con una API de alguna red social, como Facebook, Twitter, Instagram, etc.
 
 
-
 ****** Reacomodar: empieza igual que el parrafo anterior....
+
+
 Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Step) en particular y una ayuda general en la pantalla principal, usando archivos HTML. Se optó por los mismos por la variedad de opciones y posibilidades que conllevan, y por su simpleza para mostrarlos.
+
 ******
 
 
 
 Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo es open source y se usó un repositorio público en GitHub\cite{github} para dejar el código fuente disponible para todo el mundo.
-
-
-
-
-\subsection{FrozenSpots y HotSpots}
-** OJO: ROBADO DE SPOTTERS!! ------------------------------------- **
-
-Podemos definir un framework como una aplicación que por sí misma no tiene una funcionalidad concreta y no se encuentra finalizada, pero que fue pensada y desarrollada para que pueda ser ampliada fácilmente, y de esta manera, resuelva problemas determinados de un dominio específico; es decir, poder construir múltiples aplicaciones de un dominio específico a partir de una aplicación ya existente que sirve como punto de inicio, y que ya resuelve aspectos y requerimientos comunes al dominio donde se está trabajando.
-
-El framework está compuesto por dos conceptos muy importantes que definen qué aspectos pueden editarse del framework (HotSpots) y qué aspectos son estáticos y por lo tanto el programador no podría modificar, ya que sirven de base común a todas las aplicaciones (FrozenSpots).
-
-** ------------------------------------------------------- **
-
-\subsubsection{FrozenSpots}
-
-\begin{itemize}
-	\item Solo sirve para dispositivos móviles con sistema operativo Android.
-	\item El uso de la activity TakeSampleActivity es casi obligatorio... si bien se podría usar otra, hay que entender más como funciona el framework para poder hacer una propia.
-	\item La muestra se envía en un archivo comprimido, en formato ZIP. Dentro esta el objeto muestra en formato JSON y los archivos multimedia.
-	\item Las muestras se envían a través de internet, mediante un mensaje HTTP POST.
-	\item Para definir una nueva vista (fragment) para un step, se debe heredar de StepFragment.
-\end{itemize}
-
-\subsubsection{HotSpots}
-
-\begin{itemize}
-	\item Se puede configurar un workflow con la cantidad de steps que se quiera. Se pueden armar bifurcaciones usando el step SelectOneStep o creando uno propio.
-	\item Se puede definir una nueva vista (fragment) personalizada para los steps provistos por Samplers.
-	\item Se puede definir nuevos steps personalizados, solo tienen que implementar la interfaz Step.
-	\item Se puede definir un archivo para mostrar ayuda (en HTML) para cada step y una general.
-	\item Se puede definir el servidor al cual se envían las muestras.
-	\item Se puede configurar para que se use identificación, requerida u opcional para el usuario final de la aplicación, con Google y también se pueden agregar otros métodos propios de identificación.
-	\item Se puede configurar para soportar múltiples idiomas.
-\end{itemize}
-
-
 
 
 
@@ -202,10 +173,10 @@ La clase Sample representa una muestra tomada a partir de seguir los pasos (Step
 
 También guarda fecha y hora de inicio y finalización. Esto es útil para sacar una estadística de cuanto tarda un científico ciudadano en recolectar una muestra y así poder analizar optimizaciones para la aplicación final.
 
-Una vez recolectadas, las muestras se guardan el dispositivo móvil y son enviadas a través de Internet a un servidor web previamente configurado.
+Una vez recolectadas, las muestras se guardan en el dispositivo móvil y son enviadas a través de Internet a un servidor web previamente configurado.
 
 \subsection{TakeSampleActivity: toma de la muestra}
-La clase TakeSampleActivity es la encargada de ejecutar el Worflow para tomar la muestra. Es una activity que recibe un objeto Workflow como parámetro y va iterando sobre los Steps del mismo. A cada Step le pide su StepFragment y lo muestra en pantalla para que, interactuando con el científico ciudadano, se genere el StepResult para la muestra (Sample). Una vez finalizado el Workflow, guarda la muestra, controla si se puede enviar la mima y finaliza.
+La clase TakeSampleActivity es la encargada de ejecutar el Worflow para tomar la muestra. Es una Activity que recibe un objeto Workflow como parámetro y va iterando sobre los Steps del mismo. A cada Step le pide su StepFragment y lo muestra en pantalla para que, interactuando con el científico ciudadano, se genere el StepResult para la muestra (Sample). Una vez finalizado el Workflow, guarda la muestra, controla si se puede enviar la mima y finaliza.
 
 
 
@@ -246,27 +217,28 @@ Cuando se envía la muestra también se incluyen dos parámetros que son el id d
 
 \subsection{Resto de la UI?? ANALIZAR}
 
-SamplersMainActivity
 
-SamplesListActivity
+\subsubsection{HelpActivity}
 
-HelpActivity
+\subsubsection{SamplesListActivity}
+
+\subsubsection{SamplersMainActivity}
 
 
-\section{Instalación y uso del framework} \label{sec:instalacion_uso}
-En esta sección se describe como instalar el framework en Android Studio y como instanciarlo para su uso, brindando algunos ejemplos concretos.
 
-\subsection{Instalación}
-A continuación se detallan los requisitos y los pasos a seguir para la instalación del framework en Android Studio.
 
-\subsubsection{Requerimientos mínimos:}
+
+\section{Instalación del framework}
+En esta sección se describe como instalar el framework en Android Studio; se detallan los requisitos y los pasos a seguir para la instalación.
+
+\subsection{Requerimientos mínimos:}
 
 \begin{itemize}
 \item Android Studio (Java): Si bien esta pensado para y probado en Android Studio, podria funcionar bien en otro entorno que use Java y deje importar archivos Android Archive (.aar).
 \item Android SDK API17: Android 4.2 (Jelly Bean) o superior.
 \end{itemize}
 
-\subsubsection{Pasos para la Instalación:}
+\subsection{Pasos para la Instalación:}
 
 \begin{enumerate}
 	\item Crear en Android Studio un nuevo proyecto vacío (sin ninguna Activity).
@@ -324,10 +296,13 @@ dependencies {
 		\end{itemize}
 \end{enumerate}	
 
-\subsection{Instanciación}
+\section{Instanciación y uso del framework}
+En esta sección se explica como instanciar el framework para su uso, brindando algunos ejemplos concretos.
+
 Una vez instalado el framework el siguiente paso es instanciarlo para usarlo. La instanciación puede ser manual o usando el generador de clases de Gradle.
 
-\subsubsection{Instanciación manual}
+
+\subsection{Instanciación manual}
 Básicamente se tiene que crear un objeto Workflow, agregarle los objetos Steps, y llamar a la activity TakeSampleActivity pasándole el workflow como parámetro.
 También es necesario establecer la configuración general en el método onCreate de la activity principal (main activity).
 Se puede usar una activity principal propia o se puede heredar de SamplersMainActivity. En ambos casos se debe hacer lo siguiente:
@@ -379,7 +354,7 @@ public void takeSampleClick(View view) {
 \end{itemize}
 
 
-\subsubsection{Instanciación usando el  generador de clases de Gradle}
+\subsection{Instanciación usando el  generador de clases de Gradle}
 
 Básicamente, el generador de clases de Gradle se encarga de hacer una instanciación manual a partir de un archivo de configuración (JSON). Está pensado para desarrolladores que no tienen muchos conocimientos en Android, o para servir de interfaz entre una aplicación que genere apps a través de Samplers (***esto hay que escribirlo mejor***).
 
