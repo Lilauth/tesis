@@ -43,12 +43,9 @@ Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de
 \subsection{Descripción de la solución propuesta: Samplers}
 Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
 
-Configurando el protocolo de recolección (Workflow en Samplers) y unos parámetros más, Samplers genera una aplicación lista para ejecutarse en un dispositivo móvil Android que  sirve para tomar muestras siguiendo el protocolo de recolección especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas al servidor web.
+Configurando el protocolo de recolección (Workflow en Samplers) y unos parámetros más, con Samplers se puede generar una aplicación lista para ejecutarse en un dispositivo móvil Android que  sirve para tomar muestras siguiendo el protocolo de recolección especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas a un servidor web previamente configurado.
 
 
-%**************************
-%Es un framework de caja gris, ya que funciona instanciando y configurando las clases que se proveen... 
-%**************************
 
 %**************************
 % Encarar de forma que lo primero (mas facil) es armar el arvhivo de cofiguracion y generar la app, y despues (mas avanzado) es usar las clases (que se pueden usar en una app existente)
@@ -143,7 +140,7 @@ Samplers provee los siguientes Steps:
 
 El detalle de estos Steps y su funcionamiento se explican en la sección \ref{sec:steps_detallados}.
 
-Si bien estos son los Steps que provee Samplers de manera predeterminada, un usuario programador podría definir y agregar sus propios Steps, junto con sus StepFragments y StepResults como se explica en la sección \ref{sec:definir_steps}.
+Si bien estos son los Steps que provee Samplers de manera predeterminada, un usuario programador puede definir y agregar sus propios Steps, junto con sus StepFragments y StepResults como se explica en la sección \ref{sec:definir_steps}.
 
 \subsubsection{StepFragment: la vista y controlador del Step}
 El StepFragment es el encargado de ejecutar un Step y generar un StepResult con la interacción del usuario final (el científico ciudadano). Un StepFragment recibe un Step, que generalmente contiene los parámetros necesarios para ejecutarlo, y en base a eso muestra un fragment para que, interactuando con el científico ciudadano, poder obtener un resultado (StepResult) para la muestra (Sample). 

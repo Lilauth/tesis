@@ -79,7 +79,7 @@ La clase Activity está diseñada para facilitar este paradigma y se debe hereda
 
 Cuando una app invoca a otra, la app que realiza la llamada invoca una Activity en la otra, en lugar de a la app en sí. De esta manera, la Activity sirve como el punto de entrada para la interacción de una app con el usuario
 
-Una Activity proporciona la ventana en la que la app dibuja su IU. Por lo general, esta ventana llena la pantalla, pero puede ser más pequeña y flotar sobre otras ventanas. Generalmente, una Activity implementa una pantalla en una app. Por ejemplo, una Activity de una app puede implementar una pantalla Preferencias mientras otra implementa una pantalla Seleccionar foto. 
+Una Activity proporciona la ventana en la que la app dibuja su interfaz de usuario (IU). Por lo general, esta ventana llena la pantalla, pero puede ser más pequeña y flotar sobre otras ventanas. Generalmente, una Activity implementa una pantalla en una app. Por ejemplo, una Activity de una app puede implementar una pantalla Preferencias mientras otra implementa una pantalla Seleccionar foto. 
 
 Cada Activity administra su propio diseño, que se carga desde un archivo XML en donde se definen los diferentes elementos de diseño (existen herramientas en las que se puede definir el diseño visualmente y éste se traduce al formato XML). Un diseño define la estructura de una interfaz de usuario que está compuesto por una jerarquía de objetos View y ViewGroup. Una View suele mostrar un elemento que el usuario puede ver y con el que puede interactuar; suelen llamarse 'widgets' y pueden ser una de las muchas subclases, como Button (que muestra un botón) o TextView (que muestra un texto). Por su parte, ViewGroup es un contenedor invisible que define la estructura de diseño de View y otros objetos ViewGroup; se denominan generalmente 'layouts'  y pueden ser de muchos tipos que proporcionan una estructura diferente, como LinearLayout (que posiciona los elementos de forma linear, ya sea horizontal o verticalmente) o RelativeLayout (que posiciona los elementos en relación a otros elementos o a los bordes de la pantalla).
 También se puede crear el diseño de una Activity declarando instancias de elementos de diseño en tiempo de ejecución.
@@ -110,22 +110,8 @@ El siguiente diagrama muestra los estados mas importantes por los que pasa una A
 \subsection{Fragments}
 Un Fragment representa una sección modular y reusable de la IU de una Activity, el cual se puede agregar o quitar mientras la Activity se esté ejecutando (algo así como una "sub-Activity"). Se pueden combinar varios Fragments en una sola Activity para crear una IU multipanel y volver a usar un Fragment en diferentes Activities.
 
-Fragments introduce modularity and reusability into your activity’s UI by allowing you to divide the UI into discrete chunks. Activities are an ideal place to put global elements around your app's user interface, such as a navigation drawer. Conversely, fragments are better suited to define and manage the UI of a single screen or portion of a screen.
 
 Un Fragment define y administra su propio diseño, su propio ciclo de vida, y recibe sus propios eventos de entrada. Un Fragment no es un componente de app, por lo que no es un punto de entrada a la app como lo es una Activity. Un Fragment no puede "vivir" por si mismo, debe ser hospedado por una Activity, y el ciclo de vida del Fragment se ve afectado directamente por el ciclo de vida de la Activity anfitriona. Por ejemplo, cuando la Activity está pausada, también lo están todos sus Fragments, y cuando la Activity se destruye, lo mismo ocurre con todos los Fragments. Sin embargo, mientras una Activity se está ejecutando (está en el estado del ciclo de vida 'running'), se puede manipular cada Fragment de forma independiente, por ejemplo, para agregarlo o quitarlo. Cuando se realiza una transacción de Fragments como esta, también se pueden agregar a una pila administrada por la Activity; cada entrada de la pila de la Activity es un registro de la transacción de Fragments realizada. La pila le permite al usuario invertir una transacción de Fragments (navegar hacia atrás) al presionar el botón Atrás.
-
-You can use multiple instances of the same fragment class within the same activity, in multiple activities, or even as a child of another fragment. With this in mind, you should only provide a fragment with the logic necessary to manage its own UI. You should avoid depending on or manipulating one fragment from another.
-
-Por ejemplo, una aplicación de noticias puede usar un Fragment para mostrar una lista de artículos a la izquierda y otro Fragment para mostrar un artículo a la derecha; ambos Fragments aparecen en una Activity, uno al lado del otro, y cada Fragment tiene su propio conjunto de métodos de devolución de llamada del ciclo de vida y administra sus propios eventos de entrada del usuario. Entonces, en lugar de usar una Activity para seleccionar un artículo y otra Activity para leer el artículo, el usuario puede seleccionar un artículo y leerlo dentro de la misma Activity, tal como se ilustra en el diseño de tableta en la siguiente figura.
-
-\begin{figure}[H]
-  \centering
-    \includegraphics[scale=0.4]{04-framework/fragments.png} 
-   \caption{Ejemplo de la manera en que dos módulos de la IU definidos por Fragments se pueden combinar en una Activiy para un diseño de tableta y se presentan por separado para un diseño de teléfono}
-   \label{fig:umlFrameworkCore}
-\end{figure}
-
-Para crear un Fragment, se debe crear una subclase Fragment (o una subclase existente de ella). La clase Fragment tiene un código que se asemeja bastante a una Activity. Contiene métodos de devolución de llamada similares a los de una actividad, como onCreate(), onStart(), onPause() y onStop(). ...
 
 El siguiente diagrama muestra los estados mas importantes por los que pasa un Fragment. Los rectángulos representan métodos de respuesta a llamada que se pueden implementar para realizar operaciones cuando el Fragment se mueve entre un estado y otro. Los óvalos representan los estados más importantes por los que pasa un Fragment.
 
@@ -137,6 +123,25 @@ El siguiente diagrama muestra los estados mas importantes por los que pasa un Fr
    \caption{Ciclo de vida de un Fragment}
    \label{fig:umlFrameworkCore}
 \end{figure}
+
+
+Los Fragments introducen modularidad y reusabilidad en la IU de una Activity, permitiendo dividir la IU en módulos más discretos. Se pueden usar múltiples instancias de un mismo Fragment en la misma Activity, en varias Avtivities, o incluso dentro de otro Fragment. Por esta razón se deben diseñar los Fragments solamente con la lógica necesaria para manejar su propia IU, de forma que sean independientes, evitando la dependencia con otros Fragments.
+Con esto en mente, las Activities son el lugar ideal para poner los elementos globales de la IU, como por ejemplo una barra de navegación. Por el contrario, los Fragments son mejor lugar para definir y manejar la IU de una sola pantalla, o una sección de la misma.
+
+Por ejemplo, en una app que responde a varios tamaños de pantalla, la app debería mostrar en pantallas pequeñas una barra de navegación con íconos y una lista lineal con el contenido. En cambio, en pantallas más grandes, debería mostrar un área de navegación más detallada y el contenido en forma de grilla para aprovechar mejor el espacio.
+Administrar todas estas variaciones en la Activity puede resultar engorroso. Separar los elementos de navegación del contenido hace este proceso más manejable. La Activity es responsable de mostrar la IU de navegación correcta mientras que el Fragment muestra el contenido con la disposición adecuada.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.4]{04-framework/fragment-screen-sizes.png} 
+   \caption{Dos versiones de la misma pantalla en diferentes tamaños de pantalla}
+   \label{fig:umlFrameworkCore}
+\end{figure}
+
+
+Para crear un Fragment, se debe crear una subclase Fragment (o una subclase existente de ella). La clase Fragment tiene un código que se asemeja bastante a una Activity. Contiene métodos de devolución de llamada similares a los de una actividad, como onCreate(), onStart(), onPause() y onStop(), aunque agrega otros para controlar cuando se crea y destruye su IU, o cuando se adjunta el Fragment a la Activity anfitriona.
+
+
 
 \subsection{Services}
 ...
