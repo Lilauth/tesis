@@ -111,11 +111,10 @@ El siguiente diagrama muestra los estados mas importantes por los que pasa una A
 Un Fragment representa una sección modular y reusable de la IU de una Activity, el cual se puede agregar o quitar mientras la Activity se esté ejecutando (algo así como una "sub-Activity"). Se pueden combinar varios Fragments en una sola Activity para crear una IU multipanel y volver a usar un Fragment en diferentes Activities.
 
 
-Un Fragment define y administra su propio diseño, su propio ciclo de vida, y recibe sus propios eventos de entrada. Un Fragment no es un componente de app, por lo que no es un punto de entrada a la app como lo es una Activity. Un Fragment no puede "vivir" por si mismo, debe ser hospedado por una Activity, y el ciclo de vida del Fragment se ve afectado directamente por el ciclo de vida de la Activity anfitriona. Por ejemplo, cuando la Activity está pausada, también lo están todos sus Fragments, y cuando la Activity se destruye, lo mismo ocurre con todos los Fragments. Sin embargo, mientras una Activity se está ejecutando (está en el estado del ciclo de vida 'running'), se puede manipular cada Fragment de forma independiente, por ejemplo, para agregarlo o quitarlo. Cuando se realiza una transacción de Fragments como esta, también se pueden agregar a una pila administrada por la Activity; cada entrada de la pila de la Activity es un registro de la transacción de Fragments realizada. La pila le permite al usuario invertir una transacción de Fragments (navegar hacia atrás) al presionar el botón Atrás.
+Un Fragment define y administra su propio diseño, su propio ciclo de vida, y recibe sus propios eventos de entrada. Un Fragment no es un componente de app, por lo que no es un punto de entrada a la app como lo es una Activity. Un Fragment no puede "vivir" por si mismo, debe ser hospedado por una Activity, y el ciclo de vida del Fragment se ve afectado directamente por el ciclo de vida de la Activity anfitriona. Por ejemplo, cuando la Activity está pausada, también lo están todos sus Fragments, y cuando la Activity se destruye, lo mismo ocurre con todos los Fragments. Sin embargo, mientras una Activity se está ejecutando (está en el estado del ciclo de vida 'running'), se puede manipular cada Fragment de forma independiente, por ejemplo, para agregarlo o quitarlo. Cuando se realiza una transacción de Fragments como esta, también se pueden agregar a una pila administrada por la Activity; cada entrada de la pila de la Activity es un registro de la transacción de Fragments realizada. La pila le permite al usuario invertir una transacción de Fragments (navegar hacia atrás) al presionar el botón Atrás del dispositivo móvil.
 
 El siguiente diagrama muestra los estados mas importantes por los que pasa un Fragment. Los rectángulos representan métodos de respuesta a llamada que se pueden implementar para realizar operaciones cuando el Fragment se mueve entre un estado y otro. Los óvalos representan los estados más importantes por los que pasa un Fragment.
 
-\cite{androidDocs}
 
 \begin{figure}[H]
   \centering
@@ -140,7 +139,7 @@ Administrar todas estas variaciones en la Activity puede resultar engorroso. Sep
 
 
 Para crear un Fragment, se debe crear una subclase Fragment (o una subclase existente de ella). La clase Fragment tiene un código que se asemeja bastante a una Activity. Contiene métodos de devolución de llamada similares a los de una actividad, como onCreate(), onStart(), onPause() y onStop(), aunque agrega otros para controlar cuando se crea y destruye su IU, o cuando se adjunta el Fragment a la Activity anfitriona.
-
+\cite{androidDocs}
 
 
 \subsection{Services}
