@@ -107,6 +107,13 @@ En esta sección se explica el modelo de las clases que permiten que se cree una
 \subsection{Workflow, Step, StepFragment, StepResult y Sample: el core del framework}
 Estas clases conforman el corazón del framework, y son las necesarias para poder definir la muestra y el protocolo de recolección de las mismas.
 
+TakeSampleActivity es una Activity para tomar la muestra/ "encargada de tomar la muestra". (Agregar al titulo)
+TakeSampleActivity genera una muestra (sample)
+
+El StepFragment es el encargado de ejecutar un Step y generar un StepResult con la interacción del usuario final (el científico ciudadano). Un StepFragment recibe un Step, que generalmente contiene los parámetros necesarios para ejecutarlo, y en base a eso muestra un fragment para que, interactuando con el científico ciudadano, poder obtener un resultado (StepResult) para la muestra (Sample). 
+
+
+
 A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCore}).
 
 \begin{figure}[H]
