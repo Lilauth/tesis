@@ -9,7 +9,7 @@
 	Como hacen posible la reutilización en la granularidad más alta, diseñar un buen framework es mucho más difícil que diseñar una buena clase abstracta. También, tienden a ser específicos de la aplicación, a integrarse a otros frameworks mediante compartir clases abstractas, y a tener algunas clases abstractas especializadas para el framework. Diseñar un framework requiere experiencia y experimentación al igual que lo requiere el diseño de las clases abstractas de sus componentes.
 
 \subsection{Frameworks de caja blanca y de caja negra}
-\subsubsection{Frameworks de Caja Blanca}
+\subsubsection{Frameworks de caja blanca}
 
 	Una de las características importantes de un framework es que los métodos definidos por el usuario para extender el comportamiento van a ser invocados desde el interior del framework más que del código de la aplicación del usuario. A menudo hace las veces de programa principal coordinando y secuenciando las actividades de la aplicación. Esa inversión de control le permite al framework servir como esqueleto extensible. El código brindado por los usuarios en los métodos extienden el algoritmo genérico del framework para una aplicación en particular. 
 	
@@ -19,7 +19,7 @@
 	
 	Un segundo problema es que un framework de caja blanca puede ser difícil de aprender a utilizar, ya que entender cómo se utliza es lo mismo que entender cómo está construido.
 	
-\subsubsection{Frameworks de Caja Negra}
+\subsubsection{Frameworks de caja negra}
 
 	Otra manera de especializar un framework es incluir en él un conjunto de componentes que sean los que proveen el comportamiento específico de la aplicación. Cada uno de estos componentes debe entender un protocolo en particular. Todos o la mayoría de los componentes pueden tomarse de una librería de componentes. La interfaz entre componentes pueden se definidas con un protocolo, de esta manera el usuario sólo necesita entender la interfaz externa de los mismos. Este tipo de framework se denomina de caja negra.
 	
@@ -28,13 +28,13 @@
 	Una manera de caracterizar la diferencia entre un framework de caja blanca y uno de caja negra es observar que en el de caja blanca el estado de cada instancia está disponible de manera implícita en todos los métodos del framework, casi como las variables globales de Pascal. En un framework de caja negra, cualquier información que se pase a las partes constituyentes del framework debe pasarse de manera explícita. Un framework de caja blanca utiliza las reglas de alcance intra-objeto para evolucionar sin forzarlo a subscribirse a un protocolo explícito, rígido que podría restringir de manera prematura el proceso de diseño.
  \cite{johnson1988designing}
 
-\subsection{Jerarquías y Composición}
+\subsection{Jerarquías y composición}
 [Acá hablaremos de qué manera los frameworks permiten que los usuarios los configuren y les pongan comportamiento]
 
 
 
-\section{Estado del Arte}
-Los dispositivos móviles son ideales para que las personas puedan de manera espontánea recolectar información. Sin embargo, esa simplicidad yace sobre una base que requiere fuertes conocimientos técnicos y una infraestructura compleja. Por lo tanto, construir aplicaciones móviles implican una inversión que puede ser limitante para organizaciones pequeñas. A continuación se analizan algunas alternativas que permiten que personas que no son desarrolladoras tengan la posibilidad de crear herramientas que permitan la recolección de información para proyectos de ciencia ciudadana con dispositivos móviles.
+\section{Estado del arte}
+Los dispositivos móviles son ideales para que las personas puedan de manera espontánea recolectar información. Sin embargo, esa simplicidad yace sobre una base que requiere fuertes conocimientos técnicos y una infraestructura compleja. Por lo tanto, construir aplicaciones móviles implican una inversión que puede ser limitante para organizaciones pequeñas. A continuación se analizan algunas alternativas que permiten que personas que no son desarrolladoras tengan la posibilidad de crear herramientas que permitan la recolección de información para proyectos de ciencia ciudadana con dispositivos móviles. \cite{kim2013sensr}
 
 \subsection{Sensr}
 [aca vamos a hablar de Sensr, mencionando sus ventajas y desventajas]
@@ -67,7 +67,7 @@ https://publicparticipationinscience.files.wordpress.com/2015/07/sensr.pdf
 
 
 
-\section{El Entorno de Android}
+\chapter{El entorno de Android}
 
 Android es un sistema operativo móvil desarrollado por Google, basado en Kernel de Linux. Está pensado para diferentes dispositivos móviles con pantalla táctil como teléfonos inteligentes, tablets, relojes inteligentes (Wear OS), automóviles (Android Auto) y televisores (Android TV).
 
