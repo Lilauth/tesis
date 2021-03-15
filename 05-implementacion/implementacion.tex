@@ -43,8 +43,15 @@ Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de
 \subsection{Descripción de la solución propuesta: Samplers}
 Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
 
-Configurando el protocolo de recolección (Workflow en Samplers) y unos parámetros más, con Samplers se puede generar una aplicación lista para ejecutarse en un dispositivo móvil Android que  sirve para tomar muestras siguiendo el protocolo de recolección especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas a un servidor web previamente configurado.
+Configurando el protocolo de recolección (Workflow en Samplers) y unos parámetros más, con Samplers se puede generar una aplicación lista para ejecutarse en un dispositivo móvil Android. Esta aplicación generada sirve para tomar muestras siguiendo el protocolo de recolección especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas a un servidor web previamente configurado.
 
+Por ejemplo, si se desea crear una aplicación para...
+
+[foto o codigo del archivo de configuracion con el workflow]
+
+
+
+[capturas de pantalla de la aplicacion generada]
 
 
 %**************************
@@ -57,6 +64,8 @@ Funciona de dos formas:
 \end{itemize}
 
 
+Samplers recibe un archivo de configuración y genera una aplicación lista para ejecutarse en un dispositivo móvil con Android.
+
 Si bien, como se mencionó antes, Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana de manera sencilla y sin tener conocimientos de programación, también se pensó para que un usuario programador pudiese modificar la aplicación generada, personalizando la pantalla principal, modificando la vista de un Step, o agregando uno propio que no esté en los que provee Samplers. También para que pudiese ser incluido en una aplicación ya comenzada o una que recién arranca.
 
 
@@ -64,11 +73,7 @@ Si bien, como se mencionó antes, Samplers se pensó para que un científico pud
 
 
 
-Samplers genera una aplicación Android que sirve para tomar muestras siguiendo el protocolo de recolección especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas al servidor web previamente configurado. 
 
-Samplers recibe un archivo de configuración y genera una aplicación lista para ejecutarse en un dispositivo móvil con Android.
-
-Para el archivo de configuración se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que editarlo manualmente. En el mismo viene el workflow, que representa el protocolo de recolección de las muestras, y las demás configuraciones necesarias para armar la aplicación.
 
 
 También provee un mecanismo de identificación del usuario final de la aplicación (el científico ciudadano) usando su cuenta de Google, ya que en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones).  Ademas esta preparado para que el usuario del framework pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña) o con una API de alguna red social, como Facebook, Twitter, Instagram, etc.
@@ -82,8 +87,17 @@ Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Ste
 ******
 
 
-
 Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo es open source y se usó un repositorio público en GitHub\cite{github} para dejar el código fuente disponible para todo el mundo.
+
+\subsubsection{Archivo de configuración}
+
+Para el archivo de configuración se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que editarlo manualmente. En el mismo viene el workflow, que representa el protocolo de recolección de las muestras, y las demás configuraciones necesarias para armar la aplicación.
+
+
+
+
+
+\subsubsection{Usando las clases}
 
 
 
@@ -92,6 +106,13 @@ En esta sección se explica el modelo de las clases que permiten que se cree una
 
 \subsection{Workflow, Step, StepFragment, StepResult y Sample: el core del framework}
 Estas clases conforman el corazón del framework, y son las necesarias para poder definir la muestra y el protocolo de recolección de las mismas.
+
+TakeSampleActivity es una Activity para tomar la muestra/ "encargada de tomar la muestra". (Agregar al titulo)
+TakeSampleActivity genera una muestra (sample)
+
+El StepFragment es el encargado de ejecutar un Step y generar un StepResult con la interacción del usuario final (el científico ciudadano). Un StepFragment recibe un Step, que generalmente contiene los parámetros necesarios para ejecutarlo, y en base a eso muestra un fragment para que, interactuando con el científico ciudadano, poder obtener un resultado (StepResult) para la muestra (Sample). 
+
+
 
 A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCore}).
 
@@ -980,5 +1001,4 @@ public class EMailUser implements User {
 
 \section{Definir un nuevo Step, StepFragment y StepResult ??} \label{sec:definir_steps}
 
-** Ver Auth0
 

@@ -1,4 +1,4 @@
-\chapter{Framework para Proyectos Android de Ciencia Ciudadana}
+\chapter{Frameworks para proyectos de ciencia ciudadana}
 
 \section{Frameworks}
 
@@ -8,8 +8,8 @@
 	
 	Como hacen posible la reutilización en la granularidad más alta, diseñar un buen framework es mucho más difícil que diseñar una buena clase abstracta. También, tienden a ser específicos de la aplicación, a integrarse a otros frameworks mediante compartir clases abstractas, y a tener algunas clases abstractas especializadas para el framework. Diseñar un framework requiere experiencia y experimentación al igual que lo requiere el diseño de las clases abstractas de sus componentes.
 
-\subsection{Frameworks de Caja Blanca y de Caja Negra}
-\subsubsection{Frameworks de Caja Blanca}
+\subsection{Frameworks de caja blanca y de caja negra}
+\subsubsection{Frameworks de caja blanca}
 
 	Una de las características importantes de un framework es que los métodos definidos por el usuario para extender el comportamiento van a ser invocados desde el interior del framework más que del código de la aplicación del usuario. A menudo hace las veces de programa principal coordinando y secuenciando las actividades de la aplicación. Esa inversión de control le permite al framework servir como esqueleto extensible. El código brindado por los usuarios en los métodos extienden el algoritmo genérico del framework para una aplicación en particular. 
 	
@@ -19,20 +19,55 @@
 	
 	Un segundo problema es que un framework de caja blanca puede ser difícil de aprender a utilizar, ya que entender cómo se utliza es lo mismo que entender cómo está construido.
 	
-\subsubsection{Frameworks de Caja Negra}
+\subsubsection{Frameworks de caja negra}
 
 	Otra manera de especializar un framework es incluir en él un conjunto de componentes que sean los que proveen el comportamiento específico de la aplicación. Cada uno de estos componentes debe entender un protocolo en particular. Todos o la mayoría de los componentes pueden tomarse de una librería de componentes. La interfaz entre componentes pueden se definidas con un protocolo, de esta manera el usuario sólo necesita entender la interfaz externa de los mismos. Este tipo de framework se denomina de caja negra.
 	
 	Los frameworks de caja negra son más fáciles de aprender a utilizar que los de caja blanca, pero son menos flexibles. 
 	
 	Una manera de caracterizar la diferencia entre un framework de caja blanca y uno de caja negra es observar que en el de caja blanca el estado de cada instancia está disponible de manera implícita en todos los métodos del framework, casi como las variables globales de Pascal. En un framework de caja negra, cualquier información que se pase a las partes constituyentes del framework debe pasarse de manera explícita. Un framework de caja blanca utiliza las reglas de alcance intra-objeto para evolucionar sin forzarlo a subscribirse a un protocolo explícito, rígido que podría restringir de manera prematura el proceso de diseño.
-	
  \cite{johnson1988designing}
 
-\subsection{Jerarquías y Composición}
-De qué manera los frameworks permiten que los usuarios los configuren y les pongan comportamiento
+\subsection{Jerarquías y composición}
+[Acá hablaremos de qué manera los frameworks permiten que los usuarios los configuren y les pongan comportamiento]
 
-\section{El Entorno de Android}
+
+
+\section{Estado del arte}
+Los dispositivos móviles son ideales para que las personas puedan de manera espontánea recolectar información. Sin embargo, esa simplicidad yace sobre una base que requiere fuertes conocimientos técnicos y una infraestructura compleja. Por lo tanto, construir aplicaciones móviles implican una inversión que puede ser limitante para organizaciones pequeñas. A continuación se analizan algunas alternativas que permiten que personas que no son desarrolladoras tengan la posibilidad de crear herramientas que permitan la recolección de información para proyectos de ciencia ciudadana con dispositivos móviles. \cite{kim2013sensr}
+
+\subsection{Sensr}
+[aca vamos a hablar de Sensr, mencionando sus ventajas y desventajas]
+
+\subsection{Project Noah}
+[aca vamos a hablar de Project Noah, mencionando sus ventajas y desventajas]
+
+\subsection{EpiCollect}
+[aca vamos a hablar de EpiCollect, mencionando sus ventajas y desventajas]
+
+\subsection{Conclusión}
+[aca vamos a dar una conclusión diciendo que ninguno de estos tiene lo que necesitamos]
+
+\begin{comment}
+
+http://www.sensr.org/
+
+https://publicparticipationinscience.files.wordpress.com/2015/07/sensr.pdf
+
+	Los dispositivos móviles son ideales para que las personas puedan de manera espontánea recolectar información. Sin embargo, esa simplicidad yace sobre una base que requiere fuertes conocimientos técnicos una infraestructura compleja. Por lo tanto, construir aplicaciones móviles implican una inversión que puede ser limitante para organizaciones pequeñas. Sensr es una herramienta que permite que personas que no son desarrolladoras tengan la posibilidad de crear herramientas que permitan la recolección de información para proyectos de ciencia ciudadana con dispositivos móviles. Esta herramienta aprovecha que el proceso y la estructura de la información en las actividades de recolección de datos de los proyectos de ciencia ciudadana son similares independientemente del dominio o la diversidad de los mismos. Sensr combina un ambiente de programación gráfico con una aplicación móvil para que las personas que no necesariamente poseen conocimientos técnicos puedan construir herramientas de recolección de información para dispositivos móviles y administrar la información recabada de manera colectiva.
+	
+	De esta manera, una persona que necesita reunir información puede ser el autor de una campaña de ciencia ciudadana en el sitio de Sensr. La campaña es desplegada en la aplicación móvil de Sensr, y sus usuarios se pueden suscribir y contribuir a la campaña con los datos recolectados. Esta herramienta pretende simplificar de manera radical el proceso de crear una herramienta para dispositivos móviles que permita recolectar información y que sea de utilidad en una amplio conjunto de dominios de ciencia ciudadana. Los autores sólo necesitarían completar la descripción del proyecto y diseñar las plantillas o formularios que permitan el ingreso de los datos antes de incluir su proyecto en Sensr y ser distribuido de forma masiva. De esta manera, los autores se liberarían de las preocupaciones acerca de los requerimientos técnicos y las restricciones de la infraestructura.
+	
+	La falta de expertos técnicos y de recursos son a menudo los mayores obstáculos a la hora de desarrollar una aplicación móvil. Los grupos que quieren desarrollar una aplicación móvil de ciencia ciudadana a menudo son organizaciones sin fines de lucro o pequeñas organizaciones regionales que no poseen ni los recursos económicos ni los expertos técnicos que necesitan para desarrollar o mantener ese tipo de aplicaciones. Y además de la programación en si, la administración de los datos recolectados también representan un desafío, ya que estas mismas organizaciones tampoco poseen los servidores para almacenar o analizar el volumen de datos que puedan ser recolectados. El monitoreo participativo es un paradigma computacional que permite la recolección por parte de los voluntarios de información que se encuentra diseminada. Permite que el creciente número de usuarios de teléfonos móviles puedan compartir la información adquirida mediante los sensores de sus dispositivos en variados dominios. 
+	
+	Los investigadores han explorado la utilización de plataformas existentes como una alternativa para Y aunque varias de ellas son robustas y flexibles, la mayoría necesita de habilidad para programar y/o conocimiento de infraestructura en mayor o menor medida. Aunque por ejemplo el Proyecto Noah y EpiCollect son dos ejemplos claros de plataformas que soportan autoría de aplicaciones sin necesidad de programación. \cite{kim2013sensr}
+	
+\end{comment}
+
+
+
+
+\chapter{El entorno de Android}
 
 Android es un sistema operativo móvil desarrollado por Google, basado en Kernel de Linux. Está pensado para diferentes dispositivos móviles con pantalla táctil como teléfonos inteligentes, tablets, relojes inteligentes (Wear OS), automóviles (Android Auto) y televisores (Android TV).
 
@@ -143,16 +178,6 @@ Para crear un Fragment, se debe crear una subclase Fragment (o una subclase exis
 
 
 \subsection{Services}
-...
+[aca falta describir como funcionan los Services en Android...]
 
 
-\section{Estado del Arte}
-\subsection{Sensr: un framework flexible para crear herramientas de recolección de datos con dispositivos móviles para ciencia ciudadana}
-
-	Los dispositivos móviles son ideales para que las personas puedan de manera espontánea recolectar información. Sin embargo, esa simplicidad yace sobre una base que requiere fuertes conocimientos técnicos una infraestructura compleja. Por lo tanto, construir aplicaciones móviles implican una inversión que puede ser limitante para organizaciones pequeñas. Sensr es una herramienta que permite que personas que no son desarrolladoras tengan la posibilidad de crear herramientas que permitan la recolección de información para proyectos de ciencia ciudadana con dispositivos móviles. Esta herramienta aprovecha que el proceso y la estructura de la información en las actividades de recolección de datos de los proyectos de ciencia ciudadana son similares independientemente del dominio o la diversidad de los mismos. Sensr combina un ambiente de programación gráfico con una aplicación móvil para que las personas que no necesariamente poseen conocimientos técnicos puedan construir herramientas de recolección de información para dispositivos móviles y administrar la información recabada de manera colectiva.
-	
-	De esta manera, una persona que necesitan reunir información puede ser el autor de una campaña de ciencia ciudadana en el sitio de Sensr. La campaña es desplegada en la aplicación móvil de Sensr, y sus usuarios se pueden suscribir y contribuir a la campaña con los datos recolectados. Esta herramienta pretende simplificar de manera radical el proceso de crear una herramienta para dispositivos móviles que permita recolectar información y que sea de utilidad en una amplio conjunto de dominios de ciencia ciudadana. Los autores sólo necesitarían completar la descripción del proyecto y diseñar las plantillas o formularios que permitan el ingreso de los datos antes de incluir su proyecto en Sensr y ser distribuido de forma masiva. De esta manera, los autores se liberarían de las preocupaciones acerca de los requerimientos técnicos y las restricciones de la infraestructura.
-	
-	La falta de expertos técnicos y de recursos son a menudo los mayores obstáculos a la hora de desarrollar una aplicación móvil. Los grupos que quieren desarrollar una aplicación móvil de ciencia ciudadana a menudo son organizaciones sin fines de lucro o pequeñas organizaciones regionales que no poseen ni los recursos económicos ni los expertos técnicos que necesitan para desarrollar o mantener ese tipo de aplicaciones. Y además de la programación en si, la administración de los datos recolectados también representan un desafío, ya que estas mismas organizaciones tampoco poseen los servidores para almacenar o analizar el volumen de datos que puedan ser recolectados. El monitoreo participativo es un paradigma computacional que permite la recolección por parte de los voluntarios de información que se encuentra diseminada. Permite que el creciente número de usuarios de teléfonos móviles puedan compartir la información adquirida mediante los sensores de sus dispositivos en variados dominios. 
-	
-	Los investigadores han explorado la utilización de plataformas existentes como una alternativa para Y aunque varias de ellas son robustas y flexibles, la mayoría necesita de habilidad para programar y/o conocimiento de infraestructura en mayor o menor medida. Aunque por ejemplo el Proyecto Noah y EpiCollect son dos ejemplos claros de plataformas que soportan autoría de aplicaciones sin necesidad de programación. \cite{kim2013sensr}
