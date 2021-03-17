@@ -104,15 +104,19 @@ Para el archivo de configuración se eligió el formato JSON porque nos pareció
 \section{Modelo del Framework}
 En esta sección se explica el modelo de las clases que permiten que se cree una aplicación móvil con Samplers y su funcionamiento.
 
-\subsection{Workflow, Step, StepFragment, StepResult y Sample: el core del framework}
-Estas clases conforman el corazón del framework, y son las necesarias para poder definir la muestra y el protocolo de recolección de las mismas.
+\subsection{Workflow, Step, StepFragment, StepResult, Sample y TakeSampleActivity: el core del framework}
+Estas clases conforman el corazón del framework, y son las necesarias para poder definir el protocolo de recolección de las muestras.
 
-TakeSampleActivity es una Activity para tomar la muestra/ "encargada de tomar la muestra". (Agregar al titulo)
+TakeSampleActivity es una Activity para tomar la muestra/ "encargada de tomar la muestra".
+Recibe como parámetro un Workflow, que representa el protocolo de recolección de la muestra.
+El Workflow esta formado por varias instancias de Step, que representan cada una un paso a seguir dentro del protocolo de recolección para obtener la muestra.
+TakeSampleActivity ejecuta el Workflow y por cada Step obtiene y muestra en pantalla el StepFragment asociado, que es el Fragment encargado de mostrar la interfaz de usuario para ejecutar ese Step.
+El StepFragment a través de la interacción con el usuario final (el científico ciudadano) genera un StepResult, que es el resultado de la ejecución del Step asociado.
+El conjunto de todos los StepResults obtenidos después de ejecutar todos los Steps del Workflof forman la muestra, que esta representada por la clase Sample.
+
 TakeSampleActivity genera una muestra (sample)
 
-El StepFragment es el encargado de ejecutar un Step y generar un StepResult con la interacción del usuario final (el científico ciudadano). Un StepFragment recibe un Step, que generalmente contiene los parámetros necesarios para ejecutarlo, y en base a eso muestra un fragment para que, interactuando con el científico ciudadano, poder obtener un resultado (StepResult) para la muestra (Sample). 
-
-
+Por cada tipo de Step, debe haber una clase StepFragment que sepa ejecutar ese Step y generar el StepResult asociado
 
 A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCore}).
 
