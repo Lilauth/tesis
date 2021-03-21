@@ -41,17 +41,47 @@ Como se mencionó antes se requerían aplicaciones nativas, pero abarcar los 3 s
 Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de desarrollo integrado (IDE por sus siglas en inglés) oficial es Android Studio\cite{androidStudio}, por lo que Samplers se apoya sobre el mismo. Android Studio ha sido publicado de forma gratuita bajo Licencia Apache 2.0 y está disponible para las plataformas Microsoft Windows, MacOS y GNU/Linux.
 
 \subsection{Descripción de la solución propuesta: Samplers}
-Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
+Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android (apps) para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
 
-Configurando el protocolo de recolección (Workflow en Samplers) y unos parámetros más, con Samplers se puede generar una aplicación lista para ejecutarse en un dispositivo móvil Android. Esta aplicación generada sirve para tomar muestras siguiendo el protocolo de recolección especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas a un servidor web previamente configurado.
+Configurando el protocolo de recolección (Workflow en Samplers) y unos parámetros más, con Samplers se puede generar una app lista para ejecutarse en un dispositivo móvil Android. Esta app generada sirve para tomar muestras siguiendo el protocolo de recolección especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas a un servidor web previamente configurado.
 
-Por ejemplo, si se desea crear una aplicación para...
+La app generada contiene una Activity principal que muestra un texto de bienvenida (configurable) y un botón para tomar una muestra. Al presionar dicho botón se llama a la Activity encargada de tomar las muestras siguiendo el protocolo de recolección configurado. 
+
+Interactuando con el usuario final de la app, el científico ciudadano, se lo va guiando 
+
+Para configurar el Workflow y los demás parámetros que necesita Samplers para generar la app, se debe completar un archivo de configuración llamado SamplersConfig.json
+
+Por ejemplo, si se desea crear una aplicación para hacer un relevamiento de las zonas con presencia del mosquito transmisor del Dengue (Aedes Aegypti), solicitando a los científicos ciudadanos que tomen fotos de los mosquitos que encuentren con las características del mosquito Aedes Aegypti, junto con la posición del GPS del dispositivo móvil. De esta manera se podría identificar al mosquito con la foto, y con la posición GPS armar un mapa de los avistajes. Para recolectar estas muestras se podría definir el protocolo de recolección de la siguiente manera:
+
+\begin{enumerate}
+
+\item Mostrar al científico ciudadano las características del mosquito Aedes Aegypti para que las pueda comparar con el mosquito encontrado (para no enviar fotos innecesarias)
+
+\item Pedir al científico ciudadano que tome una foto desde arriba del mosquito
+
+\item Pedir al científico ciudadano que tome una foto de costado del mosquito
+
+\item Pedir al científico ciudadano que tome la posición del GPS
+
+\end{enumerate}
+
+ 
 
 [foto o codigo del archivo de configuracion con el workflow]
 
 
 
 [capturas de pantalla de la aplicacion generada]
+
+
+
+
+*********************************************************************************************
+
+*********************************************************************************************
+
+*********************************************************************************************
+
 
 
 %**************************
@@ -89,15 +119,43 @@ Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Ste
 
 Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo es open source y se usó un repositorio público en GitHub\cite{github} para dejar el código fuente disponible para todo el mundo.
 
-\subsubsection{Archivo de configuración}
+\section{Archivo de configuración}
 
 Para el archivo de configuración se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que editarlo manualmente. En el mismo viene el workflow, que representa el protocolo de recolección de las muestras, y las demás configuraciones necesarias para armar la aplicación.
 
 
+Como se configura el Workflow
+
+Los Steps disponibles son:
+
+\begin{itemize}
+
+\item Information: Muestra un texto al científico ciudadano.
+
+\item Photo: Solicita tomar una foto.
+
+\item Sound: Solicita grabar sonido.
+
+\item Location: Solicita tomar la posición del GPS del dispositivo móvil.
+
+\item Route: Solicita grabar con el GPS del dispositivo móvil un recorrido (un conjunto de posiciones GPS).
+
+\item SelectOne: Solicita seleccionar una única respuesta a una pregunta.
+
+\item MultipleSelect: 
+
+\item InsertText:
+
+\item InsertDate:
+
+\item InsertTime:
+
+\end{itemize}
+
+Los demás parámetros de la app.
 
 
-
-\subsubsection{Usando las clases}
+\subsection{Usando las clases}
 
 
 
