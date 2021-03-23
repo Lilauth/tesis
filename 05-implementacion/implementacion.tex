@@ -49,7 +49,7 @@ La app generada contiene una Activity principal que muestra un texto de bienveni
 
 Interactuando con el usuario final de la app, el científico ciudadano, se lo va guiando 
 
-Para configurar el Workflow y los demás parámetros que necesita Samplers para generar la app, se debe completar un archivo de configuración llamado SamplersConfig.json
+Para configurar el Workflow y los demás parámetros que necesita Samplers para generar la app, se debe completar un archivo de configuración llamado SamplersConfig.json.
 
 Por ejemplo, si se desea crear una aplicación para hacer un relevamiento de las zonas con presencia del mosquito transmisor del Dengue (Aedes Aegypti), solicitando a los científicos ciudadanos que tomen fotos de los mosquitos que encuentren con las características del mosquito Aedes Aegypti, junto con la posición del GPS del dispositivo móvil. De esta manera se podría identificar al mosquito con la foto, y con la posición GPS armar un mapa de los avistajes. Para recolectar estas muestras se podría definir el protocolo de recolección de la siguiente manera:
 
@@ -65,14 +65,17 @@ Por ejemplo, si se desea crear una aplicación para hacer un relevamiento de las
 
 \end{enumerate}
 
- 
+El archivo de configuración para Samplers quedaría de la siguiente manera: 
 
-[foto o codigo del archivo de configuracion con el workflow]
+[foto o codigo del archivo de configuración con el workflow]
 
+Con este archivo de configuración, Samplers generará una app lista para ejecutar en un dispositivo móvil Android que se verá como se muestra en la siguiente imagen:
 
+[capturas de pantalla de la aplicación generada]
 
-[capturas de pantalla de la aplicacion generada]
+Cómo se configura el archivo de configuración de Samplers y las opciones disponibles para el mismo se explican en la siguiente sección.
 
+Como Samplers genera el código fuente de la app, esto permite que un usuario con conocimientos de programación pueda modificarlo y personalizar la app a su gusto, así como también agregarle otras funcionalidades a la app generada.
 
 
 
