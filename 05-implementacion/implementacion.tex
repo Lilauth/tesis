@@ -47,7 +47,7 @@ Configurando el protocolo de recolección (Workflow en Samplers) y unos parámet
 
 La app generada contiene una Activity principal que muestra un texto de bienvenida (configurable) y un botón para tomar una muestra. Al presionar dicho botón se llama a la Activity encargada de tomar las muestras siguiendo el protocolo de recolección configurado. 
 
-Interactuando con el usuario final de la app, el científico ciudadano, se lo va guiando 
+Interactuando con el usuario final de la app, el científico ciudadano\footnote{Se diferencia al usuario de Samplers, que es el que desea generar una app para recolectar muestras en un proyecto de ciencia ciudadana, del usuario final de la app, que es quien va a usar la app generada, que sería el científico ciudadano.}, se lo va guiando 
 
 Para configurar el Workflow y los demás parámetros que necesita Samplers para generar la app, se debe completar un archivo de configuración llamado SamplersConfig.json.
 
@@ -55,25 +55,38 @@ Por ejemplo, si se desea crear una aplicación para hacer un relevamiento de las
 
 \begin{enumerate}
 
-\item Mostrar al científico ciudadano las características del mosquito Aedes Aegypti para que las pueda comparar con el mosquito encontrado (para no enviar fotos innecesarias)
+\item Mostrar al científico ciudadano las características del mosquito Aedes Aegypti para que las pueda comparar con el mosquito encontrado (para evitar el envío de fotos innecesarias).
 
-\item Pedir al científico ciudadano que tome una foto desde arriba del mosquito
+\item Pedir al científico ciudadano que tome una foto desde arriba del mosquito.
 
-\item Pedir al científico ciudadano que tome una foto de costado del mosquito
+\item Pedir al científico ciudadano que tome una foto del costado del mosquito.
 
 \item Pedir al científico ciudadano que tome la posición del GPS
 
 \end{enumerate}
 
-El archivo de configuración para Samplers quedaría de la siguiente manera: 
+Para representar éste protocolo de recolección se debería configurar el archivo de configuración para Samplers de la siguiente manera: 
 
-[foto o codigo del archivo de configuración con el workflow]
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.8]{05-implementacion/archivo_config_ejemplo.png} 
+   \caption{Archivo de configuración para Samplers de la app ejemplo}
+\end{figure}
 
-Con este archivo de configuración, Samplers generará una app lista para ejecutar en un dispositivo móvil Android que se verá como se muestra en la siguiente imagen:
 
-[capturas de pantalla de la aplicación generada]
+Con este archivo de configuración, Samplers generará el código necesario para la app, que al compilarla y ejecutarla en un dispositivo móvil Android se verá como muestra la siguiente imagen:
 
-Cómo se configura el archivo de configuración de Samplers y las opciones disponibles para el mismo se explican en la siguiente sección.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.8]{05-implementacion/app_generada_ejemplo.png} 
+   \caption{Capturas de pantalla de la app de ejemplo generada por Samplers}
+\end{figure}
+
+
+Las opciones disponibles y cómo se configura el archivo de configuración de Samplers se explican en la siguiente sección.
+
+De esta manera un científico que desee generar una app para su proyecto de ciencia ciudadana, solo tiene que configurar el archivo de configuración, ejecutar Samplers y luego compilar en Android Studio y ejecutar la app en un dispositivo móvil o en los dispositivos virtuales que provee Android Studio para debugging.
 
 Como Samplers genera el código fuente de la app, esto permite que un usuario con conocimientos de programación pueda modificarlo y personalizar la app a su gusto, así como también agregarle otras funcionalidades a la app generada.
 
@@ -158,9 +171,9 @@ Los Steps disponibles son:
 Los demás parámetros de la app.
 
 
-\subsection{Usando las clases}
+\section{Usando las clases}
 
-
+Como sería usando las clases en una app existente por ejemplo.
 
 \section{Modelo del Framework}
 En esta sección se explica el modelo de las clases que permiten que se cree una aplicación móvil con Samplers y su funcionamiento.

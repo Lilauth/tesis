@@ -105,7 +105,7 @@ Más adelante se explican con más detalle los componentes que influyeron en el 
 Un aspecto único del diseño del sistema Android es que cualquier app puede iniciar un componente de otra app (por medio de una petición al sistema). Por ejemplo, si se desea tomar una foto con la cámara del dispositivo, seguramente ya hay otra app que lo hace, y se puede llamar a esa app en lugar de desarrollar una Activity que tome una foto.
 \cite{androidDocs}
 
-\subsection{Activities}
+\section{Activities}
 La clase Activity es un componente clave de una app para Android, y la forma en que se inician y se crean las Activities es una parte fundamental del modelo de aplicación de la plataforma. A diferencia de los paradigmas de programación en los que las apps se inician con un método main(), el sistema Android inicia el código en una instancia de Activity invocando métodos de devolución de llamada específicos que corresponden a etapas específicas de su ciclo de vida. 
 
 La experiencia con la app para dispositivos móviles difiere de la versión de escritorio, ya que la interacción del usuario con la app no siempre comienza en el mismo lugar. En este caso, no hay un lugar específico desde donde el usuario comienza su actividad. Por ejemplo, si abres una app de correo electrónico desde la pantalla principal, es posible que veas una lista de correos electrónicos. Por el contrario, si usas una app de redes sociales que luego inicia tu app de correo electrónico, es posible que accedas directamente a la pantalla de la app de correo electrónico para redactar uno.
@@ -142,7 +142,7 @@ El siguiente diagrama muestra los estados mas importantes por los que pasa una A
 \end{figure}
 
 
-\subsection{Fragments}
+\section{Fragments}
 Un Fragment representa una sección modular y reusable de la IU de una Activity, el cual se puede agregar o quitar mientras la Activity se esté ejecutando (algo así como una "sub-Activity"). Se pueden combinar varios Fragments en una sola Activity para crear una IU multipanel y volver a usar un Fragment en diferentes Activities.
 
 
@@ -177,7 +177,10 @@ Para crear un Fragment, se debe crear una subclase Fragment (o una subclase exis
 \cite{androidDocs}
 
 
-\subsection{Services}
+\section{Services}
 [aca falta describir como funcionan los Services en Android...]
+
+\section{Permisos}
+[aca falta describir como funcionan los permisos para acceder a las funciones sensibles del dispositivo móvil en Android...]
 
 
