@@ -45,7 +45,7 @@ Samplers es un framework que permite construir, de manera sencilla, aplicaciones
 
 Configurando el protocolo de recolección (Workflow en Samplers) y unos parámetros más, con Samplers se puede generar una app lista para ejecutarse en un dispositivo móvil Android. Esta app generada sirve para tomar muestras siguiendo el Workflow especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas a un servidor web previamente configurado.
 
-La app generada contiene, entre otras cosas, una Activity principal que muestra un texto de bienvenida (configurable) y un botón para tomar una muestra. Al presionar dicho botón se llama a la Activity encargada de tomar las muestras siguiendo el Workflow configurado. Esta Activity va mostrando en pantalla un Fragment por cada «paso» dentro del Workflow (Steps en Samplers). Cada uno de estos Fragments va interactuando con el usuario final de la app, el científico ciudadano\footnote{Se diferencia al usuario de Samplers, que es el que desea generar una app para recolectar muestras en un proyecto de ciencia ciudadana, del usuario final de la app, que es quien va a usar la app generada, que sería el científico ciudadano.}, para completar cada uno de los Steps del Workflow y así tomar la muestra(Sample en Samplers).
+La app generada contiene, entre otras cosas, una Activity principal que muestra un texto de bienvenida (configurable) y un botón para tomar una muestra. Al presionar dicho botón se llama a la Activity encargada de tomar las muestras siguiendo el Workflow configurado. Esta Activity va mostrando en pantalla un Fragment por cada «paso» dentro del Workflow (Steps en Samplers). Cada uno de estos Fragments va interactuando con el usuario final de la app, el científico ciudadano\footnote{Se diferencia al usuario de Samplers, que es el que desea generar una app para recolectar muestras en un proyecto de ciencia ciudadana, del usuario final de la app, que es quien va a usar la app generada, que sería el científico ciudadano.}, para completar cada uno de los Steps del Workflow y así tomar la muestra (Sample en Samplers).
 
 Para configurar el Workflow y los demás parámetros que necesita Samplers para generar la app, se debe completar un archivo de configuración llamado SamplersConfig.json.
 
@@ -100,7 +100,9 @@ Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Ste
 
 \section{Archivo de configuración}\label{sec:archivo_configuracion}
 
-Para el archivo de configuración se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que editarlo manualmente. En el mismo viene el workflow, que representa el protocolo de recolección de las muestras, y las demás configuraciones necesarias para armar la aplicación.
+El archivo de configuración es un archivo en formato JSON que se debe completar con los parámetros necesarios para crear la app con Samplers. Se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que editarlo manualmente.
+
+Esta compuesto por tres objetos: project, application y workflow.
 
 
 Como se configura el Workflow
@@ -121,13 +123,13 @@ Los Steps disponibles son:
 
 \item SelectOne: Solicita seleccionar una única respuesta a una pregunta.
 
-\item MultipleSelect: 
+\item MultipleSelect: Solicita seleccionar una o varias respuestas a una pregunta.
 
-\item InsertText:
+\item InsertText: Solicita ingresar texto.
 
-\item InsertDate:
+\item InsertDate: Solicita seleccionar una fecha.
 
-\item InsertTime:
+\item InsertTime: Solicita seleccionar una hora.
 
 \end{itemize}
 
