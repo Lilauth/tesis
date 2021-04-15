@@ -102,8 +102,38 @@ Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Ste
 
 El archivo de configuración es un archivo en formato JSON que se debe completar con los parámetros necesarios para crear la app con Samplers. Se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que editarlo manualmente.
 
-Esta compuesto por tres objetos: project, application y workflow.
+El archivo está compuesto por tres objetos: project, application y workflow.
 
+En el objeto project, se encuentran las configuraciones del proyecto de Android Studio en el cual se creará la app, y son las siguientes:
+\begin{itemize}
+
+\item app\_path: la ruta relativa a los archivos fuente de la app. Es donde se crearán los archivos de las Activities por ejemplo.
+
+\item package\_name: El nombre del package que se usará para las Activities de la app (generalmente ``com.example.myApplication"). 
+
+\end{itemize}
+
+En el objeto application, se encuentran los parámetros para configurar a la app, como por ejemplo el mensaje de bienvenida o el servidor web al que se deben enviar las muestras recolectadas. Los parámetros son los siguientes:
+\begin{itemize}
+
+\item title: 
+
+\item welcomeMessage:  
+
+\item networkConfiguration:
+
+\item googleMaps\_API\_KEY:
+
+\item mainHelpFileName: [Opcional] se puede espe 
+el nombre del archivo HTML que se usará.
+The file name of the HTML file containing the main application help
+
+\item authenticationEnabled: [Opcional] habilita los métodos de identificación del usuario que toma las muestras.
+
+\item authenticationOptional: [Opcional] indica si la identificación (en caso de estar habilitada) será opcional u obligatoria.
+
+
+\end{itemize}
 
 Como se configura el Workflow
 
@@ -138,7 +168,7 @@ Los demás parámetros de la app.
 
 \section{Usando las clases} \label{sec:usando_las_clases}
 
-[Como sería usando las clases en una app existente por ejemplo].
+[Aca explicaremos cómo sería usando las clases en una app existente por ejemplo, pero sencillo y por arriba porque todavia no se explicaron las clases en detalle que viene en la siguiente sección].
 
 \section{Modelo del Framework}
 En esta sección se explica el modelo de las clases que permiten que se cree una aplicación móvil con Samplers y su funcionamiento.
@@ -146,7 +176,7 @@ En esta sección se explica el modelo de las clases que permiten que se cree una
 \subsection{Workflow, Step, StepFragment, StepResult, Sample y TakeSampleActivity: el core del framework}
 Estas clases conforman el corazón del framework, y son las necesarias para poder definir el protocolo de recolección de las muestras.
 
-TakeSampleActivity es una Activity para tomar la muestra/ "encargada de tomar la muestra".
+TakeSampleActivity es una Activity para tomar la muestra o "encargada de tomar la muestra".
 Recibe como parámetro un Workflow, que representa el protocolo de recolección de la muestra.
 El Workflow esta formado por varias instancias de Step, que representan cada una un paso a seguir dentro del protocolo de recolección para obtener la muestra.
 TakeSampleActivity ejecuta el Workflow y por cada Step obtiene y muestra en pantalla el StepFragment asociado, que es el Fragment encargado de mostrar la interfaz de usuario para ejecutar ese Step.
