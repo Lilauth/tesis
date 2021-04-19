@@ -86,7 +86,7 @@ Las opciones disponibles y cómo se configura el archivo de configuración de Sa
 
 De esta manera un científico que desee generar una app para su proyecto de ciencia ciudadana, solo tiene que configurar el archivo de configuración, ejecutar Samplers y luego compilar en Android Studio y ejecutar la app en un dispositivo móvil o en los dispositivos virtuales que provee Android Studio para debugging.
 
-Como Samplers genera el código fuente de la app, esto permite que un usuario con conocimientos de programación pueda modificarlo y personalizar la app a su gusto, así como también agregarle otras funcionalidades a la app generada. También permite que pueda ser usado en una app ya desarrollada o en desarrollo, como si fuera una librería que se incluye al proyecto y permite usar sus clases (esto se explica con más detalle en la sección \ref{sec:usando_las_clases}).
+Como Samplers genera el código fuente de la app, esto permite que un usuario con conocimientos de programación pueda modificarlo y personalizar la app a su gusto, así como también agregarle otras funcionalidades a la app generada. También permite que pueda ser usado en una app ya desarrollada o en desarrollo, como si fuera una librería que se incluye al proyecto y permite usar sus clases (esto se explica con más detalle en la sección [\ref{sec:usando_las_clases}]).
 
 Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo es open source y se usó un repositorio público en GitHub\cite{github} para dejar el código fuente disponible para todo el mundo.
 
@@ -100,27 +100,36 @@ Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Ste
 
 \section{Archivo de configuración}\label{sec:archivo_configuracion}
 
-El archivo de configuración es un archivo en formato JSON que se debe completar con los parámetros necesarios para crear la app con Samplers. Se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que editarlo manualmente.
-
-El archivo está compuesto por tres objetos: project, application y workflow.
+\begin{comment}
 
 En el objeto project, se encuentran las configuraciones del proyecto de Android Studio en el cual se creará la app, y son las siguientes:
 \begin{itemize}
 
 \item app\_path: la ruta relativa a los archivos fuente de la app. Es donde se crearán los archivos de las Activities por ejemplo.
 
-\item package\_name: El nombre del package que se usará para las Activities de la app (generalmente ``com.example.myApplication"). 
+\item package\_name: el nombre del package que se usará para las Activities de la app (generalmente ``com.example.myApplication"). 
 
 \end{itemize}
 
-En el objeto application, se encuentran los parámetros para configurar a la app, como por ejemplo el mensaje de bienvenida o el servidor web al que se deben enviar las muestras recolectadas. Los parámetros son los siguientes:
+En el objeto application, se encuentran los parámetros para configurar la app, como por ejemplo el mensaje de bienvenida o el servidor web al que se deben enviar las muestras recolectadas. Los parámetros son los siguientes:
 \begin{itemize}
 
-\item title: 
+\item title: el título de la app.
 
-\item welcomeMessage:  
+\item welcomeMessage: el mensaje de bienvenida que se muestra en la Activity principal.  
 
-\item networkConfiguration:
+\item networkConfiguration: la configuración del servidor al que se enviarán las muestras tomadas con la app
+
+\begin{itemize}
+\item url: la url del servidor a la cual se enviarán las muestras mediante un mensaje HTTP POST.
+
+\item paramName: el nombre del parámetro dentro del mensaje HTTP POST que se usará para enviar la muestra.
+
+\item paramNameUserId: [Opcional] el nombre del parámetro dentro del mensaje HTTP POST que se usará para enviar el id del usuario que tomó la muestra (si los métodos de identificación estan habilitados).
+
+\item paramNameAuthenticationType: [Opcional] el nombre del parámetro dentro del mensaje HTTP POST que se usará para enviar el tipo de identificación que se usó (si los métodos de identificación estan habilitados).
+
+\end{itemize}
 
 \item googleMaps\_API\_KEY:
 
@@ -135,9 +144,17 @@ The file name of the HTML file containing the main application help
 
 \end{itemize}
 
-Como se configura el Workflow
+\end{comment}
 
-Los Steps disponibles son:
+El archivo de configuración es un archivo en formato JSON que se debe completar con los parámetros necesarios para crear la app con Samplers. Se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que editarlo manualmente.
+
+El archivo está compuesto por tres objetos: project, application y workflow.
+
+En el objeto project, se encuentran las configuraciones del proyecto de Android Studio en el cual se creará la app, como por ejemplo la ruta en donde se crearán los archivos de las Activities y el nombre del package que se usará para las mismas. 
+
+En el objeto application, se encuentran los parámetros para configurar la app, como por ejemplo el título de la app, el mensaje de bienvenida o el servidor web al que se deben enviar las muestras recolectadas. 
+
+El objeto workflow se usa justamente para configurar el Workflow (el protocolo de recolección) que usará la app para tomar las muestras. En el mismo se deben especificar los Steps que se usarán con sus respectivos parámetros cada uno. Por defecto Samplers provee los siguientes Steps:
 
 \begin{itemize}
 
@@ -163,7 +180,17 @@ Los Steps disponibles son:
 
 \end{itemize}
 
-Los demás parámetros de la app.
+En la siguiente imagen se muestra un ejemplo del archivo de configuración para Samplers.
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.8]{05-implementacion/archivo_config_ejemplo.png} 
+   \caption{Ejemplo de un archivo de configuración para Samplers}
+\end{figure}
+
+Una vez configurado, el archivo se copia en la carpeta de la app
+
+El detalle de todos los parámetros, como configurar el archivo de configuración se explican en la sección [\ref{sec:archivo_config_detallado}]
+
 
 
 \section{Usando las clases} \label{sec:usando_las_clases}
