@@ -187,7 +187,7 @@ En la siguiente imagen se muestra un ejemplo del archivo de configuración para 
    \caption{Ejemplo de un archivo de configuración para Samplers}
 \end{figure}
 
-Una vez configurado el archivo, Samplers generará un Activity principal para la app que tendrá todas las configuraciones del objeto application y que usará el Workflow configurado para llamar a la Activity encargada de tomar las muestras (TakeSampleActivity) cuando el científico ciudadano presione el botón para tomar una muestra.
+Una vez configurado el archivo, Samplers generará una Activity principal para la app que tendrá todas las configuraciones del objeto application y que usará el Workflow configurado para llamar a la Activity encargada de tomar las muestras (TakeSampleActivity) cuando el científico ciudadano presione el botón para tomar una muestra.
 
 El detalle de todos los parámetros, como configurar el archivo de configuración y los diferentes Steps disponibles para armar el Workflow se explican en la sección [\ref{sec:archivo_config_detallado}]
 
@@ -199,19 +199,8 @@ El detalle de todos los parámetros, como configurar el archivo de configuració
 \section{Modelo del Framework}
 En esta sección se explica el modelo de las clases que permiten que se cree una aplicación móvil con Samplers y su funcionamiento.
 
-\subsection{Workflow, Step, StepFragment, StepResult, Sample y TakeSampleActivity: el core del framework}
+\subsection{Workflow, Step, StepFragment, StepResult, Sample}
 Estas clases conforman el corazón del framework, y son las necesarias para poder definir el protocolo de recolección de las muestras.
-
-TakeSampleActivity es una Activity para tomar la muestra o "encargada de tomar la muestra".
-Recibe como parámetro un Workflow, que representa el protocolo de recolección de la muestra.
-El Workflow esta formado por varias instancias de Step, que representan cada una un paso a seguir dentro del protocolo de recolección para obtener la muestra.
-TakeSampleActivity ejecuta el Workflow y por cada Step obtiene y muestra en pantalla el StepFragment asociado, que es el Fragment encargado de mostrar la interfaz de usuario para ejecutar ese Step.
-El StepFragment a través de la interacción con el usuario final (el científico ciudadano) genera un StepResult, que es el resultado de la ejecución del Step asociado.
-El conjunto de todos los StepResults obtenidos después de ejecutar todos los Steps del Workflof forman la muestra, que esta representada por la clase Sample.
-
-TakeSampleActivity genera una muestra (sample)
-
-Por cada tipo de Step, debe haber una clase StepFragment que sepa ejecutar ese Step y generar el StepResult asociado
 
 A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCore}).
 
@@ -221,6 +210,17 @@ A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCo
    \caption{Diagrama de clases del core del framework}
    \label{fig:umlFrameworkCore}
 \end{figure}
+
+TakeSampleActivity es una Activity encargada de tomar la muestra.
+Recibe como parámetro un Workflow, que representa el protocolo de recolección de la muestra.
+El Workflow esta formado por varias instancias de Step, que representan cada una un paso a seguir dentro del protocolo de recolección para obtener la muestra.
+
+TakeSampleActivity ejecuta el Workflow y por cada Step obtiene y muestra en pantalla el StepFragment asociado, que es el Fragment encargado de mostrar la interfaz de usuario para ejecutar ese Step. 
+El StepFragment a través de la interacción con el usuario final (el científico ciudadano) genera un StepResult, que es el resultado de la ejecución del Step asociado. Por cada tipo de Step, debe haber una clase StepFragment que sepa ejecutar ese Step y generar el StepResult asociado
+
+El conjunto de todos los StepResults obtenidos después de ejecutar todos los Steps del Workflow forman la muestra, que esta representada por la clase Sample.
+
+TakeSampleActivity genera una muestra (sample)
 
 
 \subsubsection{Workflow: el protocolo de recolección de las muestras}
@@ -278,11 +278,11 @@ Por cada Step que provee Samplers de manera predeterminada, también se provee u
 \subsubsection{StepResult: el resultado de la ejecución de un Step}
 El StepResult representa el resultado que se obtiene de ejecutar un Step. Contiene los datos obtenidos de ejecutar el Step asociado. Cada ejecución de un mismo Step, puede generar un StepResult diferente.
 
-Por ejemplo, para el caso en que el paso (Step) sea contestar una pregunta, el StepResult contendrá la respuesta seleccionada, si solo se admite seleccionar una única respuesta, o una colección de respuestas, si se permite seleccionar más de una.
+Por ejemplo, para el caso en que el Step sea contestar una pregunta, el StepResult contendrá la respuesta seleccionada, si solo se admite seleccionar una única respuesta, o una colección de respuestas, si se permite seleccionar más de una.
 
 Se definió como una interfaz, ya que su comportamiento depende de la implementación de cada tipo de Step que se defina.
 
-Un StepResult tiene asociado el Id del Step en base al cual se generó. También puede tener asociado un archivo multimedia, como por ejemplo en los casos de PhotoStep y SoundRecordStep que guardan una foto y un archivo de sonido respectivamente.
+Un StepResult tiene asociado el Step en base al cual se generó. También puede tener asociado un archivo multimedia, como por ejemplo en los casos de PhotoStep y SoundRecordStep que guardan una foto y un archivo de sonido respectivamente.
 
 
 \subsubsection{Sample: la Muestra}
