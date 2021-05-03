@@ -211,6 +211,7 @@ A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCo
    \label{fig:umlFrameworkCore}
 \end{figure}
 
+\begin{comment}
 TakeSampleActivity es una Activity encargada de tomar la muestra.
 Recibe como parámetro un Workflow, que representa el protocolo de recolección de la muestra.
 El Workflow esta formado por varias instancias de Step, que representan cada una un paso a seguir dentro del protocolo de recolección para obtener la muestra.
@@ -221,6 +222,7 @@ El StepFragment a través de la interacción con el usuario final (el científic
 El conjunto de todos los StepResults obtenidos después de ejecutar todos los Steps del Workflow forman la muestra, que esta representada por la clase Sample.
 
 TakeSampleActivity genera una muestra (sample)
+\end{comment}
 
 
 \subsubsection{Workflow: el protocolo de recolección de las muestras}
@@ -233,8 +235,9 @@ El Workflow se comporta de manera secuencial, puede ir hacia adelante o volver h
 \subsubsection{Step: el paso}
 Un Step representa un paso dentro del Workflow.
 
+\begin{comment}
 *** ACA FALTA CORREGIR  ***
-
+\end{comment}
 
 Se definió como una interfaz, ya que su comportamiento depende de la implementación de cada tipo de Step que se defina. Con esto también se evita que los Steps creados por los usuarios programadores tengan que heredar de una clase en particular, y solo necesiten implementar la interfaz.
 
