@@ -4,7 +4,7 @@
 
 \subsection{Descripción del problema}
 
-Como se vio antes, se necesitaba de un [entorno/framework/algo] que permitiera a un científico poder crear una aplicación móvil con facilidad para poder incluir ciencia ciudadana en sus proyectos de ciencia ciudadana, mas precisamente, en proyectos de recolección.
+Como se vio antes, se necesitaba de un entorno que permitiera a un científico poder crear una aplicación móvil con facilidad para poder incluir ciencia ciudadana en sus proyectos de ciencia ciudadana, mas precisamente, en proyectos de recolección.
 
 La idea es que un científico pueda crear una aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. Por ejemplo, desde una página web armar el protocolo de recolección de las muestras y con el mismo poder generar una aplicación móvil que sirva para tomar las muestras siguiendo dicho protocolo.
 
@@ -41,78 +41,166 @@ Como se mencionó antes se requerían aplicaciones nativas, pero abarcar los 3 s
 Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de desarrollo integrado (IDE por sus siglas en inglés) oficial es Android Studio\cite{androidStudio}, por lo que Samplers se apoya sobre el mismo. Android Studio ha sido publicado de forma gratuita bajo Licencia Apache 2.0 y está disponible para las plataformas Microsoft Windows, MacOS y GNU/Linux.
 
 \subsection{Descripción de la solución propuesta: Samplers}
-Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
+Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android (apps) para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
 
-Configurando el protocolo de recolección (Workflow en Samplers) y unos parámetros más, con Samplers se puede generar una aplicación lista para ejecutarse en un dispositivo móvil Android. Esta aplicación generada sirve para tomar muestras siguiendo el protocolo de recolección especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas a un servidor web previamente configurado.
+Configurando el protocolo de recolección (Workflow en Samplers) y unos parámetros más, con Samplers se puede generar una app lista para ejecutarse en un dispositivo móvil Android. Esta app generada sirve para tomar muestras siguiendo el Workflow especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas a un servidor web previamente configurado.
 
-Por ejemplo, si se desea crear una aplicación para...
+La app generada contiene, entre otras cosas, una Activity principal que muestra un texto de bienvenida (configurable) y un botón para tomar una muestra. Al presionar dicho botón se llama a la Activity encargada de tomar las muestras siguiendo el Workflow configurado. Esta Activity va mostrando en pantalla un Fragment por cada «paso» dentro del Workflow (Steps en Samplers). Cada uno de estos Fragments va interactuando con el usuario final de la app, el científico ciudadano\footnote{Se diferencia al usuario de Samplers, que es el que desea generar una app para recolectar muestras en un proyecto de ciencia ciudadana, del usuario final de la app, que es quien va a usar la app generada, que sería el científico ciudadano.}, para completar cada uno de los Steps del Workflow y así tomar la muestra (Sample en Samplers).
 
-[foto o codigo del archivo de configuracion con el workflow]
+Para configurar el Workflow y los demás parámetros que necesita Samplers para generar la app, se debe completar un archivo de configuración llamado SamplersConfig.json.
 
+Por ejemplo, si se desea crear una aplicación para hacer un relevamiento de las zonas con presencia del mosquito transmisor del Dengue (Aedes Aegypti), solicitando a los científicos ciudadanos que tomen fotos de los mosquitos que encuentren con las características del mosquito Aedes Aegypti, junto con la posición del GPS del dispositivo móvil. De esta manera se podría identificar al mosquito con la foto, y con la posición GPS armar un mapa de los avistajes. Para recolectar estas muestras se podría definir el protocolo de recolección de la siguiente manera:
 
+\begin{enumerate}
 
-[capturas de pantalla de la aplicacion generada]
+\item Mostrar al científico ciudadano las características del mosquito Aedes Aegypti para que las pueda comparar con el mosquito encontrado (para evitar el envío de fotos innecesarias).
 
+\item Pedir al científico ciudadano que tome una foto desde arriba del mosquito.
 
-%**************************
-% Encarar de forma que lo primero (mas facil) es armar el arvhivo de cofiguracion y generar la app, y despues (mas avanzado) es usar las clases (que se pueden usar en una app existente)
+\item Pedir al científico ciudadano que tome una foto del costado del mosquito.
 
-Funciona de dos formas:
-\begin{itemize}
-\item Instanciando las clases necesarias para armar la aplicación: es decir, instanciando un Workflow con instancias de los Steps que provee Samplers (o creando los propios) para pasárselo a la una instancia de la clase TakeSampleActivity que es la encargada de ejecutarlo y generar las muestras (Samples).
-\item Usando el generador de clases de Gradle: que básicamente lo que hace es extender e instanciar las clases necesarias para generar la aplicación en base al archivo de configuración JSON pasado. 
-\end{itemize}
+\item Pedir al científico ciudadano que tome la posición del GPS
 
+\end{enumerate}
 
-Samplers recibe un archivo de configuración y genera una aplicación lista para ejecutarse en un dispositivo móvil con Android.
+Para representar este protocolo de recolección se debería configurar el archivo de configuración para Samplers de la siguiente manera: 
 
-Si bien, como se mencionó antes, Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana de manera sencilla y sin tener conocimientos de programación, también se pensó para que un usuario programador pudiese modificar la aplicación generada, personalizando la pantalla principal, modificando la vista de un Step, o agregando uno propio que no esté en los que provee Samplers. También para que pudiese ser incluido en una aplicación ya comenzada o una que recién arranca.
-
-
-%**************************
-
-
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.8]{05-implementacion/archivo_config_ejemplo.png} 
+   \caption{Archivo de configuración para Samplers de la app ejemplo}
+\end{figure}
 
 
+Con este archivo de configuración, Samplers generará el código necesario para la app, que al compilarla y ejecutarla en un dispositivo móvil Android se verá como muestra la siguiente imagen:
 
 
-También provee un mecanismo de identificación del usuario final de la aplicación (el científico ciudadano) usando su cuenta de Google, ya que en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones).  Ademas esta preparado para que el usuario del framework pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña) o con una API de alguna red social, como Facebook, Twitter, Instagram, etc.
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.8]{05-implementacion/app_generada_ejemplo.png} 
+   \caption{Capturas de pantalla de la app de ejemplo generada por Samplers}
+\end{figure}
 
 
-****** Reacomodar: empieza igual que el parrafo anterior....
+Las opciones disponibles y cómo se configura el archivo de configuración de Samplers se explican en la siguiente sección [\ref{sec:archivo_configuracion}].
 
+De esta manera un científico que desee generar una app para su proyecto de ciencia ciudadana, solo tiene que configurar el archivo de configuración, ejecutar Samplers y luego compilar en Android Studio y ejecutar la app en un dispositivo móvil o en los dispositivos virtuales que provee Android Studio para debugging.
 
-Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Step) en particular y una ayuda general en la pantalla principal, usando archivos HTML. Se optó por los mismos por la variedad de opciones y posibilidades que conllevan, y por su simpleza para mostrarlos.
-
-******
-
+Como Samplers genera el código fuente de la app, esto permite que un usuario con conocimientos de programación pueda modificarlo y personalizar la app a su gusto, así como también agregarle otras funcionalidades a la app generada. También permite que pueda ser usado en una app ya desarrollada o en desarrollo, como si fuera una librería que se incluye al proyecto y permite usar sus clases (esto se explica con más detalle en la sección [\ref{sec:usando_las_clases}]).
 
 Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo es open source y se usó un repositorio público en GitHub\cite{github} para dejar el código fuente disponible para todo el mundo.
 
-\subsubsection{Archivo de configuración}
 
-Para el archivo de configuración se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que editarlo manualmente. En el mismo viene el workflow, que representa el protocolo de recolección de las muestras, y las demás configuraciones necesarias para armar la aplicación.
-
-
+\begin{comment}
+También provee un mecanismo de identificación del usuario final de la aplicación (el científico ciudadano) usando su cuenta de Google, ya que en los dispositivos móviles con sistema operativo Android se requiere de una cuenta de Google para acceder a muchas de las funcionalidades, como por ejemplo la Play Store (la tienda de Android para descargar aplicaciones).  Ademas esta preparado para que el usuario del framework pueda incluir su propio sistema de inicio de sesión (por ejemplo con usuario y contraseña) o con una API de alguna red social, como Facebook, Twitter, Instagram, etc.
 
 
+Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Step) en particular y una ayuda general en la pantalla principal, usando archivos HTML. Se optó por los mismos por la variedad de opciones y posibilidades que conllevan, y por su simpleza para mostrarlos.
+\end{comment}
 
-\subsubsection{Usando las clases}
+\section{Archivo de configuración}\label{sec:archivo_configuracion}
+
+\begin{comment}
+
+En el objeto project, se encuentran las configuraciones del proyecto de Android Studio en el cual se creará la app, y son las siguientes:
+\begin{itemize}
+
+\item app\_path: la ruta relativa a los archivos fuente de la app. Es donde se crearán los archivos de las Activities por ejemplo.
+
+\item package\_name: el nombre del package que se usará para las Activities de la app (generalmente ``com.example.myApplication"). 
+
+\end{itemize}
+
+En el objeto application, se encuentran los parámetros para configurar la app, como por ejemplo el mensaje de bienvenida o el servidor web al que se deben enviar las muestras recolectadas. Los parámetros son los siguientes:
+\begin{itemize}
+
+\item title: el título de la app.
+
+\item welcomeMessage: el mensaje de bienvenida que se muestra en la Activity principal.  
+
+\item networkConfiguration: la configuración del servidor al que se enviarán las muestras tomadas con la app
+
+\begin{itemize}
+\item url: la url del servidor a la cual se enviarán las muestras mediante un mensaje HTTP POST.
+
+\item paramName: el nombre del parámetro dentro del mensaje HTTP POST que se usará para enviar la muestra.
+
+\item paramNameUserId: [Opcional] el nombre del parámetro dentro del mensaje HTTP POST que se usará para enviar el id del usuario que tomó la muestra (si los métodos de identificación estan habilitados).
+
+\item paramNameAuthenticationType: [Opcional] el nombre del parámetro dentro del mensaje HTTP POST que se usará para enviar el tipo de identificación que se usó (si los métodos de identificación estan habilitados).
+
+\end{itemize}
+
+\item googleMaps\_API\_KEY:
+
+\item mainHelpFileName: [Opcional] se puede espe 
+el nombre del archivo HTML que se usará.
+The file name of the HTML file containing the main application help
+
+\item authenticationEnabled: [Opcional] habilita los métodos de identificación del usuario que toma las muestras.
+
+\item authenticationOptional: [Opcional] indica si la identificación (en caso de estar habilitada) será opcional u obligatoria.
 
 
+\end{itemize}
+
+\end{comment}
+
+El archivo de configuración es un archivo en formato JSON que se debe completar con los parámetros necesarios para crear la app con Samplers. Se eligió el formato JSON porque nos pareció más sencillo de manipularlo por una persona (que XML por ejemplo, que también fue evaluado), suponiendo que el científico tuviese que editarlo manualmente.
+
+El archivo está compuesto por tres objetos: project, application y workflow.
+
+En el objeto project, se encuentran las configuraciones del proyecto de Android Studio en el cual se creará la app, como por ejemplo la ruta en donde se crearán los archivos de las Activities y el nombre del package que se usará para las mismas. 
+
+En el objeto application, se encuentran los parámetros para configurar la app, como por ejemplo el título de la app, el mensaje de bienvenida o el servidor web al que se deben enviar las muestras recolectadas. 
+
+El objeto workflow se usa justamente para configurar el Workflow (el protocolo de recolección) que usará la app para tomar las muestras. En el mismo se deben especificar los Steps que se usarán con sus respectivos parámetros cada uno. Por defecto Samplers provee los siguientes Steps:
+
+\begin{itemize}
+
+\item Information: Muestra un texto al científico ciudadano.
+
+\item Photo: Solicita tomar una foto.
+
+\item Sound: Solicita grabar sonido.
+
+\item Location: Solicita tomar la posición del GPS del dispositivo móvil.
+
+\item Route: Solicita grabar con el GPS del dispositivo móvil un recorrido (un conjunto de posiciones GPS).
+
+\item SelectOne: Solicita seleccionar una única respuesta a una pregunta.
+
+\item MultipleSelect: Solicita seleccionar una o varias respuestas a una pregunta.
+
+\item InsertText: Solicita ingresar texto.
+
+\item InsertDate: Solicita seleccionar una fecha.
+
+\item InsertTime: Solicita seleccionar una hora.
+
+\end{itemize}
+
+En la siguiente imagen se muestra un ejemplo del archivo de configuración para Samplers.
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.8]{05-implementacion/archivo_config_ejemplo.png} 
+   \caption{Ejemplo de un archivo de configuración para Samplers}
+\end{figure}
+
+Una vez configurado el archivo, Samplers generará una Activity principal para la app que tendrá todas las configuraciones del objeto application y que usará el Workflow configurado para llamar a la Activity encargada de tomar las muestras (TakeSampleActivity) cuando el científico ciudadano presione el botón para tomar una muestra.
+
+El detalle de todos los parámetros, como configurar el archivo de configuración y los diferentes Steps disponibles para armar el Workflow se explican en la sección [\ref{sec:archivo_config_detallado}]
+
+
+\section{Usando las clases} \label{sec:usando_las_clases}
+
+[Aca explicaremos cómo sería usando las clases en una app existente por ejemplo, pero sencillo y por arriba porque todavia no se explicaron las clases en detalle que viene en la siguiente sección].
 
 \section{Modelo del Framework}
 En esta sección se explica el modelo de las clases que permiten que se cree una aplicación móvil con Samplers y su funcionamiento.
 
-\subsection{Workflow, Step, StepFragment, StepResult y Sample: el core del framework}
-Estas clases conforman el corazón del framework, y son las necesarias para poder definir la muestra y el protocolo de recolección de las mismas.
-
-TakeSampleActivity es una Activity para tomar la muestra/ "encargada de tomar la muestra". (Agregar al titulo)
-TakeSampleActivity genera una muestra (sample)
-
-El StepFragment es el encargado de ejecutar un Step y generar un StepResult con la interacción del usuario final (el científico ciudadano). Un StepFragment recibe un Step, que generalmente contiene los parámetros necesarios para ejecutarlo, y en base a eso muestra un fragment para que, interactuando con el científico ciudadano, poder obtener un resultado (StepResult) para la muestra (Sample). 
-
-
+\subsection{Workflow, Step, StepFragment, StepResult, Sample}
+Estas clases conforman el corazón del framework, y son las necesarias para poder definir el protocolo de recolección de las muestras.
 
 A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCore}).
 
@@ -122,6 +210,19 @@ A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCo
    \caption{Diagrama de clases del core del framework}
    \label{fig:umlFrameworkCore}
 \end{figure}
+
+\begin{comment}
+TakeSampleActivity es una Activity encargada de tomar la muestra.
+Recibe como parámetro un Workflow, que representa el protocolo de recolección de la muestra.
+El Workflow esta formado por varias instancias de Step, que representan cada una un paso a seguir dentro del protocolo de recolección para obtener la muestra.
+
+TakeSampleActivity ejecuta el Workflow y por cada Step obtiene y muestra en pantalla el StepFragment asociado, que es el Fragment encargado de mostrar la interfaz de usuario para ejecutar ese Step. 
+El StepFragment a través de la interacción con el usuario final (el científico ciudadano) genera un StepResult, que es el resultado de la ejecución del Step asociado. Por cada tipo de Step, debe haber una clase StepFragment que sepa ejecutar ese Step y generar el StepResult asociado
+
+El conjunto de todos los StepResults obtenidos después de ejecutar todos los Steps del Workflow forman la muestra, que esta representada por la clase Sample.
+
+TakeSampleActivity genera una muestra (sample)
+\end{comment}
 
 
 \subsubsection{Workflow: el protocolo de recolección de las muestras}
@@ -134,8 +235,9 @@ El Workflow se comporta de manera secuencial, puede ir hacia adelante o volver h
 \subsubsection{Step: el paso}
 Un Step representa un paso dentro del Workflow.
 
+\begin{comment}
 *** ACA FALTA CORREGIR  ***
-
+\end{comment}
 
 Se definió como una interfaz, ya que su comportamiento depende de la implementación de cada tipo de Step que se defina. Con esto también se evita que los Steps creados por los usuarios programadores tengan que heredar de una clase en particular, y solo necesiten implementar la interfaz.
 
@@ -179,11 +281,11 @@ Por cada Step que provee Samplers de manera predeterminada, también se provee u
 \subsubsection{StepResult: el resultado de la ejecución de un Step}
 El StepResult representa el resultado que se obtiene de ejecutar un Step. Contiene los datos obtenidos de ejecutar el Step asociado. Cada ejecución de un mismo Step, puede generar un StepResult diferente.
 
-Por ejemplo, para el caso en que el paso (Step) sea contestar una pregunta, el StepResult contendrá la respuesta seleccionada, si solo se admite seleccionar una única respuesta, o una colección de respuestas, si se permite seleccionar más de una.
+Por ejemplo, para el caso en que el Step sea contestar una pregunta, el StepResult contendrá la respuesta seleccionada, si solo se admite seleccionar una única respuesta, o una colección de respuestas, si se permite seleccionar más de una.
 
 Se definió como una interfaz, ya que su comportamiento depende de la implementación de cada tipo de Step que se defina.
 
-Un StepResult tiene asociado el Id del Step en base al cual se generó. También puede tener asociado un archivo multimedia, como por ejemplo en los casos de PhotoStep y SoundRecordStep que guardan una foto y un archivo de sonido respectivamente.
+Un StepResult tiene asociado el Step en base al cual se generó. También puede tener asociado un archivo multimedia, como por ejemplo en los casos de PhotoStep y SoundRecordStep que guardan una foto y un archivo de sonido respectivamente.
 
 
 \subsubsection{Sample: la Muestra}
