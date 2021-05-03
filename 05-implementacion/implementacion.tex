@@ -10,17 +10,17 @@ La idea es que un científico pueda crear una aplicación móvil de ciencia ciud
 
 El protocolo de recolección estaría compuesto por los diferentes pasos necesarios para tomar la muestra con la aplicación. Estos pasos deben permitir:
 \begin{itemize}
-\item capturar una foto, un video o un audio
-\item tomar la posición del GPS o grabar un recorrido con el GPS
+\item capturar una foto, un video o un audio.
+\item tomar la posición del GPS o grabar un recorrido con el GPS.
 \item contestar una pregunta con respecto a la muestra. Esta pregunta puede tener una o múltiples respuestas posibles.
-\item introducir anotaciones (texto)
-\item seleccionar una fecha o una hora
+\item introducir anotaciones (texto).
+\item seleccionar una fecha o una hora.
 \item mostrar información de orientación para la toma de la muestra.
 \end{itemize}
 
 Las muestras recolectadas con la aplicación deben ser enviadas por Internet a un servidor web previamente configurado para dicho propósito.
 
-La aplicación generada debe ser una aplicación nativa, y no una solución web por ejemplo, para poder aprovechar mejor las características de los dispositivos móviles (cámara, GPS, etc.). Además se debe contemplar que al momento de tomar una muestra es posible que no se cuente con conexión a Internet en el dispositivo móvil, pero igualmente se debe permitir la toma de la muestra y se la debe almacenar en el dispositivo móvil hasta que haya conexión a Internet y pueda ser enviada al servidor web.
+La aplicación generada debe ser una aplicación nativa, y no una solución web por ejemplo, para poder aprovechar mejor las características de los dispositivos móviles (cámara, GPS, etc.). Además se debe contemplar que al momento de tomar una muestra es posible que no se cuente con conexión a Internet, pero igualmente se debe permitir la toma de la muestra y se la debe almacenar en el dispositivo móvil hasta que haya conexión a Internet y pueda ser enviada al servidor web.
 
 La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado, almacenarlas y empaquetarlas en el dispositivo móvil hasta que puedan ser enviadas al servidor web.
 
@@ -31,7 +31,7 @@ También se debe contemplar algún mecanismo de identificación del usuario que 
 
 
 \subsection{Alcance de la solución propuesta}
-En un principio Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. 
+En un principio, Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. 
 La idea inicial era que, mediante una aplicación web, el científico pudiera armar el protocolo de recolección de las muestras de manera visual e intuitiva, y se generara un archivo de configuración para Samplers. 
 Con el archivo de configuración se pasaría a Samplers y se generaría la app para Android (el archivo APK para instalarla). 
 Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que que el archivo de configuración ya viene armado.
@@ -82,11 +82,11 @@ Con este archivo de configuración, Samplers generará el código necesario para
 \end{figure}
 
 
-Las opciones disponibles y cómo se configura el archivo de configuración de Samplers se explican en la siguiente sección [\ref{sec:archivo_configuracion}].
+Las opciones disponibles y cómo se configura el archivo de configuración de Samplers se explican en la siguiente sección \ref{sec:archivo_configuracion}.
 
-De esta manera un científico que desee generar una app para su proyecto de ciencia ciudadana, solo tiene que configurar el archivo de configuración, ejecutar Samplers y luego compilar en Android Studio y ejecutar la app en un dispositivo móvil o en los dispositivos virtuales que provee Android Studio para debugging.
+De esta manera un científico que desee generar una app para su proyecto de ciencia ciudadana, solo tiene que completar el archivo de configuración, ejecutar Samplers y luego compilar en Android Studio y ejecutar la app en un dispositivo móvil o en los dispositivos virtuales que provee Android Studio para debugging.
 
-Como Samplers genera el código fuente de la app, esto permite que un usuario con conocimientos de programación pueda modificarlo y personalizar la app a su gusto, así como también agregarle otras funcionalidades a la app generada. También permite que pueda ser usado en una app ya desarrollada o en desarrollo, como si fuera una librería que se incluye al proyecto y permite usar sus clases (esto se explica con más detalle en la sección [\ref{sec:usando_las_clases}]).
+Como Samplers genera el código fuente de la app, esto permite que un usuario con conocimientos de programación pueda modificarlo y personalizar la app a su gusto, así como también agregarle otras funcionalidades a la app generada. También permite que pueda ser usado en una app ya desarrollada o en desarrollo, como si fuera una librería que se incluye al proyecto y permite usar sus clases (esto se explica con más detalle en la sección \ref{sec:usando_las_clases}).
 
 Como Samplers se pensó como un proyecto dentro de Cientópolis\cite{cientopolis} el mismo es open source y se usó un repositorio público en GitHub\cite{github} para dejar el código fuente disponible para todo el mundo.
 
@@ -189,7 +189,7 @@ En la siguiente imagen se muestra un ejemplo del archivo de configuración para 
 
 Una vez configurado el archivo, Samplers generará una Activity principal para la app que tendrá todas las configuraciones del objeto application y que usará el Workflow configurado para llamar a la Activity encargada de tomar las muestras (TakeSampleActivity) cuando el científico ciudadano presione el botón para tomar una muestra.
 
-El detalle de todos los parámetros, como configurar el archivo de configuración y los diferentes Steps disponibles para armar el Workflow se explican en la sección [\ref{sec:archivo_config_detallado}]
+El detalle de todos los parámetros, como configurar el archivo de configuración y los diferentes Steps disponibles para armar el Workflow se explican en la sección \ref{sec:archivo_config_detallado}
 
 
 \section{Usando las clases} \label{sec:usando_las_clases}

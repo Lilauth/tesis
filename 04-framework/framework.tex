@@ -129,11 +129,11 @@ Una Activity tiene básicamente cuatro estados:
 \begin{itemize}
 	\item Si una Activity esta en primer plano de la pantalla (en la posición más alta de la pila) está 'activa' o 'running'. Es generalmente la Activity con la que el usuario está interactuando.
 	\item Si una Activity ha perdido el foco pero todavía se muestra al usuario, entonces está 'visible'. Esto sucede por ejemplo cuando hay otra Activity encima pero que no cubre toda la pantalla. La Activity en este estado esta completamente 'viva' (conserva todos sus estados e información y se mantiene ligada en el administrador de ventanas).
-	\item Si una Activity esta cubierta completamente por otra, entonces esta 'detenida' u 'oculta'. Aun conserva todos sus estados e información, pero ya no es visible al usuario por lo que su ventana esta oculta, y podría ser destruida por el sistema si se necesita memoria para otro propósito.
+	\item Si una Activity esta cubierta completamente por otra, entonces esta 'detenida' u 'oculta'. Aún conserva todos sus estados e información, pero ya no es visible al usuario por lo que su ventana esta oculta, y podría ser destruida por el sistema si se necesita memoria para otro propósito.
 	\item El sistema puede bajar de la memoria a la Activity solicitándole que finalice, o simplemente destruyendo su proceso, pasándola al estado 'destruida'. Cuando se necesita mostrarla al usuario de nuevo, la Activity debe ser restaurada completamente y se debe restaurar su estado anterior.
 \end{itemize}
 
-El siguiente diagrama muestra los estados mas importantes por los que pasa una Activity. Los rectángulos representan métodos de respuesta a llamada que se pueden implementar para realizar operaciones cuando la Activity se mueve entre un estado y otro. Los óvalos representan los estados más importantes por los que pasa una Activity.
+El siguiente diagrama muestra los estados más importantes por los que pasa una Activity. Los rectángulos representan métodos de respuesta a llamada que se pueden implementar para realizar operaciones cuando la Activity se mueve entre un estado y otro. Los óvalos representan los estados más importantes por los que pasa una Activity.
 \cite{androidDocs}
 
 \begin{figure}[H]
