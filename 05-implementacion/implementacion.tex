@@ -43,7 +43,7 @@ Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de
 \subsection{Descripción de la solución propuesta: Samplers}
 Samplers es un framework que permite construir, de manera sencilla, aplicaciones Android (apps) para recolectar muestras en proyectos de Ciencia Ciudadana. Brinda una solución simple al problema de la recolección de la muestra aprovechando las funcionalidades de los dispositivos móviles.
 
-Configurando el protocolo de recolección (Workflow en Samplers) y unos parámetros más, con Samplers se puede generar una app lista para ejecutarse en un dispositivo móvil Android. Esta app generada sirve para tomar muestras siguiendo el Workflow especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas a un servidor web previamente configurado.
+Configurando el Workflow (que representa el protocolo de recolección en Samplers) y unos parámetros más, con Samplers se puede generar una app lista para ejecutarse en un dispositivo móvil Android. Esta app generada sirve para tomar muestras siguiendo el Workflow especificado, y las almacena en el dispositivo móvil hasta que puedan ser enviadas a un servidor web previamente configurado.
 
 La app generada contiene, entre otras cosas, una Activity principal que muestra un texto de bienvenida (configurable) y un botón para tomar una muestra. Al presionar dicho botón se llama a la Activity encargada de tomar las muestras siguiendo el Workflow configurado. Esta Activity va mostrando en pantalla un Fragment por cada «paso» dentro del Workflow (Steps en Samplers). Cada uno de estos Fragments va interactuando con el usuario final de la app, el científico ciudadano\footnote{Se diferencia al usuario de Samplers, que es el que desea generar una app para recolectar muestras en un proyecto de ciencia ciudadana, del usuario final de la app, que es quien va a usar la app generada, que sería el científico ciudadano.}, para completar cada uno de los Steps del Workflow y así tomar la muestra (Sample en Samplers).
 
@@ -63,7 +63,7 @@ Por ejemplo, si se desea crear una aplicación para hacer un relevamiento de las
 
 \end{enumerate}
 
-Para representar este protocolo de recolección se debería configurar el archivo de configuración para Samplers de la siguiente manera: 
+Para representar este protocolo de recolección se debería configurar el Workflow en el archivo de configuración para Samplers de la siguiente manera: 
 
 \begin{figure}[H]
   \centering
@@ -82,7 +82,7 @@ Con este archivo de configuración, Samplers generará el código necesario para
 \end{figure}
 
 
-Las opciones disponibles y cómo se configura el archivo de configuración de Samplers se explican en la siguiente sección \ref{sec:archivo_configuracion}.
+Las opciones disponibles y cómo se configura el archivo de configuración de Samplers se explican en la sección \ref{sec:archivo_configuracion}.
 
 De esta manera un científico que desee generar una app para su proyecto de ciencia ciudadana, solo tiene que completar el archivo de configuración, ejecutar Samplers y luego compilar en Android Studio y ejecutar la app en un dispositivo móvil o en los dispositivos virtuales que provee Android Studio para debugging.
 
@@ -194,10 +194,12 @@ El detalle de todos los parámetros, como configurar el archivo de configuració
 
 \section{Usando las clases} \label{sec:usando_las_clases}
 
-[Aca explicaremos cómo sería usando las clases en una app existente por ejemplo, pero sencillo y por arriba porque todavia no se explicaron las clases en detalle que viene en la siguiente sección].
+[Aca explicaremos cómo sería usando las clases (para una app existente por ejemplo), pero sencillo y por arriba porque todavia no se explicaron las clases en detalle que viene en la siguiente sección].
 
 \section{Estructura del Framework}
-En esta sección se explica el modelo de las clases que permiten que se cree una aplicación móvil con Samplers y su funcionamiento.
+Samplers está compuesto por dos elementos: una librería con las clases y [demases (activities, fragments, recursos)] necesarias para crear la app y un script en Gradle para procesar el archivo de configuración.
+
+[En esta sección se explica el modelo de las clases que permiten que se cree una aplicación móvil con Samplers y su funcionamiento.]
 
 \subsection{Workflow, Step, StepFragment, StepResult, Sample}
 Estas clases conforman el corazón del framework, y son las necesarias para poder definir el protocolo de recolección de las muestras.
