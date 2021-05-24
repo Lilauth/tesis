@@ -196,7 +196,7 @@ El detalle de todos los parámetros, como configurar el archivo de configuració
 
 [Aca explicaremos cómo sería usando las clases en una app existente por ejemplo, pero sencillo y por arriba porque todavia no se explicaron las clases en detalle que viene en la siguiente sección].
 
-\section{Modelo del Framework}
+\section{Estructura del Framework}
 En esta sección se explica el modelo de las clases que permiten que se cree una aplicación móvil con Samplers y su funcionamiento.
 
 \subsection{Workflow, Step, StepFragment, StepResult, Sample}
@@ -317,6 +317,8 @@ Por ejemplo, una muestra con id 123456 y 2 fotos se guarda de la siguiente maner
 Para pasar la muestra a un archivo JSON se usó Gson\cite{gson}, una librería de Google distribuida bajo licencia Apache 2.0 que convierte objetos Java a JSON y viceversa de manera muy sencilla, con métodos \textit{toJson()} y \textit{fromJson()} para convertir hacia y desde JSON respectivamente.
 
 \subsection{Envío de muestras a servidor web}
+
+[aca decir que se usa un BroadcastReceiver para detectar la conexion a wifi]
 
 Una vez guardadas localmente, las muestras se envían al servidor web previamente configurado, mediante un mensaje HTTP POST. Para ello se usó la librería OkHttp\cite{okhttp}, distribuida por Square Inc. bajo licencia Apache 2.0, que resuelve de manera sencilla y eficiente el envío de mensajes HTTP en Android.
 
