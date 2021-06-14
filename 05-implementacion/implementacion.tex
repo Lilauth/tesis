@@ -98,7 +98,7 @@ También provee un mecanismo de identificación del usuario final de la aplicaci
 Samplers también provee un mecanismo para mostrar ayuda asociada a un paso (Step) en particular y una ayuda general en la pantalla principal, usando archivos HTML. Se optó por los mismos por la variedad de opciones y posibilidades que conllevan, y por su simpleza para mostrarlos.
 \end{comment}
 
-\section{Archivo de configuración}\label{sec:archivo_configuracion}
+\subsection{Archivo de configuración}\label{sec:archivo_configuracion}
 
 \begin{comment}
 
@@ -192,12 +192,21 @@ Una vez configurado el archivo, Samplers generará una Activity principal para l
 El detalle de todos los parámetros, como configurar el archivo de configuración y los diferentes Steps disponibles para armar el Workflow se explican en la sección \ref{sec:archivo_config_detallado}
 
 
-\section{Usando las clases} \label{sec:usando_las_clases}
+\subsection{Usando las clases} \label{sec:usando_las_clases}
 
 [Aca explicaremos cómo sería usando las clases (para una app existente por ejemplo), pero sencillo y por arriba porque todavia no se explicaron las clases en detalle que viene en la siguiente sección].
 
 \section{Estructura del Framework}
+
+************************************
+
+
 Samplers está compuesto por dos elementos: una librería con las clases y [demases (activities, fragments, recursos)] necesarias para crear la app y un script en Gradle para procesar el archivo de configuración.
+
+La libreria es un archivo .aar, que es similar a un archivo .jar de Java, pero especifico para Android. En el mismo están todas las clases y los archivos de recursos del framework.
+
+************************************
+
 
 A continuación se explican las clases que permiten que se cree una aplicación móvil con Samplers y su funcionamiento.
 
@@ -213,18 +222,15 @@ A continuación se muestra el diagrama de clases (Figura \ref{fig:umlFrameworkCo
    \label{fig:umlFrameworkCore}
 \end{figure}
 
-\begin{comment}
-TakeSampleActivity es una Activity encargada de tomar la muestra.
+
+TakeSampleActivity es una Activity y es la encargada de tomar la muestra.
 Recibe como parámetro un Workflow, que representa el protocolo de recolección de la muestra.
 El Workflow esta formado por varias instancias de Step, que representan cada una un paso a seguir dentro del protocolo de recolección para obtener la muestra.
 
 TakeSampleActivity ejecuta el Workflow y por cada Step obtiene y muestra en pantalla el StepFragment asociado, que es el Fragment encargado de mostrar la interfaz de usuario para ejecutar ese Step. 
-El StepFragment a través de la interacción con el usuario final (el científico ciudadano) genera un StepResult, que es el resultado de la ejecución del Step asociado. Por cada tipo de Step, debe haber una clase StepFragment que sepa ejecutar ese Step y generar el StepResult asociado
+El StepFragment a través de la interacción con el usuario final (el científico ciudadano) genera un StepResult, que es el resultado de la ejecución del Step asociado. Por cada tipo de Step, debe haber una clase StepFragment que sepa ejecutar ese Step y generar el StepResult asociado.
 
 El conjunto de todos los StepResults obtenidos después de ejecutar todos los Steps del Workflow forman la muestra, que esta representada por la clase Sample.
-
-TakeSampleActivity genera una muestra (sample)
-\end{comment}
 
 
 \subsubsection{Workflow: el protocolo de recolección de las muestras}
@@ -237,9 +243,11 @@ El Workflow se comporta de manera secuencial, puede ir hacia adelante o volver h
 \subsubsection{Step: el paso}
 Un Step representa un paso dentro del Workflow.
 
-\begin{comment}
+
 *** ACA FALTA CORREGIR  ***
-\end{comment}
+
+La importancia esta en sus clases descendientes....
+
 
 Se definió como una interfaz, ya que su comportamiento depende de la implementación de cada tipo de Step que se defina. Con esto también se evita que los Steps creados por los usuarios programadores tengan que heredar de una clase en particular, y solo necesiten implementar la interfaz.
 
@@ -297,7 +305,7 @@ También guarda fecha y hora de inicio y finalización. Esto es útil para sacar
 
 Una vez recolectadas, las muestras se guardan en el dispositivo móvil y son enviadas a través de Internet a un servidor web previamente configurado.
 
-\subsection{TakeSampleActivity: toma de la muestra}
+\subsection{TakeSampleActivity}
 La clase TakeSampleActivity es la encargada de ejecutar el Worflow para tomar la muestra. Es una Activity que recibe un objeto Workflow como parámetro y va iterando sobre los Steps del mismo. A cada Step le pide su StepFragment y lo muestra en pantalla para que, interactuando con el científico ciudadano, se genere el StepResult para la muestra (Sample). Una vez finalizado el Workflow, guarda la muestra, controla si se puede enviar la mima y finaliza.
 
 
@@ -342,13 +350,12 @@ Cuando se envía la muestra también se incluyen dos parámetros que son el id d
 \subsection{Resto de la UI?? ANALIZAR}
 
 
-\subsubsection{HelpActivity}
+\subsubsection{SamplersMainActivity}
 
 \subsubsection{SamplesListActivity}
 
-\subsubsection{SamplersMainActivity}
 
-
+\subsubsection{HelpActivity}
 
 
 
