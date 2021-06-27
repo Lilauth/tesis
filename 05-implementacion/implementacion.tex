@@ -241,18 +241,7 @@ El Workflow es el encargado de llevar el estado del paso en el que se encuentra,
 El Workflow se comporta de manera secuencial, puede ir hacia adelante o volver hacia atrás, pero esto no impide que pueda tener bifurcaciones, y así formar diferentes caminos para tomar la muestra. Por ejemplo, se le podría preguntar al científico ciudadano si observa una característica particular al momento de tomar la muestra, y si la observa solicitarle que tome una foto de la misma, pero en caso contrario se puede omitir el paso de la foto.
 
 \subsubsection{Step: el paso}
-Un Step representa un paso dentro del Workflow.
-
-
-*** ACA FALTA CORREGIR  ***
-
-La importancia esta en sus clases descendientes....
-
-
-Se definió como una interfaz, ya que su comportamiento depende de la implementación de cada tipo de Step que se defina. Con esto también se evita que los Steps creados por los usuarios programadores tengan que heredar de una clase en particular, y solo necesiten implementar la interfaz.
-
-El Step tiene asociado un StepFragment (la vista y controlador) que es el encargado de ejecutar el Step para generar un resultado (StepResult). El Step básicamente tiene los parámetros o información para que pueda ser ejecutado por el StepFragment, y no tiene mucho comportamiento.
-
+Un Step representa un paso dentro del Workflow. Tiene asociado un StepFragment que es el encargado de ejecutar el Step para generar un StepResult (el resultado). El Step básicamente tiene los parámetros o información para que pueda ser ejecutado por el StepFragment.
 Por ejemplo, para el caso en que el paso sea contestar una pregunta, el Step tendrá la pregunta en sí (un String) y una colección con las posibles respuestas (id y descripción).
 
 El Step conoce cuál es el siguiente Step a ejecutar aunque a veces éste depende del StepResult generado, como es el caso de SelectOneStep en el que el siguiente paso depende de la opción seleccionada, y con esto se pueden crear bifurcaciones en el Workflow.
@@ -276,13 +265,13 @@ El detalle de estos Steps y su funcionamiento se explican en la sección \ref{se
 Si bien estos son los Steps que provee Samplers de manera predeterminada, un usuario programador puede definir y agregar sus propios Steps, junto con sus StepFragments y StepResults como se explica en la sección \ref{sec:definir_steps}.
 
 \subsubsection{StepFragment: la vista y controlador del Step}
-El StepFragment es el encargado de ejecutar un Step y generar un StepResult con la interacción del usuario final (el científico ciudadano). Un StepFragment recibe un Step, que generalmente contiene los parámetros necesarios para ejecutarlo, y en base a eso muestra un fragment para que, interactuando con el científico ciudadano, poder obtener un resultado (StepResult) para la muestra (Sample). 
+El StepFragment es el encargado de ejecutar un Step y generar un StepResult con la interacción del usuario final (el científico ciudadano). Un StepFragment recibe un Step, que generalmente contiene los parámetros necesarios para ejecutarlo, y en base a eso muestra un Fragment para que, interactuando con el científico ciudadano, poder obtener un resultado (StepResult) para la muestra (Sample). 
 
 Por ejemplo, para el caso en que el paso sea contestar una pregunta, se mostrará la pregunta y se listarán las posibles respuestas en forma de radio-buttons, si solo se admite seleccionar una única respuesta, o en forma de check-buttons, si se permite seleccionar más de una.
 
 Por cada tipo de Step, debe haber una clase StepFragment que sepa ejecutar ese Step y generar el StepResult asociado.
 
-Es una clase abstracta, ya que su comportamiento depende de la implementación de cada tipo de StepFragment que se defina. Se definió así y no como una interfaz por la necesidad de que heredara de Fragment porque así lo necesita la activity TakeSampleActivity, que es la encargada de ejecutar el Workflow para obtener la muestra.
+Es una clase abstracta, ya que su comportamiento depende de la implementación de cada tipo de StepFragment que se defina. Se definió así y no como una interfaz por la necesidad de que heredara de Fragment porque así lo necesita la Activity TakeSampleActivity, que es la encargada de ejecutar el Workflow para tomar la muestra.
 
 Por cada Step que provee Samplers de manera predeterminada, también se provee un StepFragment que ejecuta cada Step. Asimismo, un usuario programador también puede desarrollar un StepFragment propio para alguno de los Steps provistos por Samplers, como se explica en la sección \ref{sec:definir_steps}
 
@@ -299,14 +288,14 @@ Un StepResult tiene asociado el Step en base al cual se generó. También puede 
 
 
 \subsubsection{Sample: la Muestra}
-La clase Sample representa una muestra tomada a partir de seguir los pasos (Steps) del protocolo del recolección (Workflow). Contiene los resultados (StepResult) de la ejecución de cada paso. Cada ejecución del workflow puede generar una colección de StepResults diferente.
+La clase Sample representa una muestra tomada a partir de seguir los pasos (Steps) del protocolo del recolección (Workflow). Contiene los resultados (StepResult) de la ejecución de cada paso. Cada ejecución del Workflow puede generar una colección de StepResults diferente.
 
 También guarda fecha y hora de inicio y finalización. Esto es útil para sacar una estadística de cuanto tarda un científico ciudadano en recolectar una muestra y así poder analizar optimizaciones para la aplicación final.
 
 Una vez recolectadas, las muestras se guardan en el dispositivo móvil y son enviadas a través de Internet a un servidor web previamente configurado.
 
 \subsection{TakeSampleActivity}
-La clase TakeSampleActivity es la encargada de ejecutar el Worflow para tomar la muestra. Es una Activity que recibe un objeto Workflow como parámetro y va iterando sobre los Steps del mismo. A cada Step le pide su StepFragment y lo muestra en pantalla para que, interactuando con el científico ciudadano, se genere el StepResult para la muestra (Sample). Una vez finalizado el Workflow, guarda la muestra, controla si se puede enviar la mima y finaliza.
+La clase TakeSampleActivity es la encargada de ejecutar el Worflow para tomar la muestra. Es una Activity que recibe un objeto Workflow como parámetro y va iterando sobre los Steps del mismo. A cada Step le pide su StepFragment y lo muestra en pantalla para que, interactuando con el científico ciudadano, se genere el StepResult para la muestra (Sample). Una vez finalizado el Workflow, guarda la muestra, controla si se puede enviar la misma y finaliza.
 
 
 
@@ -328,7 +317,14 @@ Para pasar la muestra a un archivo JSON se usó Gson\cite{gson}, una librería d
 
 \subsection{Envío de muestras a servidor web}
 
+************************************
+
+
 [aca decir que se usa un BroadcastReceiver para detectar la conexion a wifi]
+
+
+************************************
+
 
 Una vez guardadas localmente, las muestras se envían al servidor web previamente configurado, mediante un mensaje HTTP POST. Para ello se usó la librería OkHttp\cite{okhttp}, distribuida por Square Inc. bajo licencia Apache 2.0, que resuelve de manera sencilla y eficiente el envío de mensajes HTTP en Android.
 
@@ -336,7 +332,9 @@ Por cada muestra se envía el objeto Sample en formato JSON junto con los archiv
 
 Las muestras se envían automáticamente cuando se detecta conexión wifi o a petición del usuario.
 
-Para el envío automático, se controla al momento de guardar la muestra si hay conexión wifi y se intenta enviar la muestra; caso contrario queda pendiente de envío y se intenta enviar cuando se detecta conexión wifi. Para el caso que es a petición del usuario, se listan las muestras tomadas en la SamplesListActivity con un botón que permite el envío de la misma usando cualquier tipo de conexión a Internet.
+Para el envío automático, se controla al momento de guardar la muestra si hay conexión wifi y se intenta enviar la muestra; caso contrario queda pendiente de envío y se intenta enviar cuando se detecta conexión wifi. 
+
+Para el caso que es a petición del usuario, se listan las muestras tomadas en la SamplesListActivity con un botón que permite el envío de la misma usando cualquier tipo de conexión a Internet.
 
 \subsection{Identificación}
 Samplers provee un sistema de identificación (login), el cual se puede habilitar o no de acuerdo a las necesidades del proyecto. Si se habilita el mismo puede ser opcional, permitiendo al científico ciudadano tomar y enviar muestras habiéndose o no identificado, o puede ser obligatorio, requiriendo que el científico ciudadano se identifique para poder tomar y enviar las muestras.
