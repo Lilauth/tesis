@@ -10,29 +10,28 @@
 	
 	Los componentes de un framework son los que hacen posible la reutilización en la granularidad más alta. Diseñar un buen framework es mucho más difícil que diseñar una buena clase abstracta. También, tienden a ser específicos de la aplicación, a integrarse a otros frameworks mediante compartir clases abstractas, y a tener algunas clases abstractas especializadas para el framework. Diseñar un framework requiere experiencia y experimentación al igual que lo requiere el diseño de las clases abstractas de sus componentes.\cite{johnson1988designing}
 
-\subsection{Frameworks de caja blanca y de caja negra}
+\subsection{Tipos de Frameworks}
+
+     Los frameworks pueden clasificarse de diferentes maneras, pero nos interesan los tipos de frameworks desde el punto de vista del tipo de especializacion que soportan. Si utilizan la herencia y la extension de metodos generalmente son llamados de caja blanca, porque permiten conocer los estados internos de las clases genericas que lo componen. En cambio si utilizan la composicion como esrategia de especializacion son llamados de caja negra, ya que el desarrollador no tiene acceso al estado interno de las clases del framework ni puede extender metodos o agregar metodos, sino que la especializacion se realiza proveyendo un componente que respeta un protocolo (o API) de interaccion con el framework para lograr el comportamiento especifico.
+
 \subsubsection{Frameworks de caja blanca}
 
 	Una de las características importantes de un framework es que los métodos definidos por el usuario para extender el comportamiento van a ser invocados desde el interior del framework más que del código de la aplicación del usuario. A menudo hace las veces de programa principal coordinando y secuenciando las actividades de la aplicación. Esa inversión de control le permite al framework servir como esqueleto extensible. El código brindado por los usuarios en los métodos extienden el algoritmo genérico del framework para una aplicación en particular. 
 	
-	El comportamiento específico de una aplicación que utiliza un framework usualmente se define agregando métodos a las subclases o a una o más de sus clases. Cada método que se agrega a una subclase debe continuar con las convenciones internas que adoptan las superclases. Este tipo de framework se denomina de caja blanca (white-box) porque debe comprenderse cómo está implementado para poder utilizarlo.
+	Si el comportamiento específico de una aplicación que utiliza un framework se define agregando métodos a las subclases o a una o más de sus clases, el framework es denominado de Caja Blanca (white-box). Cada método que se agrega a una subclase debe continuar con las convenciones internas que adoptan las superclases. 
 	
-	El principal problema de los frameworks de caja blanca es que cada aplicación requiere la creación de una numerosa cantidad  de subclases. Y aunque muchas de estas subclases creadas son simples, es su número lo que para un desarrollador con poca experiencia puede volver difícil comprender el diseño de una aplicación los suficiente como para modificarla.
+	El principal problema de los frameworks de caja blanca es que cada aplicación requiere la creación de una numerosa cantidad  de subclases. Y aunque muchas de estas subclases creadas son simples, es su número lo que para un desarrollador con poca experiencia puede volver difícil comprender el diseño de una aplicación lo suficiente como para modificarla.
 	
-	Un segundo problema es que un framework de caja blanca puede ser difícil de aprender a utilizar, ya que entender cómo se utliza es lo mismo que entender cómo está construido.
+	Un segundo problema es que un framework de caja blanca puede ser difícil de aprender a utilizar, ya que entender cómo se utliza es lo mismo que entender cómo está construido.\cite{johnson1988designing}
 	
 \subsubsection{Frameworks de caja negra}
 
-	Otra manera de especializar un framework es incluir en él un conjunto de componentes que sean los que proveen el comportamiento específico de la aplicación. Cada uno de estos componentes debe entender un protocolo en particular. Todos o la mayoría de los componentes pueden tomarse de una librería de componentes. La interfaz entre componentes pueden se definidas con un protocolo, de esta manera el usuario sólo necesita entender la interfaz externa de los mismos. Este tipo de framework se denomina de caja negra.
+	Otra manera de especializar un framework es incluir en él un conjunto de componentes que sean los que proveen el comportamiento específico de la aplicación. Cada uno de estos componentes debe entender un protocolo en particular. Todos o la mayoría de los componentes pueden tomarse de una librería de componentes. La interfaz entre componentes pueden ser definidas con un protocolo, de esta manera el usuario sólo necesita entender la interfaz externa de los mismos. Este tipo de framework se denomina de caja negra.
 	
 	Los frameworks de caja negra son más fáciles de aprender a utilizar que los de caja blanca, pero son menos flexibles. 
 	
 	Una manera de caracterizar la diferencia entre un framework de caja blanca y uno de caja negra es observar que en el de caja blanca el estado de cada instancia está disponible de manera implícita en todos los métodos del framework, casi como las variables globales de Pascal. En un framework de caja negra, cualquier información que se pase a las partes constituyentes del framework debe pasarse de manera explícita. Un framework de caja blanca utiliza las reglas de alcance intra-objeto para evolucionar sin forzarlo a subscribirse a un protocolo explícito, rígido que podría restringir de manera prematura el proceso de diseño.
  \cite{johnson1988designing}
-
-\subsection{Jerarquías y composición}
-[Acá hablaremos de qué manera los frameworks permiten que los usuarios los configuren y les pongan comportamiento]
-
 
 
 \section{Estado del arte}
