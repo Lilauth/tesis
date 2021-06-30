@@ -198,17 +198,13 @@ El detalle de todos los parámetros, como configurar el archivo de configuració
 
 \section{Estructura del Framework}
 
-************************************
+Samplers está compuesto por dos elementos: una librería con las clases y demás recursos necesarios para crear la app y un script en Gradle para procesar el archivo de configuración.
 
+La librería es un archivo .aar, que es similar a un archivo .jar de Java, pero especifico para Android. En el mismo están todas las clases y los archivos de recursos de Android (como archivos XML con los diseños de IU de los Fragments y Activities, iconos, imágenes, etc).
 
-Samplers está compuesto por dos elementos: una librería con las clases y [demases (activities, fragments, recursos)] necesarias para crear la app y un script en Gradle para procesar el archivo de configuración.
+El script de Gradle es el que procesa el archivo de configuración de Samplers (SamplersConfig.json) y genera la app correspondiente usando las clases y recursos de la librería.
 
-La libreria es un archivo .aar, que es similar a un archivo .jar de Java, pero especifico para Android. En el mismo están todas las clases y los archivos de recursos del framework.
-
-************************************
-
-
-A continuación se explican las clases que permiten que se cree una aplicación móvil con Samplers y su funcionamiento.
+A continuación se explican las clases y componentes de Android que permiten que se cree una aplicación móvil con Samplers y su funcionamiento, y como se resolvieron cuestiones como el almacenamiento y envió de las muestras, la identificación de los usuarios que envían las muestras, etc.
 
 \subsection{Workflow, Step, StepFragment, StepResult, Sample}
 Estas clases conforman el corazón del framework, y son las necesarias para poder definir el protocolo de recolección de las muestras.
@@ -336,7 +332,7 @@ Además, un usuario programador del framework puede definir su propio método de
 
 Cuando se envía la muestra también se incluyen dos parámetros que son el id del usuario identificado y el método usado para identificar (que puede ser google o uno personalizado). Se envían de esta forma porque al momento de tomar la muestra el científico ciudadano puede no estar identificado, e identificarse antes de enviarlas.
 
-\subsection{Resto de la UI?? ANALIZAR}
+\subsection{Otros componentes de la app generada por Samplers}
 
 
 \subsubsection{SamplersMainActivity}
