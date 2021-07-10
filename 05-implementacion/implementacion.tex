@@ -444,10 +444,10 @@ AuthenticationManager.setAuthenticationOptional(true);
 protected Workflow getWorkflow() {
   Workflow workflow = new Workflow();
     	
-  Step step = new InformationStep(2,"Por favor tome una foto de su gato", null);
+  Step step = new PhotoStep(2,"Por favor tome una foto de su gato", null);
   workflow.add(step);
     	
-  step = new PhotoStep(1,"Bienvenido a la app de prueba", 2);
+  step = new InformationStep(1,"Bienvenido a la app de prueba", 2);
   workflow.add(step);
     	
   return workflow;
@@ -472,7 +472,7 @@ public void takeSampleClick(View view) {
 
 \subsection{Instanciación usando el  generador de clases de Gradle}
 
-Básicamente, el generador de clases de Gradle se encarga de hacer una instanciación manual a partir de un archivo de configuración (JSON). Está pensado para desarrolladores que no tienen muchos conocimientos en Android, o para servir de interfaz entre una aplicación que genere apps a través de Samplers (***esto hay que escribirlo mejor***).
+Básicamente, el generador de clases de Gradle se encarga de hacer una instanciación manual a partir de un archivo de configuración (JSON). Está pensado para desarrolladores que no tienen muchos conocimientos en Android, o para servir de interfaz entre una aplicación que genere apps a través de Samplers.
 
 Los pasos para usar el generador de clases de Gradle son:
 \begin{enumerate}
@@ -645,51 +645,9 @@ Ejemplo:
 	
 \end{itemize}
 
-**FALTA DESARROLLAR**
-
-Aca podriamos poner un ejemplo completo de un archivo JSON de los que estan en la wiki.
-
-**FALTA DESARROLLAR**
-
-\subsection{Configuración de los Servicios de Google?? (esto quedó viejo, no se si va acá o en otro lado)}
-**FALTA DESARROLLAR**
 
 \section{Los diferentes Steps y sus resultados (StepResult)} \label{sec:steps_detallados}
-**FALTA DESARROLLAR**
-
-Esto me parece que ya esta explicado arriba... hay que ver donde lo explicamos en forma generica y aca el detalle de cada uno.
-
-Los steps representan un paso en el protocolo de recolección de la muestra (workflow).
-Los StepResult son el resultado obtenido de ejecutar un Step.
-Una muestra esta formada por la colección de StepResult generada luego de ejecutar cada Step del Workflow. Cada ejecución del workflow puede generar una colección de StepResults diferente.
-
-\subsection{InformationStep: Mostrar información}
-InformationStep se usa para mostrar una información (texto) al científico ciudadano. 
-
-En Android Studio (Java):
-\begin{lstlisting}[language=Java, frame=tlb]	
-InformationStep step = new InformationStep(1,"Texto para mostrar",2);
-\end{lstlisting}
-
-Usando el generador de clases:
-\begin{lstlisting}[language=XML, frame=tlb]	
-{
-	"id":1,
-	"type" : "Information",
-	"text" : "Texto para mostrar",
-	"nextStepId": 2
-}
-\end{lstlisting}
-
-\begin{figure}[H]
-  \centering
-    \includegraphics[scale=0.4]{05-implementacion/InformationStep.png} 
-   \caption{Ejemplo de un InformationStep en ejecución}
-   \label{fig:imgInformationStep}
-\end{figure}
-
-\subsubsection{InformationStepResult: El resultado de Mostrar información}
-El resultado de mostrar información es nulo, es una clase vacía. Solo está para cerrar el circuito.
+De manera predeterminada, Samplers provee los Steps que se explican a continuación. Además de los provistos por Samplers, un usuario programador puede definir y agregar sus propios Steps, junto con sus StepFragments y StepResults como se explica en la sección \ref{sec:definir_steps} 
 
 \subsection{PhotoStep: Tomar una foto}
 PhotoStep se usa para solicitarle al científico ciudadano que tome una foto. Tiene un texto (instructionsToShow) que se muestran a modo de instrucciones o mensaje cuando la cámara esta encendida. Luego de tomada la foto, se muestra una vista preliminar de la misma, con un botón que da la opción de volver a tomar la foto.
@@ -721,6 +679,35 @@ Usando el generador de clases:
 guarda el imageFileName de la foto. 
 La foto va como archivo jpg en la carpeta de la muestra.
 Puede haber varias fotos si hay varios PhotoSteps en el workflow
+
+\subsection{InformationStep: Mostrar información}
+InformationStep se usa para mostrar una información (texto) al científico ciudadano. 
+
+En Android Studio (Java):
+\begin{lstlisting}[language=Java, frame=tlb]	
+InformationStep step = new InformationStep(1,"Texto para mostrar",2);
+\end{lstlisting}
+
+Usando el generador de clases:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+	"id":1,
+	"type" : "Information",
+	"text" : "Texto para mostrar",
+	"nextStepId": 2
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.4]{05-implementacion/InformationStep.png} 
+   \caption{Ejemplo de un InformationStep en ejecución}
+   \label{fig:imgInformationStep}
+\end{figure}
+
+\subsubsection{InformationStepResult: El resultado de Mostrar información}
+El resultado de mostrar información es nulo, es una clase vacía. Solo está para cerrar el circuito.
+
 
 \subsection{SoundRecordStep: Grabar sonido}
 Tiene instructionsToShow a modo de instrucciones que se muestran.
@@ -956,6 +943,7 @@ Usando el generador de clases:
 un objeto Date que tiene la fecha o la hora según corresponda
 
 \section{Mostrar Ayuda}
+[aca vamos a explicar como hay que hacer para mostrar ayuda en la app generada. Hay una ayuda general y otra ayuda particular para un step]
 
 \section{Usando autenticación} \label{sec:usando_autenticacion}
 Por defecto provee autenticación con Google, porque al tener Android tiene una cuenta de Google si o si.
@@ -1097,6 +1085,6 @@ public class EMailUser implements User {
 
 \subsection{Idiomas}
 
-\section{Definir un nuevo Step, StepFragment y StepResult ??} \label{sec:definir_steps}
+\section{Definir un nuevo Step, StepFragment y StepResult} \label{sec:definir_steps}
 
 
