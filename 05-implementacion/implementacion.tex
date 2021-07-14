@@ -333,7 +333,7 @@ Además, un usuario programador del framework puede definir su propio método de
 Cuando se envía la muestra también se incluyen dos parámetros que son el id del usuario identificado y el método usado para identificar (que puede ser google o uno personalizado). Se envían de esta forma porque al momento de tomar la muestra el científico ciudadano puede no estar identificado, e identificarse antes de enviarlas.
 
 \subsection{Otros componentes de la app generada por Samplers}
-
+[acá vamos a hablar de las otras Activities que se crean cuando se genera una app con Samplers]
 
 \subsubsection{SamplersMainActivity}
 
@@ -419,8 +419,8 @@ Una vez instalado el framework el siguiente paso es instanciarlo para usarlo. La
 
 
 \subsection{Instanciación manual}
-Básicamente se tiene que crear un objeto Workflow, agregarle los objetos Steps, y llamar a la activity TakeSampleActivity pasándole el workflow como parámetro.
-También es necesario establecer la configuración general en el método onCreate de la activity principal (main activity).
+Una vez agregada la librería de Samplers al proyecto, se debe crear un objeto Workflow, agregarle los objetos Steps, y llamar a la activity TakeSampleActivity pasándole el objeto Workflow como parámetro.
+También es necesario establecer la configuración general en el método onCreate de la activity principal (main activity) para indicar a donde se enviarán las muestras tomadas con la app.
 Se puede usar una activity principal propia o se puede heredar de SamplersMainActivity. En ambos casos se debe hacer lo siguiente:
 \begin{itemize}
 	\item Establecer la configuración general en el método onCreate de la activity principal:
@@ -428,14 +428,14 @@ Se puede usar una activity principal propia o se puede heredar de SamplersMainAc
 NetworkConfiguration.setURL("http://192.168.1.10/samplers/upload.php");
 NetworkConfiguration.setPARAM_NAME_SAMPLE("sample");
 
-// Opcional, si se desea usar autenticación (*)
+// Opcional, si se desea usar identificación (*)
 NetworkConfiguration.setPARAM_NAME_USER_ID("user_id");
 NetworkConfiguration.setPARAM_NAME_AUTHENTICATION_TYPE("authentication_type");
 
 AuthenticationManager.setAuthenticationEnabled(true);
 AuthenticationManager.setAuthenticationOptional(true);
 		\end{lstlisting}
-(*) Ver la sección \ref{sec:usando_autenticacion} para más detalles sobre como usar Autenticación.
+(*) Ver la sección \ref{sec:usando_autenticacion} para más detalles sobre como usar identificación.
 
 
 	\item Crear un Workflow. Si se está heredando de SamplersMainActivity se debe hacer sobreescribiendo el método getWorkflow.
@@ -457,7 +457,7 @@ Nota: en el ejemplo anterior se muestra un Workflow que tiene dos Steps. El prim
 
 	\item Iniciar la activity TakeSampleActivity. Si se está heredando de SamplersMainActivity esto se hace automáticamente en el método onClick del botón "tomar muestra". De lo contrario, deberá iniciarla de la siguiente forma, en el método onClick de un botón por ejemplo:
 		\begin{lstlisting}[language=Java, frame=tlb]
-@Override
+
 public void takeSampleClick(View view) {
   Workflow workflow = getWorkflow();
 
@@ -649,6 +649,9 @@ Ejemplo:
 \section{Los diferentes Steps y sus resultados (StepResult)} \label{sec:steps_detallados}
 De manera predeterminada, Samplers provee los Steps que se explican a continuación. Además de los provistos por Samplers, un usuario programador puede definir y agregar sus propios Steps, junto con sus StepFragments y StepResults como se explica en la sección \ref{sec:definir_steps} 
 
+
+[En la siguiente sección faltan las capturas de pantalla de los Steps (pusimos algunas a modo de ejemplo nomas) y todo lo que es código tenemos pensado escribirlo en un editor y copiar una captura de pantalla, porque el estilo de Latex no queda bien]
+
 \subsection{PhotoStep: Tomar una foto}
 PhotoStep se usa para solicitarle al científico ciudadano que tome una foto. Tiene un texto (instructionsToShow) que se muestran a modo de instrucciones o mensaje cuando la cámara esta encendida. Luego de tomada la foto, se muestra una vista preliminar de la misma, con un botón que da la opción de volver a tomar la foto.
 
@@ -676,9 +679,8 @@ Usando el generador de clases:
 \end{figure}
 
 \subsubsection{PhotoStepResult: El resultado de Tomar una foto}
-guarda el imageFileName de la foto. 
-La foto va como archivo jpg en la carpeta de la muestra.
-Puede haber varias fotos si hay varios PhotoSteps en el workflow
+El PhotoStepResult contiene el nombre del archivo de la foto tomada. La foto va como archivo jpg en la carpeta de la muestra.
+Puede haber varias fotos si hay varios PhotoSteps en el Workflow.
 
 \subsection{InformationStep: Mostrar información}
 InformationStep se usa para mostrar una información (texto) al científico ciudadano. 
@@ -710,7 +712,7 @@ El resultado de mostrar información es nulo, es una clase vacía. Solo está pa
 
 
 \subsection{SoundRecordStep: Grabar sonido}
-Tiene instructionsToShow a modo de instrucciones que se muestran.
+SoundRecordStep  se usa para solicitarle al científico ciudadano que grabe un sonido. Tiene un texto (instructionsToShow) que se muestran a modo de instrucciones o mensaje. Luego de grabado el sonido, el mismo se puede escuchar, y en todo caso volver a grabar otro sonido.
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -728,17 +730,17 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{SoundRecordStepResult: El resultado de Grabar sonido}
-guarda el soundFileName del sonido.
-El sonido va como archivo mp4 en la carpeta de la muestra.
-Puede haber varios sonidos si hay varios SoundRecordSteps en el workflow
+El SoundRecordStepResult contiene el nombre del archivo del sonido grabado. El sonido va como archivo mp4 en la carpeta de la muestra.
+Puede haber varios sonidos si hay varios SoundRecordSteps en el Workflow.
 
 
 \subsection{SelectOneStep: Seleccionar una opción de un grupo de opciones}
-Tiene un title
-Las opciones son una lista de objetos SelectOneOption
-Cada objeto SelectOneOption tiene un id, textToShow y nextStepId
-Explicar la bifurcación de caminos en el workflow a partir de este Step
-En forma de radio buttons
+SelectOneStep  se usa para solicitarle al científico ciudadano que seleccione una sola opción de varias opciones disponibles. Tiene un texto (title) que se muestran a modo de título o instrucciones. Las opciones disponibles para seleccionar son una lista de objetos SelectOneOption.
+Cada objeto SelectOneOption tiene un id, textToShow y nextStepId.
+
+[Explicar la bifurcación de caminos en el workflow a partir de este Step]
+
+Las opciones disponibles para seleccionar se muestran en pantalla en forma de radio buttons.
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -777,13 +779,13 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{SelectOneStepResult: El resultado de Seleccionar una opción de un grupo de opciones}
-El resultado tiene la opción seleccionada (un objeto SelectOneOption)
+SelectOneStepResult contiene la opción seleccionada (un objeto SelectOneOption).
 
 \subsection{MultipleSelectStep: Seleccionar varias opciones de un grupo de opciones}
-Tiene un title
-Las opciones son una lista de objetos MultipleSelectOption
-Cada objeto MultipleSelectOption tiene un id y textToShow
-en forma de checkboxes
+MultipleSelectStep  se usa para solicitarle al científico ciudadano que seleccione una o más opciones de varias opciones disponibles. Tiene un texto (title) que se muestran a modo de título o instrucciones. Las opciones disponibles para seleccionar son una lista de objetos MultipleSelectOption.
+Cada objeto MultipleSelectOption tiene un id, textToShow.
+Las opciones disponibles para seleccionar se muestran en pantalla en forma de check-boxes.
+
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -824,12 +826,12 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{MultipleSelectStepResult: El resultado de Seleccionar varias opciones de un grupo de opciones}
-El resultado tiene una lista de las opciones seleccionadas (una lista de objetos MultipleSelectOption)
-
+MultipleSelectStepResult contiene una lista de las opciones seleccionadas (una lista de objetos MultipleSelectOption).
 
 
 \subsection{LocationStep: Posicionar la muestra en el mapa con el GPS}
-Tiene un textToShow a modo de instrucciones
+LocationStep se usa para solicitarle al científico ciudadano que tome la posición con el GPS del dispositivo móvil. Tiene un texto (textToShow) que se muestran a modo de instrucciones o mensaje. 
+
 Permite usar el GPS o posicionar la muestra manualmente en el mapa
 
 En Android Studio (Java):
@@ -848,11 +850,15 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{LocationStepResult: El resultado de Posicionar la muestra en el mapa con el GPS}
-Guarda latitude y longitude
+LocationStepResult contiene la latitud y longitud (ambos de tipo double) de la posición GPS tomada.
+
 
 \subsection{RouteStep: Grabar un recorrido en el mapa usando el GPS}
+[falta desarrollar]
+\begin{comment}
 Tiene un textToShow a modo de instrucciones
 Intervalo y mapZoom opcionales. Poner los valores por defecto
+\end{comment}
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -874,14 +880,19 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{RouteStepResult: El resultado de Grabar un recorrido en el mapa usando el GPS}
-guarda una lista de objetos Location
+[falta desarrollar]
+%guarda una lista de objetos Location
 
 \subsection{InsertTextStep: Ingresar texto}
+[falta desarrollar]
+\begin{comment}
 textToShow a modo de instrucciones
 sampleText a modo de ejmplo
 maxLength cantidad máxima de caracteres permitida
 Type Values allowed are: text, number or decimal
 optional indicando si se puede dejar vacío y no ingresar ningún texto (true) o si se requiere que ingrese algo si o si (false)
+\end{comment}
+
 
 
 En Android Studio (Java):
@@ -904,10 +915,15 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{InsertTextStepResult: El resultado de Ingresar texto}
-guarda el texto ingresado en insertedText
+[falta desarrollar]
+%guarda el texto ingresado en insertedText
 
 \subsection{InsertDateStep y InsertTimeStep: Ingresar fecha y hora}
+[falta desarrollar]
+\begin{comment}
 ambos tienen textToShow a modo de instrucciones
+\end{comment}
+
 
 En Android Studio (Java):
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -940,35 +956,36 @@ Usando el generador de clases:
 \end{lstlisting}
 
 \subsubsection{InsertDateStepResult y InsertTimeStep: El resultado de Ingresar fecha y hora}
-un objeto Date que tiene la fecha o la hora según corresponda
+[falta desarrollar]
+%un objeto Date que tiene la fecha o la hora según corresponda
 
 \section{Mostrar Ayuda}
 [aca vamos a explicar como hay que hacer para mostrar ayuda en la app generada. Hay una ayuda general y otra ayuda particular para un step]
 
-\section{Usando autenticación} \label{sec:usando_autenticacion}
-Por defecto provee autenticación con Google, porque al tener Android tiene una cuenta de Google si o si.
+\section{Usando identificación} \label{sec:usando_autenticacion}
+Por defecto provee identificación con Google, porque al tener Android tiene una cuenta de Google si o si.
 Esta abierto a poder agregar autenticación con otras plataformas/APIs.
 
-Samplers provee autenticación con Google, pero ese necesario registrar la aplicación en la pagina de desarrolladores de google (https://developers.google.com/identity/sign-in/android/start-integrating). Ahí hay que seguir los pasos para [to Configure a Google API Console project]. Es necesario [proveer] el nombre de la aplicación, package name, y también el SHA-1 hash del certificado con el que se firma la aplicación.
+Samplers provee identificación con Google, pero ese necesario registrar la aplicación en la pagina de desarrolladores de google (https://developers.google.com/identity/sign-in/android/start-integrating). Ahí hay que seguir los pasos para [to Configure a Google API Console project]. Es necesario [proveer] el nombre de la aplicación, package name, y también el SHA-1 hash del certificado con el que se firma la aplicación.
 
-Una vez registrada la aplicación en Google, hay que configurar Samplers para habilitar la autenticación.
+Una vez registrada la aplicación en Google, hay que configurar Samplers para habilitar la identificación.
 
-Una vez configurado los valores de los parámetros de autenticación, Samplers mostrará un fragment de inicio de sesión la primera vez que el usuario intente tomar una muestra. Si la autentición es opcional, se mostrará un botón para omitir el inicio de sesión y continuar con la toma de la muestra. También se muestra un botón para iniciar sesión en la activity principal (si se está usando la que provee Samplers).
+Una vez configurado los valores de los parámetros de identificación, Samplers mostrará un fragment de inicio de sesión la primera vez que el usuario intente tomar una muestra. Si la identificación es opcional, se mostrará un botón para omitir el inicio de sesión y continuar con la toma de la muestra. También se muestra un botón para iniciar sesión en la activity principal (si se está usando la que provee Samplers).
 
-Cuando la muestra es enviada, el id de usuario y el método de autenticación (por defecto 'google') se envían junto con esta.
+Cuando la muestra es enviada, el id de usuario y el método de identificación (por defecto 'google') se envían junto con esta.
 
 
-\subsection{Configurar autenticación con el generador de clases de Gradle}
+\subsection{Configurar identificación con el generador de clases de Gradle}
 
-Para usar autenticación usando el generador de clases de Gradle, es necesario configurar los siguientes parámetros en el objeto \textbf{applicaction}:
+Para usar identificación usando el generador de clases de Gradle, es necesario configurar los siguientes parámetros en el objeto \textbf{applicaction}:
 
 \begin{itemize}
 
-	\item \textbf{authenticationEnabled}: poner en true para habilitar la autenticación
+	\item \textbf{authenticationEnabled}: poner en true para habilitar la identificación
 		
-	\item \textbf{authenticationOptional}: poner en true si se desea que la autenticación sea opcional, o en false si se desea que la autenticación sea obligatoria.
+	\item \textbf{authenticationOptional}: poner en true si se desea que la identificación sea opcional, o en false si se desea que la identificación sea obligatoria.
 	
-	\item Dentro del parámetro \textbf{networkConfiguration} es necesario establecer los parámetros \textbf{paramNameUserId} y \textbf{paramNameAuthenticationType} con los nombres de los parámetros con los que irán el id de usuario y el tipo de autenticación usada respectivamente dentro del mensaje HTTP POST.
+	\item Dentro del parámetro \textbf{networkConfiguration} es necesario establecer los parámetros \textbf{paramNameUserId} y \textbf{paramNameAuthenticationType} con los nombres de los parámetros con los que irán el id de usuario y el tipo de identificación usada respectivamente dentro del mensaje HTTP POST.
 	
 
 \end{itemize}
@@ -992,9 +1009,9 @@ Ejemplo:
 }
 \end{lstlisting}
 
-\subsection{Configurar autenticación [con instanciación manual]}
+\subsection{Configurar identificación [con instanciación manual]}
 
-Para usar autenticación [con instanciación manual], es necesario definir la configuración de red y de autenticación en el método \textbf{onCreate()} de la activity principal:
+Para usar identificación [con instanciación manual], es necesario definir la configuración de red y de identificación en el método \textbf{onCreate()} de la activity principal:
 
 \begin{lstlisting}[language=Java, frame=tlb]	
 @Override
@@ -1013,9 +1030,9 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 \end{lstlisting}
 
-\subsection{Usando un método de autenticación propio} \label{sec:usar_auth_propia}
+\subsection{Usando un método de identificación propio} \label{sec:usar_auth_propia}
 
-Con Samplers también se puede usar un método de autenticación propio, definiendo un LoginFragment y una clase User (o varias clases si se desea proporcionar autenticación con diferentes APIs, como Facebook, Tweeter, Yahoo, etc.) y Samplers enviará junto con la muestra el id de usuario y el método de autenticación usado.
+Con Samplers también se puede usar un método de identificación propio, definiendo un LoginFragment y una clase User (o varias clases si se desea proporcionar identificación con diferentes APIs, como Facebook, Instagram, Tweeter, etc.) y Samplers enviará junto con la muestra el id de usuario y el método de identificación usado.
 
 
 \subsubsection{Definiendo un Login Fragment [personalizado]}
@@ -1043,7 +1060,7 @@ if (loginOK) {
 
 \subsubsection{Definiendo una clase User [personalizada]}
 
-Es necesario crear una clase usuario propia que implemente la interfaz User por cada método de autenticación que se use. Los objetos de dichas clases se usarán para llamar al método login() de la clase AuthenticationManager.
+Es necesario crear una clase usuario propia que implemente la interfaz User por cada método de identificación que se use. Los objetos de dichas clases se usarán para llamar al método login() de la clase AuthenticationManager.
 
 Ejemplo de una clase usuario propia:
 \begin{lstlisting}[language=Java, frame=tlb]	
@@ -1086,5 +1103,6 @@ public class EMailUser implements User {
 \subsection{Idiomas}
 
 \section{Definir un nuevo Step, StepFragment y StepResult} \label{sec:definir_steps}
+[acá vamos a explicar como definir un nuevo Step para extender el framework]
 
 
