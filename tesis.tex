@@ -14,6 +14,7 @@
 %\usepackage{url}
 \usepackage{float}
 \usepackage{verbatim}
+\usepackage{appendix}
 
 \lstset{literate=
   {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
@@ -30,7 +31,10 @@
   {€}{{\EUR}}1 {£}{{\pounds}}1
 }
 
-
+\renewcommand{\appendixname}{Anexos}
+\renewcommand{\appendixtocname}{Anexos}
+\renewcommand{\appendixpagename}{Anexos}
+\addto\captionsspanish{\renewcommand{\appendixname}{Anexo}}
 
 \begin{document}
 
@@ -67,6 +71,7 @@ Samplers es un framework Android para construir aplicaciones que permitan la rec
 \include{05-implementacion/implementacion}
 \include{06-caso_de_uso/caso_de_uso}
 \include{40-conclusion/conclusion}
+\include{50-anexos/anexos}
 
 %Los artículos que se citan en la tesis, se incluyen en el archivo bibliografía.bib, en formato bibtex.
 %En la sección bibliografía, van a aparecer automáticamente aquellos que se citan desde el texto 
