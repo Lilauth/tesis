@@ -1,0 +1,380 @@
+\chapter{Instanciación  y uso del framework}
+En esta sección se explica como instanciar el framework para su uso, brindando algunos ejemplos concretos.
+
+Una vez instalado el framework el siguiente paso es instanciarlo para usarlo. La instanciación puede ser manual o usando el generador de clases de Gradle.
+
+
+\section{Instanciación manual}
+Una vez agregada la librería de Samplers al proyecto, se debe crear un objeto Workflow, agregarle los objetos Steps, y llamar a la activity TakeSampleActivity pasándole el objeto Workflow como parámetro.
+También es necesario establecer la configuración general en el método onCreate de la activity principal (main activity) para indicar a donde se enviarán las muestras tomadas con la app.
+Se puede usar una activity principal propia o se puede heredar de SamplersMainActivity. En ambos casos se debe hacer lo siguiente:
+\begin{itemize}
+	\item Establecer la configuración general en el método onCreate de la activity principal:
+		\begin{lstlisting}[language=Java, frame=tlb]
+NetworkConfiguration.setURL("http://192.168.1.10/samplers/upload.php");
+NetworkConfiguration.setPARAM_NAME_SAMPLE("sample");
+
+// Opcional, si se desea usar identificación (*)
+NetworkConfiguration.setPARAM_NAME_USER_ID("user_id");
+NetworkConfiguration.setPARAM_NAME_AUTHENTICATION_TYPE("authentication_type");
+
+AuthenticationManager.setAuthenticationEnabled(true);
+AuthenticationManager.setAuthenticationOptional(true);
+		\end{lstlisting}
+(*) Ver la sección \ref{sec:usando_autenticacion} para más detalles sobre como usar identificación.
+
+
+	\item Crear un Workflow. Si se está heredando de SamplersMainActivity se debe hacer sobreescribiendo el método getWorkflow.
+		\begin{lstlisting}[language=Java, frame=tlb]
+@Override
+protected Workflow getWorkflow() {
+  Workflow workflow = new Workflow();
+    	
+  Step step = new PhotoStep(2,"Por favor tome una foto de su gato", null);
+  workflow.add(step);
+    	
+  step = new InformationStep(1,"Bienvenido a la app de prueba", 2);
+  workflow.add(step);
+    	
+  return workflow;
+}		
+		\end{lstlisting}
+Nota: en el ejemplo anterior se muestra un Workflow que tiene dos Steps. El primero muestra un mensaje de bienvenida y el segundo pide para tomar una foto. Para ver los distintos Steps que se pueden usar vea la sección \ref{sec:steps_detallados}.
+
+	\item Iniciar la activity TakeSampleActivity. Si se está heredando de SamplersMainActivity esto se hace automáticamente en el método onClick del botón "tomar muestra". De lo contrario, deberá iniciarla de la siguiente forma, en el método onClick de un botón por ejemplo:
+		\begin{lstlisting}[language=Java, frame=tlb]
+
+public void takeSampleClick(View view) {
+  Workflow workflow = getWorkflow();
+
+  Intent intent = new Intent(this, TakeSampleActivity.class);        
+  intent.putExtra(TakeSampleActivity.EXTRA_WORKFLOW, workflow);
+  startActivity(intent);
+}		
+		\end{lstlisting}
+
+\end{itemize}
+
+
+\section{Instanciación usando el  generador de clases de Gradle}
+
+Básicamente, el generador de clases de Gradle se encarga de hacer una instanciación manual a partir de un archivo de configuración (JSON). Está pensado para desarrolladores que no tienen muchos conocimientos en Android, o para servir de interfaz entre una aplicación que genere apps a través de Samplers.
+
+Los pasos para usar el generador de clases de Gradle son:
+\begin{enumerate}
+	\item Crear un archivo JSON con el nombre SamplersConfig.json
+		\begin{itemize}
+			\item El formato y las opciones están explicadas sección \ref{sec:archivo_config_detallado}.
+			\item Para validar sintaxis se puede usar por ejemplo el validador online https://jsonformatter.curiousconcept.com que es gratuito.
+			\item Al final de esta sección se provee un archivo de ejemplo.
+		\end{itemize}
+		
+	\item Copiar el archivo creado en el item anterior al directorio raíz del proyecto Android creado.
+	
+	\item Descargar la última versión de los archivos \textbf{samplers.gradle} y \textbf{samplersclassgenerator.jar} del repositorio de Samplers (https://github.com/cientopolis/samplers/releases/) y copiarlos también al directorio raíz del proyecto Android.
+	
+	\item Enlazar el archivo samplers.gradle en el archivo \textbf{build.gradle} de la aplicación:
+		\begin{itemize}
+			\item Android Studio crea por defecto dos archivos build.gradle, uno a nivel de aplicación y otro a nivel de proyecto. Debe usarse el de aplicación.
+			\item Al final del archivo build.gradle de aplicación agregar:
+\begin{lstlisting}[language=XML, frame=tlb]
+apply from: '../samplers.gradle'
+\end{lstlisting}
+			\item Al guardar los cambios, Android Studio sugerirá hacer una sincronización del proyecto, hacerla. Esto generará en la aplicación una activity llamada MyMainSamplersActivity en base a las opciones configuradas en el archivo SamplersConfig.json.
+			\item Si se necesita volver a generar esta activity (si se quieren modificar algunas opciones por ejemplo ) se puede eliminar la misma, hacer las modificaciones en el archivo SamplersConfig.json y volver a generar el proyecto (en el menu Build -$>$ Make Project)
+		\end{itemize}
+		
+	\item Eliminar o personalizar el archivo \textbf{style.xml} que está en \textbf{res/values} en la aplicación
+	
+	\item Ejecutar la aplicación y listo.
+
+\end{enumerate}
+
+
+\section{Secciones del Archivo} \label{sec:archivo_config_detallado}
+
+El archivo SamplersConfig.json es un archivo JSON con 3 objetos:
+\begin{itemize}
+	\item El objeto \textbf{project}
+		
+	El objeto project tiene dos campos
+	\begin{itemize}
+		\item \textbf{app\_path}: Un String con la ubicación del directorio de los fuentes de la aplicación, relativo al directorio del proyecto. Es donde están los archivos -java de la aplicación y donde se creará el archivo MyMainSamplersActivity.java
+		\item \textbf{package\_name}: Un String con el nombre del package usado para las activities de la aplicación. Es el package donde la activity MyMainSamplersActivity será agregada.
+	\end{itemize}
+	
+Ejemplo:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "project" : {
+    "app_path" = "app/src/main/java/com/example/myApplication/"
+    "package_name" : "com.example.myApplication"
+  }
+}
+\end{lstlisting}	
+	
+	\item El objeto \textbf{application}
+	El objeto application tiene 7 campos, de los cuales 3 son requeridos y los otros 4 opcionales (para habilitar características especiales)
+	\begin{itemize}
+		\item \textbf{title}: Un String con el nombre de la aplicación.
+		
+		 \item \textbf{welcomeMessage}: Un String con el mensaje de bienvenida que se mostrará en la activity principal (MyMainSamplersActivity)
+		 
+		 \item \textbf{networkConfiguration}: Un objeto con la configuración de red que se usará para enviar las muestras al servidor web. Ver mas abajo la configuración de este objeto.
+		 
+		 \item \textbf{googleMaps\_API\_KEY}: [Opcional] Un String con la API Key de Google. Este campo es necesario si se van a usar los servicios de ubicación y mapas (Location Step y Route Step). La API Key de google se puede obtener desde la página de google developers (https://developers.google.com/maps/documentation/android-api/signup)
+		 
+		 \item \textbf{mainHelpFileName}: [Opcional] Un String con el nombre del archivo HTML que contiene la ayuda principal de la aplicación. Este archivo debe estar junto con el archivo SamplersConfig.json. Ver la sección Mostrando Ayuda para mas detalles.
+		 
+		 \item \textbf{authenticationEnabled}: [Opcional] Un boolean que indica si se usará autenticación (true) o no (false). Si se omite este campo se asume false. Ver la sección Usando Autenticación para mas detalles.
+		 
+		 \item \textbf{authenticationOptional}: [Opcional] Un boolean que indica si la autenticación será opcional (true) o requerida (false). Si se omite este campo se asume true (autenticación opcional). Este campo solo tiene sentido si se usa autenticación. Ver la sección Usando Autenticación para mas detalles.
+		 
+	\end{itemize}
+	
+	
+	El objeto \textbf{networkConfiguration}:
+	El objeto networkConfiguration contiene la configuración de red que se usará para enviar las muestras al servidor web. Tiene 4 campos, de los cuales 2 son requeridos y los otros 2 opcionales.
+	
+	\begin{itemize}
+	
+		\item \textbf{url}: Un String con la URL del servidor web al cual se le enviaran las muestra con un mensaje HTTP POST.
+		
+		\item \textbf{paramName}: Un String con el nombre del parámetro dentro del mensaje HTTP POST en el que se enviará la muestra.
+	
+		\item \textbf{paramNameUserId}: (Opcional) Un String con el nombre del parámetro dentro del mensaje HTTP POST en el que se enviará el id del usuario que envía la muestra. Este campo solo es necesario si se usa autenticación. Ver la sección Usando Autenticación para mas detalles.
+		
+		\item \textbf{paramNameAuthenticationType}: (Opcional) Un String con el nombre del parámetro dentro del mensaje HTTP POST en el que se enviará el tipo de autenticación que usó el usuario que envía la muestra. Este campo solo es necesario si se usa autenticación. Ver la sección Usando Autenticación para mas detalles.
+	
+	\end{itemize}
+	
+	
+Ejemplo:
+\begin{lstlisting}[language=XML, frame=tlb]
+{
+  "application": {
+    "title" : "Samplers Hello World App",
+    "welcomeMessage" : "Welcome to your first Samplers App!",
+    "networkConfiguration" : {
+      "url" : "http://192.168.1.10/samplers/upload.php",
+      "paramName" : "sample",
+      "paramNameUserId" : "user_id",
+      "paramNameAuthenticationType" : "authentication_type"
+    },
+    "authenticationEnabled" : true,
+    "authenticationOptional" : true,
+    "googleMaps_API_KEY" : "your_google_maps_API_KEY",
+    "mainHelpFileName" : "mainhelp.html"
+  } 
+}
+\end{lstlisting}	
+	
+	
+	\item El objeto \textbf{workflow}
+	El objeto workflow representa el protocolo para la toma de la muestra. Son los pasos que se ejecutarán para tomar la misma.
+	El objeto cuenta con dos campos:
+		
+	\begin{itemize}
+	
+		\item \textbf{actionLabel}: Un String con el título que se usará para el botón que inicia la activity TakeSampleActivity, que es la encargada de tomar la muestra.
+		
+		\item \textbf{steps}: Un Array de Objetos Step los cuales forman el workflow. El primer objeto del array se considera como el inicio del mismo. Ver la sección Steps para mas detalles.
+	
+	
+	\end{itemize}	
+	
+	
+Ejemplo:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "workflow": {
+    "actionLabel" : "Tomar muestra",
+    "steps": [
+      {
+        "id" : 1,
+        "type" : "Information",
+        "text" : "Por favor, siga las instrucciones",
+        "nextStepId" : 2
+      },
+      {
+        "id" : 2,
+        "type" : "Location",
+        "text" : "Por favor posicione la muestra en el mapa",
+        "nextStepId" : 3,
+        "helpFileName" : "locationhelp.html"
+      },
+      {
+        "id" : 3,
+        "type": "MultipleSelect",
+        "title" : "Seleecione las cosas que ve",
+        "helpFileName" : "selecthelp.html",
+        "options" : [
+          {
+            "id":1,
+            "text":"Arboles"
+          },
+          {
+            "id":2,
+            "text":"Basura"
+          },
+          {
+            "id":3,
+            "text":"Agua"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+\end{lstlisting}	
+	
+\end{itemize}
+
+
+
+\section{Mostrar Ayuda}
+[aca vamos a explicar como hay que hacer para mostrar ayuda en la app generada. Hay una ayuda general y otra ayuda particular para un step]
+
+\section{Usando identificación} \label{sec:usando_autenticacion}
+Por defecto provee identificación con Google, porque al tener Android tiene una cuenta de Google si o si.
+Esta abierto a poder agregar autenticación con otras plataformas/APIs.
+
+Samplers provee identificación con Google, pero ese necesario registrar la aplicación en la pagina de desarrolladores de google (https://developers.google.com/identity/sign-in/android/start-integrating). Ahí hay que seguir los pasos para [to Configure a Google API Console project]. Es necesario [proveer] el nombre de la aplicación, package name, y también el SHA-1 hash del certificado con el que se firma la aplicación.
+
+Una vez registrada la aplicación en Google, hay que configurar Samplers para habilitar la identificación.
+
+Una vez configurado los valores de los parámetros de identificación, Samplers mostrará un fragment de inicio de sesión la primera vez que el usuario intente tomar una muestra. Si la identificación es opcional, se mostrará un botón para omitir el inicio de sesión y continuar con la toma de la muestra. También se muestra un botón para iniciar sesión en la activity principal (si se está usando la que provee Samplers).
+
+Cuando la muestra es enviada, el id de usuario y el método de identificación (por defecto 'google') se envían junto con esta.
+
+
+\subsection{Configurar identificación con el generador de clases de Gradle}
+
+Para usar identificación usando el generador de clases de Gradle, es necesario configurar los siguientes parámetros en el objeto \textbf{applicaction}:
+
+\begin{itemize}
+
+	\item \textbf{authenticationEnabled}: poner en true para habilitar la identificación
+		
+	\item \textbf{authenticationOptional}: poner en true si se desea que la identificación sea opcional, o en false si se desea que la identificación sea obligatoria.
+	
+	\item Dentro del parámetro \textbf{networkConfiguration} es necesario establecer los parámetros \textbf{paramNameUserId} y \textbf{paramNameAuthenticationType} con los nombres de los parámetros con los que irán el id de usuario y el tipo de identificación usada respectivamente dentro del mensaje HTTP POST.
+	
+
+\end{itemize}
+
+Ejemplo:
+
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "application": {
+    "title" : "Samplers Hello World App",
+    "welcomeMessage" : "Welcome to your first Samplers App!",
+    "networkConfiguration" : {
+      "url" : "http://192.168.1.10/samplers/upload.php",
+      "paramName" : "sample",
+      "paramNameUserId" : "user_id",
+      "paramNameAuthenticationType" : "authentication_type"
+    },
+    "authenticationEnabled" : true,
+    "authenticationOptional" : true
+  } 
+}
+\end{lstlisting}
+
+\subsection{Configurar identificación [con instanciación manual]}
+
+Para usar identificación [con instanciación manual], es necesario definir la configuración de red y de identificación en el método \textbf{onCreate()} de la activity principal:
+
+\begin{lstlisting}[language=Java, frame=tlb]	
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+	
+  NetworkConfiguration.setURL("http://192.168.1.10/samplers/upload.php");
+  NetworkConfiguration.setPARAM_NAME_SAMPLE("sample");
+  // Set the authentication params of the Network Configuration
+  NetworkConfiguration.setPARAM_NAME_USER_ID("user_id");
+  NetworkConfiguration.setPARAM_NAME_AUTHENTICATION_TYPE("authentication_type");
+
+  // Set the authenticationconfiguration
+  AuthenticationManager.setAuthenticationEnabled(true);
+  AuthenticationManager.setAuthenticationOptional(true);
+}
+\end{lstlisting}
+
+\subsection{Usando un método de identificación propio} \label{sec:usar_auth_propia}
+
+Con Samplers también se puede usar un método de identificación propio, definiendo un LoginFragment y una clase User (o varias clases si se desea proporcionar identificación con diferentes APIs, como Facebook, Instagram, Tweeter, etc.) y Samplers enviará junto con la muestra el id de usuario y el método de identificación usado.
+
+
+\subsubsection{Definiendo un Login Fragment [personalizado]}
+
+Es necesario crear un fragment que herede de LoginFragment, y configurar la clase AuthenticationManager para que lo use, llamando al método setLoginFragmentClass() dentro del método onCreate() de la ativity principal:
+
+\begin{lstlisting}[language=Java, frame=tlb]	
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+	
+  AuthenticationManager.setLoginFragmentClass(MyCustomLoginFragment.class);
+}
+\end{lstlisting}
+
+El proceso de login y la interacción con las APIs responsabilidad del desarrollador, pero después de que el usuario inicia sesión en la API seleccionada, es necesario llamar al método login() en la clase AuthenticationManager y al método onLogin() en el objeto mListener heredado:
+
+\begin{lstlisting}[language=Java, frame=tlb]	
+if (loginOK) {
+  AuthenticationManager.login(user, getActivity().getApplicationContext());
+  mListener.onLogin(user);
+}
+\end{lstlisting}
+
+
+\subsubsection{Definiendo una clase User [personalizada]}
+
+Es necesario crear una clase usuario propia que implemente la interfaz User por cada método de identificación que se use. Los objetos de dichas clases se usarán para llamar al método login() de la clase AuthenticationManager.
+
+Ejemplo de una clase usuario propia:
+\begin{lstlisting}[language=Java, frame=tlb]	
+public class EMailUser implements User {
+
+    public static final String AUTHENTICATION_TYPE = "email";
+
+    private String userName;
+    private String email;
+
+    public GoogleUser(String userName, String email) {
+        this.userName = userName;
+        this.email = email;
+    }
+
+    @Override
+    public String getAuthenticationType() {
+        return AUTHENTICATION_TYPE;
+    }
+
+    @Override
+    public String getUserName() {
+        return userName;
+    }
+
+    @Override
+    public String getUserId() {
+        return email;
+    }
+
+}
+\end{lstlisting}
+
+
+
+\section{Personalización}
+
+\subsection{Temas y colores}
+
+\subsection{Idiomas}
+
+
+
