@@ -10,6 +10,9 @@ También es necesario establecer la configuración general en el método onCreat
 Se puede usar una activity principal propia o se puede heredar de SamplersMainActivity. En ambos casos se debe hacer lo siguiente:
 \begin{itemize}
 	\item Establecer la configuración general en el método onCreate de la activity principal:
+	
+\begin{comment}	
+	
 		\begin{lstlisting}[language=Java, frame=tlb]
 NetworkConfiguration.setURL("http://192.168.1.10/samplers/upload.php");
 NetworkConfiguration.setPARAM_NAME_SAMPLE("sample");
@@ -21,11 +24,29 @@ NetworkConfiguration.setPARAM_NAME_AUTHENTICATION_TYPE("authentication_type");
 AuthenticationManager.setAuthenticationEnabled(true);
 AuthenticationManager.setAuthenticationOptional(true);
 		\end{lstlisting}
+\end{comment}		
+		
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.7]{50-anexos/B-uso/configuracion_general.png} 
+   \caption{Ejemplo de configuración general}
+   \label{fig:imgPhotoStep}
+\end{figure}		
+		
+		
 (*) Ver la sección \ref{sec:usando_autenticacion} para más detalles sobre como usar identificación.
 
 
 	\item Crear un Workflow. Si se está heredando de SamplersMainActivity se debe hacer sobreescribiendo el método getWorkflow.
-		\begin{lstlisting}[language=Java, frame=tlb]
+	
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.7]{50-anexos/B-uso/get_workflow.png} 
+   \caption{Ejemplo de un Workflow que tiene dos Steps. El primero muestra un mensaje de bienvenida y el segundo pide para tomar una foto.}
+   \label{fig:imgPhotoStep}
+\end{figure}		
+	
+		\begin{lstlisting}[language=Java, frame=tlbr, basicstyle=\tiny]
 @Override
 protected Workflow getWorkflow() {
   Workflow workflow = new Workflow();
@@ -42,7 +63,7 @@ protected Workflow getWorkflow() {
 Nota: en el ejemplo anterior se muestra un Workflow que tiene dos Steps. El primero muestra un mensaje de bienvenida y el segundo pide para tomar una foto. Para ver los distintos Steps que se pueden usar vea la sección \ref{sec:steps_detallados}.
 
 	\item Iniciar la activity TakeSampleActivity. Si se está heredando de SamplersMainActivity esto se hace automáticamente en el método onClick del botón "tomar muestra". De lo contrario, deberá iniciarla de la siguiente forma, en el método onClick de un botón por ejemplo:
-		\begin{lstlisting}[language=Java, frame=tlb]
+		\begin{lstlisting}[language=Java, frame=tlbr, basicstyle=\tiny]
 
 public void takeSampleClick(View view) {
   Workflow workflow = getWorkflow();
