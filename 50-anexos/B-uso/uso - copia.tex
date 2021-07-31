@@ -11,11 +11,26 @@ Se puede usar una activity principal propia o se puede heredar de SamplersMainAc
 \begin{itemize}
 	\item Establecer la configuración general en el método onCreate de la activity principal:
 	
+\begin{comment}	
+	
+		\begin{lstlisting}[language=Java, frame=tlb]
+NetworkConfiguration.setURL("http://192.168.1.10/samplers/upload.php");
+NetworkConfiguration.setPARAM_NAME_SAMPLE("sample");
+
+// Opcional, si se desea usar identificación (*)
+NetworkConfiguration.setPARAM_NAME_USER_ID("user_id");
+NetworkConfiguration.setPARAM_NAME_AUTHENTICATION_TYPE("authentication_type");
+
+AuthenticationManager.setAuthenticationEnabled(true);
+AuthenticationManager.setAuthenticationOptional(true);
+		\end{lstlisting}
+\end{comment}		
 		
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/configuracion_general.png} 
    \caption{Ejemplo de configuración general}
+   \label{fig:imgPhotoStep}
 \end{figure}		
 		
 		
@@ -28,18 +43,36 @@ Se puede usar una activity principal propia o se puede heredar de SamplersMainAc
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/get_workflow.png} 
    \caption{Ejemplo de un Workflow que tiene dos Steps. El primero muestra un mensaje de bienvenida y el segundo pide para tomar una foto.}
+   \label{fig:imgPhotoStep}
 \end{figure}		
 	
-
-Nota: Para ver los distintos Steps que se pueden usar vea la sección \ref{sec:steps_detallados}.
+		\begin{lstlisting}[language=Java, frame=tlbr, basicstyle=\tiny]
+@Override
+protected Workflow getWorkflow() {
+  Workflow workflow = new Workflow();
+    	
+  Step step = new PhotoStep(2,"Por favor tome una foto de su gato", null);
+  workflow.add(step);
+    	
+  step = new InformationStep(1,"Bienvenido a la app de prueba", 2);
+  workflow.add(step);
+    	
+  return workflow;
+}		
+		\end{lstlisting}
+Nota: en el ejemplo anterior se muestra un Workflow que tiene dos Steps. El primero muestra un mensaje de bienvenida y el segundo pide para tomar una foto. Para ver los distintos Steps que se pueden usar vea la sección \ref{sec:steps_detallados}.
 
 	\item Iniciar la activity TakeSampleActivity. Si se está heredando de SamplersMainActivity esto se hace automáticamente en el método onClick del botón "tomar muestra". De lo contrario, deberá iniciarla de la siguiente forma, en el método onClick de un botón por ejemplo:
+		\begin{lstlisting}[language=Java, frame=tlbr, basicstyle=\tiny]
 
-\begin{figure}[H]
-  \centering
-    \includegraphics[scale=0.6]{50-anexos/B-uso/take_sample_click.png} 
-   \caption{Ejemplo de como iniciar la activity TakeSampleActivity.}
-\end{figure}		
+public void takeSampleClick(View view) {
+  Workflow workflow = getWorkflow();
+
+  Intent intent = new Intent(this, TakeSampleActivity.class);        
+  intent.putExtra(TakeSampleActivity.EXTRA_WORKFLOW, workflow);
+  startActivity(intent);
+}		
+		\end{lstlisting}
 
 \end{itemize}
 
@@ -59,7 +92,7 @@ Los pasos para usar el generador de clases de Gradle son:
 		
 	\item Copiar el archivo creado en el item anterior al directorio raíz del proyecto Android creado.
 	
-	\item Descargar la última versión de los archivos \textbf{samplers.gradle} y \textbf{samplersclassgenerator.jar} del repositorio de Samplers\footnote{https://github.com/cientopolis/samplers/releases/} y copiarlos también al directorio raíz del proyecto Android.
+	\item Descargar la última versión de los archivos \textbf{samplers.gradle} y \textbf{samplersclassgenerator.jar} del repositorio de Samplers (https://github.com/cientopolis/samplers/releases/) y copiarlos también al directorio raíz del proyecto Android.
 	
 	\item Enlazar el archivo samplers.gradle en el archivo \textbf{build.gradle} de la aplicación:
 		\begin{itemize}
@@ -91,11 +124,15 @@ El archivo SamplersConfig.json es un archivo JSON con 3 objetos:
 		\item \textbf{package\_name}: Un String con el nombre del package usado para las activities de la aplicación. Es el package donde la activity MyMainSamplersActivity será agregada.
 	\end{itemize}
 	
-\begin{figure}[H]
-  \centering
-    \includegraphics[scale=0.6]{50-anexos/B-uso/json_project.png} 
-    \caption{Ejemplo del objeto project.}
-\end{figure}	
+Ejemplo:
+\begin{lstlisting}[language=XML, frame=tlb]	
+{
+  "project" : {
+    "app_path" = "app/src/main/java/com/example/myApplication/"
+    "package_name" : "com.example.myApplication"
+  }
+}
+\end{lstlisting}	
 	
 	\item El objeto \textbf{application}
 	El objeto application tiene 7 campos, de los cuales 3 son requeridos y los otros 4 opcionales (para habilitar características especiales)
@@ -133,11 +170,25 @@ El archivo SamplersConfig.json es un archivo JSON con 3 objetos:
 	\end{itemize}
 	
 	
-\begin{figure}[H]
-  \centering
-    \includegraphics[scale=0.6]{50-anexos/B-uso/json_application.png} 
-    \caption{Ejemplo del objeto application.}
-\end{figure}	
+Ejemplo:
+\begin{lstlisting}[language=XML, frame=tlb]
+{
+  "application": {
+    "title" : "Samplers Hello World App",
+    "welcomeMessage" : "Welcome to your first Samplers App!",
+    "networkConfiguration" : {
+      "url" : "http://192.168.1.10/samplers/upload.php",
+      "paramName" : "sample",
+      "paramNameUserId" : "user_id",
+      "paramNameAuthenticationType" : "authentication_type"
+    },
+    "authenticationEnabled" : true,
+    "authenticationOptional" : true,
+    "googleMaps_API_KEY" : "your_google_maps_API_KEY",
+    "mainHelpFileName" : "mainhelp.html"
+  } 
+}
+\end{lstlisting}	
 	
 	
 	\item El objeto \textbf{workflow}
@@ -210,7 +261,7 @@ Ejemplo:
 Por defecto provee identificación con Google, porque al tener Android tiene una cuenta de Google si o si.
 Esta abierto a poder agregar autenticación con otras plataformas/APIs.
 
-Samplers provee identificación con Google, pero ese necesario registrar la aplicación en la pagina de desarrolladores de google\footnote{https://developers.google.com/identity/sign-in/android/start-integrating}. Ahí hay que seguir los pasos para [to Configure a Google API Console project]. Es necesario [proveer] el nombre de la aplicación, package name, y también el SHA-1 hash del certificado con el que se firma la aplicación.
+Samplers provee identificación con Google, pero ese necesario registrar la aplicación en la pagina de desarrolladores de google (https://developers.google.com/identity/sign-in/android/start-integrating). Ahí hay que seguir los pasos para [to Configure a Google API Console project]. Es necesario [proveer] el nombre de la aplicación, package name, y también el SHA-1 hash del certificado con el que se firma la aplicación.
 
 Una vez registrada la aplicación en Google, hay que configurar Samplers para habilitar la identificación.
 
