@@ -232,7 +232,7 @@ El conjunto de todos los StepResults obtenidos después de ejecutar todos los St
 \subsubsection{Workflow: el protocolo de recolección de las muestras}
 La clase Workflow representa el protocolo de recolección de las muestras. Está formado por una colección de Steps, que representan los pasos a seguir para completar dicho protocolo, y un Step inicial que indica el inicio del mismo (el primer Step a ejecutar).
 
-El Workflow es el encargado de llevar el estado del paso en el que se encuentra, y posee métodos para obtener el siguiente Step (\textit{nextStep()}  que depende del Step actual) y el Step anterior (\textit{previuosStep()}  para lo que maneja una lista a modo de pila\footnote{Stack en inglés, una lista ordenada con acceso a sus elementos de tipo «último en entrar, primero en salir»}).
+El Workflow es el encargado de llevar el estado del paso en el que se encuentra, y posee métodos para obtener el siguiente Step (\textit{nextStep()}  que depende del Step actual) y el Step anterior (\textit{previuosStep()}  para lo que maneja una lista a modo de pila\footnote{Pila o stack en inglés, una lista ordenada con acceso a sus elementos de tipo «último en entrar, primero en salir»}).
 
 El Workflow se comporta de manera secuencial, puede ir hacia adelante o volver hacia atrás, pero esto no impide que pueda tener bifurcaciones, y así formar diferentes caminos para tomar la muestra. Por ejemplo, se le podría preguntar al científico ciudadano si observa una característica particular al momento de tomar la muestra, y si la observa solicitarle que tome una foto de la misma, pero en caso contrario se puede omitir el paso de la foto.
 
@@ -301,13 +301,12 @@ Las muestras se guardan en el dispositivo móvil en un archivo JSON, junto con l
 Se eligió el almacenamiento interno para guardar las muestras porque no se necesitan permisos especiales para acceder al mismo y, de forma predeterminada, los archivos que se guardan en el mismo son privados para la aplicación y otras aplicaciones no pueden tener acceso a ellos (tampoco el usuario). Cuando el usuario desinstala la aplicación, estos archivos se quitan\cite{androidInternalStorage}.
 
 Por ejemplo, una muestra con id 123456 y 2 fotos se guarda de la siguiente manera:
-\begin{lstlisting}[language=Java, frame=tlb]
-/samples/		// Directorio de muestras
-  sample_123456/	// Directorio de la muestra con id:123456 
-    sample_123456.json	// Objeto Sample en formato JSON
-    1524437599776.jpg	// Archivo de foto 1
-    1524441664170.jpg	// Archivo de foto 2
-\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.8]{05-implementacion/persistencia_local.png} 
+   \caption{Ejemplo de cómo se guarda una muestra.}
+\end{figure}		
 
 Para pasar la muestra a un archivo JSON se usó Gson\cite{gson}, una librería de Google distribuida bajo licencia Apache 2.0 que convierte objetos Java a JSON y viceversa de manera muy sencilla, con métodos \textit{toJson()} y \textit{fromJson()} para convertir hacia y desde JSON respectivamente.
 
