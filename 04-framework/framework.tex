@@ -192,16 +192,19 @@ Hay tres tipos de Service:
 	\item \textbf{Segundo plano:} Un Service en segundo plano realiza una operación que el usuario no nota directamente. Por ejemplo, si una aplicación usa un Service para comprimir su almacenamiento, suele tratarse de un Service en segundo plano.
 	
 	
-	\item \textbf{Enlace:} Un Service es de enlace cuando un componente de la aplicación se vincula a él llamando a bindService(). Un Service de enlace ofrece una interfaz cliente-servidor que permite que los componentes interactúen con el Service, envíen solicitudes, reciban resultados e incluso lo hagan en distintos procesos con la comunicación entre procesos (IPC). Un Service de enlace se ejecuta solamente mientras otro componente de aplicación está enlazado a él. Se pueden enlazar varios componentes con el mismo Service a la vez, pero cuando todos ellos se desenlazan, el Service se destruye.
-	
-	
+	\item \textbf{Enlace:} Un Service es de enlace cuando un componente de app se vincula a él llamando a bindService(). Un Service de enlace ofrece una interfaz cliente-servidor que permite que los componentes interactúen con el Service, envíen solicitudes, reciban resultados e incluso lo hagan en distintos procesos con la comunicación entre procesos (IPC). Un Service de enlace se ejecuta solamente mientras otro componente de aplicación está enlazado a él. Se pueden enlazar varios componentes con el mismo Service a la vez, pero cuando todos ellos se desenlazan, el Service se destruye.
+\cite{androidDocs}		
 \end{itemize}
 
 
 
 
 \section{BroadcastReceivers}
-[aca hay que hablar un poco de BroadcastReceivers porque usamos uno para detectar conexion a wifi para enviar las muestras]
+Las apps de Android pueden enviar o recibir mensajes de emisión desde el sistema de Android y otras apps para Android, de forma similar al patrón de diseño de publicación y suscripción. Estas emisiones se envían cuando ocurre un evento de interés. Por ejemplo, el sistema Android envía emisiones cuando ocurren diferentes eventos del sistema, como cuando este se inicia, cuando el dispositivo comienza a cargarse o cuando se conecta a una red de Internet. Las apps también pueden enviar emisiones personalizadas, por ejemplo, para notificar a otras apps sobre algo que podría interesarles (como cuando se descargaron algunos datos nuevos).
+Las apps pueden registrarse para recibir emisiones específicas. Cuando se envía una emisión, el sistema redirige automáticamente las emisiones a las apps que se suscribieron para recibir ese tipo de emisión particular.
+Un BroadcastReceiver es un componente de app que permite recibir esos mensajes de emisión, incluso si la app no se está ejecutando en ese momento, ya que estos mensajes se generan fuera del flujo de usuario habitual.
+\cite{androidDocs}
+
 
 \begin{comment}
 
