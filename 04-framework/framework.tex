@@ -180,10 +180,31 @@ Para crear un Fragment, se debe crear una subclase Fragment (o una subclase exis
 
 
 \section{Services}
-[aca falta describir como funcionan los Services en Android...]
+Un Service es un componente de app que puede realizar operaciones de larga ejecución en segundo plano y que no proporciona una interfaz de usuario. Una vez iniciado, un Service puede continuar ejecutándose en segundo plano aún cuando el usuario cambie a otra app. Además, un componente puede enlazarse con un Service para interactuar con él e incluso realizar una comunicación entre procesos (IPC por sus siglas en inglés). Por ejemplo, un Service puede manejar transacciones de red, reproducir música, realizar I/O de archivos o interactuar con un ContentProvider, todo en segundo plano.
+Un Service se ejecuta en el subproceso principal del proceso que lo contiene; el Service no crea su propio subproceso ni se ejecuta en un proceso separado (a menos que se especifique lo contrario), por lo que parar realizar un trabajo que consume más CPU u operaciones de bloqueo (como reproducción MP3 o funciones de red), se debe crear un subproceso nuevo dentro del Service para completar ese trabajo.
+
+Hay tres tipos de Service:
+
+\begin{itemize}
+	\item \textbf{Primer plano:} Un Service en primer plano realiza una operación que el usuario puede notar. Por ejemplo, una aplicación de audio usa un Service en primer plano para reproducir una pista de audio. Los Services en primer plano deben mostrar una notificación para que el usuario sea consciente de que el Service se está ejecutando. Estos Services continúan ejecutándose incluso si el usuario deja de interactuar con la aplicación.
+	
+	
+	\item \textbf{Segundo plano:} Un Service en segundo plano realiza una operación que el usuario no nota directamente. Por ejemplo, si una aplicación usa un Service para comprimir su almacenamiento, suele tratarse de un Service en segundo plano.
+	
+	
+	\item \textbf{Enlace:} Un Service es de enlace cuando un componente de app se vincula a él llamando a bindService(). Un Service de enlace ofrece una interfaz cliente-servidor que permite que los componentes interactúen con el Service, envíen solicitudes, reciban resultados e incluso lo hagan en distintos procesos con la comunicación entre procesos (IPC). Un Service de enlace se ejecuta solamente mientras otro componente de aplicación está enlazado a él. Se pueden enlazar varios componentes con el mismo Service a la vez, pero cuando todos ellos se desenlazan, el Service se destruye.
+\cite{androidDocs}		
+\end{itemize}
+
+
+
 
 \section{BroadcastReceivers}
-[aca hay que hablar un poco de BroadcastReceivers porque usamos uno para detectar conexion a wifi para enviar las muestras]
+Las apps de Android pueden enviar o recibir mensajes de emisión desde el sistema de Android y otras apps para Android, de forma similar al patrón de diseño de publicación y suscripción. Estas emisiones se envían cuando ocurre un evento de interés. Por ejemplo, el sistema Android envía emisiones cuando ocurren diferentes eventos del sistema, como cuando este se inicia, cuando el dispositivo comienza a cargarse o cuando se conecta a una red de Internet. Las apps también pueden enviar emisiones personalizadas, por ejemplo, para notificar a otras apps sobre algo que podría interesarles (como cuando se descargaron algunos datos nuevos).
+Las apps pueden registrarse para recibir emisiones específicas. Cuando se envía una emisión, el sistema redirige automáticamente las emisiones a las apps que se suscribieron para recibir ese tipo de emisión particular.
+Un BroadcastReceiver es un componente de app que permite recibir esos mensajes de emisión, incluso si la app no se está ejecutando en ese momento, ya que estos mensajes se generan fuera del flujo de usuario habitual.
+\cite{androidDocs}
+
 
 \begin{comment}
 
