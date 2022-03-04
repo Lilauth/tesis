@@ -108,7 +108,7 @@ El archivo SamplersConfig.json es un archivo JSON con 3 objetos: project, applic
 		 
 		 \item \textbf{googleMaps\_API\_KEY}: [Opcional] Un String con la API Key de Google. Este campo es necesario si se van a usar los servicios de ubicación y mapas (Location Step y Route Step). La API Key de google se puede obtener desde la página de google developers \footnote{https://developers.google.com/maps/documentation/android-api/signup}.
 		 
-		 \item \textbf{mainHelpFileName}: [Opcional] Un String con el nombre del archivo HTML que contiene la ayuda principal de la aplicación. Este archivo debe estar junto con el archivo SamplersConfig.json. Ver la sección Mostrando Ayuda para mas detalles.
+		 \item \textbf{mainHelpFileName}: [Opcional] Un String con el nombre del archivo HTML que contiene la ayuda principal de la aplicación. Este archivo debe estar junto con el archivo SamplersConfig.json. Ver la sección \ref{sec:mostrar_ayuda} para mas detalles.
 		 
 		 \item \textbf{authenticationEnabled}: [Opcional] Un boolean que indica si se usará autenticación (true) o no (false). Si se omite este campo se asume false. Ver la sección Usando Autenticación para mas detalles.
 		 
@@ -164,7 +164,46 @@ El archivo SamplersConfig.json es un archivo JSON con 3 objetos: project, applic
 
 
 \section{Mostrar Ayuda} \label{sec:mostrar_ayuda}
-[aca vamos a explicar como hay que hacer para mostrar ayuda en la app generada. Hay una ayuda general y otra ayuda particular para un step]
+Samplers permite mostrar ayuda para el usuario final de la app a través de archivos HTML. Estos archivos deben estar ubicados junto con el archivo SamplersConfig.json
+
+Samplers permite dos formas de mostrar ayuda:
+
+\begin{itemize}
+
+	\item \textbf{Ayuda general}: que se accede desde el menú de la Activity principal cuando se configura un archivo de ayuda para la app.
+		
+	\item \textbf{Ayuda puntual para cada Step}: que se accede desde un botón en los StepFragments que aparece cuando el Step tiene configurado un archivo de ayuda.
+
+\end{itemize}
+
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.6]{50-anexos/B-uso/ayuda_ejemplo.png} 
+    \caption{Ejemplo de como se muestra la ayuda.}
+\end{figure}	
+		
+
+\textbf{JavaScript no esta habilitado:} Debido a las limitaciones del componente WebView de Android no esta habilitado el uso de JavaScript. Para más información ver la documentación oficial de Android sobre WebView.\footnote{https://developer.android.com/reference/android/webkit/WebView}
+
+\subsection{Ayuda general}
+Para configurar la ayuda general se debe completar el atributo \textit{mainHelpFileName} del objeto \textit{application} con el nombre del archivo HTML que contiene la ayuda que se quiere mostrar. El archivo HTML debe estar ubicado junto con el archivo SamplersConfig.json.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.6]{50-anexos/B-uso/json_application_ayuda.png} 
+    \caption{Ejemplo de configuración de ayuda general.}
+\end{figure}	
+
+\subsection{Ayuda puntual para cada Step}
+Para configurar la ayuda para un Step se debe completar el atributo \textit{helpFileName} del objeto \textit{step} con el nombre del archivo HTML que contiene la ayuda que se quiere mostrar. El archivo HTML debe estar ubicado junto con el archivo SamplersConfig.json.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.6]{50-anexos/B-uso/json_step_ayuda.png} 
+    \caption{Ejemplo de configuración de ayuda en un Step.}
+\end{figure}	
+
 
 \section{Usando identificación} \label{sec:usando_autenticacion}
 Por defecto Samplers provee identificación con Google, porque en Android es necesario tener una cuenta de Google para usar el dispositivo móvil, aunque también está preparado para poder integrar identificación con otras plataformas/APIs.
