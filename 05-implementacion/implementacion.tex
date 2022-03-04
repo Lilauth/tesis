@@ -331,16 +331,38 @@ Además, un usuario programador del framework puede definir su propio método de
 
 Cuando se envía la muestra también se incluyen dos parámetros que son el id del usuario identificado y el método usado para identificar (que puede ser google o uno personalizado). Se envían de esta forma porque al momento de tomar la muestra el científico ciudadano puede no estar identificado, e identificarse antes de enviarlas.
 
-\subsection{Otros componentes de la app generada por Samplers}
-[acá vamos a hablar de las otras Activities que se crean cuando se genera una app con Samplers]
+\subsection{Otras Activities de la app generada por Samplers}
+Como se mencionó antes, Samplers genera una app lista para ejecutar en un dispositivo móvil con Android, por lo que se incluyen otras Activities para completar la app generada. A continuación se describen dichas Activities
 
 \subsubsection{SamplersMainActivity}
+SamplersMainActivity es la Activity principal de la app generada, es la que se inicia cuando el usuario hace clic sobre el icono de la app. Esta Activity contiene la pantalla principal de la app, en la que se muestra el mensaje de bienvenida configurado, un menú para acceder a las Activities que se explican mas abajo, y un botón para tomar la muestra que cuando se presiona se llama a TakeSampleActivity para tomar la muestra. También, si se configuró el uso de identificación, se muestra un botón para que el usuario final pueda iniciar sesión.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.3]{05-implementacion/SamplersMainActivity.png} 
+   \caption{Ejemplo de la Activity principal.}
+\end{figure}	
+
+
 
 \subsubsection{SamplesListActivity}
+SamplesListActivity es una Activity que visualiza un listado de las muestras tomadas por el usuario final de la app, y que se encuentran almacenadas en el dispositivo móvil, con opciones para eliminarlas o enviarlas al servidor en caso de que no hayan sido enviadas automáticamente.
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.3]{05-implementacion/SamplesListActivity.png} 
+   \caption{Ejemplo de como se visualiza SamplesListActivity.}
+\end{figure}	
 
 
 \subsubsection{HelpActivity}
+HelpActivity es una Activity que se usa para mostrar ayuda al usuario final de la app. Para mostrar ayuda se debe configurar la misma en formato HTML como se explica en la sección \ref{sec:mostrar_ayuda}. HelpActivity es la Activity que muestra tanto la ayuda general (que se accede desde el menú de SamplersMainActivity) como la ayuda que se muestra en cada StepFragment (si se configura) al momento de tomar la muestra.
 
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.3]{05-implementacion/HelpActivity.png} 
+   \caption{Ejemplo de como se visualiza SamplesListActivity.}
+\end{figure}	
 
 
 
