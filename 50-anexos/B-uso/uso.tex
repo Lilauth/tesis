@@ -4,7 +4,7 @@ En esta sección se explica como instanciar el framework para su uso, brindando 
 Una vez instalado el framework el siguiente paso es instanciarlo para usarlo. La instanciación puede ser manual o usando el generador de clases de Gradle.
 
 
-\section{Instanciación manual}
+\section{Instanciación manual} \label{sec:instanciacion_manual}
 Una vez agregada la librería de Samplers al proyecto, se debe crear un objeto Workflow, agregarle los objetos Steps, y llamar a la activity TakeSampleActivity pasándole el objeto Workflow como parámetro.
 También es necesario establecer la configuración general en el método onCreate de la activity principal (main activity) para indicar a donde se enviarán las muestras tomadas con la app.
 Se puede usar una activity principal propia o se puede heredar de SamplersMainActivity. En ambos casos se debe hacer lo siguiente:
