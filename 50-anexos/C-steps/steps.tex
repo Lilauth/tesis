@@ -151,93 +151,91 @@ MultipleSelectStepResult contiene una lista de las opciones seleccionadas (una l
 
 
 \section{LocationStep: Posicionar la muestra en el mapa con el GPS}
-LocationStep se usa para solicitarle al científico ciudadano que tome la posición con el GPS del dispositivo móvil. Tiene un texto (textToShow) que se muestran a modo de instrucciones o mensaje. 
+LocationStep se usa para solicitarle al científico ciudadano que tome la posición con el GPS del dispositivo móvil. Tiene un texto (text) que se muestran a modo de instrucciones o mensaje. 
 
 Permite usar el GPS o posicionar la muestra manualmente en el mapa.
 
-En Android Studio (Java):
-\begin{lstlisting}[language=Java, frame=tlb]	
-LocationStep step = new LocationStep(1,"Por favor posicione la muestra en el mapa",2); 
-\end{lstlisting}
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.6]{50-anexos/C-steps/location_json.png} 
+    \caption{LocationStep usando el generador de clases.}
+\end{figure}	
 
-Usando el generador de clases:
-\begin{lstlisting}[language=XML, frame=tlb]	
-{
-  "id" : 1,
-  "type" : "Location",
-  "text" : "Por favor posicione la muestra en el mapa",
-  "nextStepId" : 2
-}
-\end{lstlisting}
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.6]{50-anexos/C-steps/location_java.png} 
+    \caption{LocationStep en Java.}
+\end{figure}
 
 \subsection{LocationStepResult: El resultado de Posicionar la muestra en el mapa con el GPS}
 LocationStepResult contiene la latitud y longitud (ambos de tipo double) de la posición GPS tomada.
 
 
+
+
+
 \section{RouteStep: Grabar un recorrido en el mapa usando el GPS}
-[falta desarrollar]
-\begin{comment}
-Tiene un textToShow a modo de instrucciones
-Intervalo y mapZoom opcionales. Poner los valores por defecto
-\end{comment}
+LocationStep se usa para solicitarle al científico ciudadano que grabe un recorrido con el GPS del dispositivo móvil. Tiene las siguientes propiedades:
 
-En Android Studio (Java):
-\begin{lstlisting}[language=Java, frame=tlb]	
-RouteStep step = new RouteStep(1,"Registre la ruta que corre",2); 
-step.setInterval(10000);
-step.setMapZoom(18);
-\end{lstlisting}
+\begin{itemize}
+\item \textbf{text:} un texto que se muestran a modo de instrucciones o mensaje.
+\item \textbf{interval:} [Opcional] el intervalo en milisegundos en el que se pedirán actualizaciones del GPS. Si no se especifica el valor por defecto es 5000.
+\item \textbf{mapZoom:} [Opcional] el zoom con el que se muestra el mapa. Si no se especifica el valor por defecto es 15.
+\end{itemize}
 
-Usando el generador de clases:
-\begin{lstlisting}[language=XML, frame=tlb]	
-{
-  "id" : 1,
-  "type" : "Route",
-  "text" : "Registre la ruta que corre",
-  "interval" : 10000,
-  "mapZoom" : 18,
-  "nextStepId" : 2
-}
-\end{lstlisting}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.6]{50-anexos/C-steps/route_json.png} 
+    \caption{RouteStep usando el generador de clases.}
+\end{figure}	
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.6]{50-anexos/C-steps/route_java.png} 
+    \caption{RouteStep en Java.}
+\end{figure}
+
 
 \subsection{RouteStepResult: El resultado de Grabar un recorrido en el mapa usando el GPS}
-[falta desarrollar]
-%guarda una lista de objetos Location
+RouteStepResult tiene una lista de objetos de la clase Location proporcionada por Android.  Para
+mas información sobre esta clase ver la documentación oficial de Android sobre Location \footnote{https://developer.android.com/reference/android/location/Location}.
+
+
+
+
+
 
 \section{InsertTextStep: Ingresar texto}
-[falta desarrollar]
-\begin{comment}
-textToShow a modo de instrucciones
-sampleText a modo de ejmplo
-maxLength cantidad máxima de caracteres permitida
-Type Values allowed are: text, number or decimal
-optional indicando si se puede dejar vacío y no ingresar ningún texto (true) o si se requiere que ingrese algo si o si (false)
-\end{comment}
+InsertTextStep se usa para solicitarle al científico ciudadano que ingrese una anotación, que puede ser texto o números. Tiene las siguientes propiedades:
 
+\begin{itemize}
+\item \textbf{text:} un texto que se muestran a modo de instrucciones o mensaje.
+\item \textbf{sampleText:} un texto, a modo de muestra.
+\item \textbf{maxLength:} establece la cantidad máxima de caracteres permitidos.
+\item \textbf{inputType:} indica el tipo de caracteres admitidos. Los valores pueden ser \textbf{text} para el ingreso de texto, \textbf{number} para el ingreso de número enteros, \textbf{decimal} para el ingreso de números con decimales.
+\item \textbf{optional:} un booleano que indica si se puede dejar vacío (true) o si es obligatorio que ingrese una anotación (false).
+\end{itemize}
 
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.6]{50-anexos/C-steps/insert_text_json.png} 
+    \caption{InsertTextStep usando el generador de clases.}
+\end{figure}	
 
-En Android Studio (Java):
-\begin{lstlisting}[language=Java, frame=tlb]	
-InsertTextStep step = new InsertTextStep(1,"Por favor, ingrese el nombre del lago","Nombre del lago",50,InsertTextStep.InputType.TYPE_TEXT,true,2);
-\end{lstlisting}
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.6]{50-anexos/C-steps/insert_text_java.png} 
+    \caption{InsertTextStep en Java.}
+\end{figure}
 
-Usando el generador de clases:
-\begin{lstlisting}[language=XML, frame=tlb]	
-{
-  "id" : 1,
-  "type" : "InsertText",
-  "text" : "Por favor, ingrese el nombre del lago",
-  "sampleText" : "Nombre del lago",
-  "inputType" : "text",
-  "maxLength" : 50,
-  "optional" : true,
-  "nextStepId" : 2
-}
-\end{lstlisting}
 
 \subsection{InsertTextStepResult: El resultado de Ingresar texto}
-[falta desarrollar]
-%guarda el texto ingresado en insertedText
+InsertTextStepResult contiene el String con la anotación ingresada.
+
+
+
+
 
 \section{InsertDateStep y InsertTimeStep: Ingresar fecha y hora}
 [falta desarrollar]
