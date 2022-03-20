@@ -31,10 +31,9 @@ PhotoStep se usa para solicitarle al científico ciudadano que tome una foto. Ti
 
 \begin{figure}[H]
   \centering
-    \includegraphics[scale=0.4]{05-implementacion/PhotoStep1.png} 
-    \includegraphics[scale=0.4]{05-implementacion/PhotoStep2.png}     
-   \caption{Ejemplo de un PhotoStep en ejecución. A la izquierda al momento de tomar la foto, y a la derecha al momento de mostrar la vista preliminar.}
-   \label{fig:imgPhotoStep}
+   \includegraphics[scale=0.3]{50-anexos/C-steps/photo_screen1.jpg} 
+   \includegraphics[scale=0.3]{50-anexos/C-steps/photo_screen2.jpg}    
+    \caption{Ejemplo de un PhotoStep en ejecución. A la izquierda al momento de tomar la foto, y a la derecha al momento de mostrar la vista preliminar.}
 \end{figure}
 
 \subsection{PhotoStepResult: El resultado de Tomar una foto}
@@ -60,6 +59,13 @@ SoundRecordStep  se usa para solicitarle al científico ciudadano que grabe un s
     \caption{SoundRecordStep en Java.}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.3]{50-anexos/C-steps/sound_screen.jpg} 
+    \caption{InsertTextStep en ejecución.}
+\end{figure}
+
+
 
 \subsection{SoundRecordStepResult: El resultado de Grabar sonido}
 El SoundRecordStepResult contiene el nombre del archivo del sonido grabado. El sonido va como archivo mp4 en la carpeta de la muestra.
@@ -83,11 +89,11 @@ InformationStep se usa para mostrar una información (texto) al científico ciud
     \caption{InformationStep en Java.}
 \end{figure}
 
+
 \begin{figure}[H]
   \centering
-    \includegraphics[scale=0.4]{05-implementacion/InformationStep.png} 
-   \caption{Ejemplo de un InformationStep en ejecución}
-   \label{fig:imgInformationStep}
+    \includegraphics[scale=0.3]{50-anexos/C-steps/information_screen.jpg} 
+    \caption{InformationStep en ejecución.}
 \end{figure}
 
 
@@ -116,6 +122,12 @@ Este caso particular de Step no tiene un identificador del siguiente Step a ejec
     \caption{SelectOneStep en Java.}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.3]{50-anexos/C-steps/select_one_screen.jpg} 
+    \caption{SelectOneStep en ejecución.}
+\end{figure}
+
 
 \subsection{SelectOneStepResult: El resultado de Seleccionar una opción de un grupo de opciones}
 SelectOneStepResult contiene la opción seleccionada (un objeto SelectOneOption).
@@ -142,6 +154,12 @@ Las opciones disponibles para seleccionar se muestran en pantalla en forma de ch
     \caption{MultipleSelectStep en Java.}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.3]{50-anexos/C-steps/multiple_select_screen.jpg} 
+    \caption{MultipleSelectStep en ejecución.}
+\end{figure}
+
 
 \subsection{MultipleSelectStepResult: El resultado de Seleccionar varias opciones de un grupo de opciones}
 MultipleSelectStepResult contiene una lista de las opciones seleccionadas (una lista de objetos MultipleSelectOption).
@@ -165,6 +183,12 @@ Permite usar el GPS o posicionar la muestra manualmente en el mapa.
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/location_java.png} 
     \caption{LocationStep en Java.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.3]{50-anexos/C-steps/location_screen.jpg} 
+    \caption{LocationStep en ejecución.}
 \end{figure}
 
 \subsection{LocationStepResult: El resultado de Posicionar la muestra en el mapa con el GPS}
@@ -194,6 +218,12 @@ LocationStep se usa para solicitarle al científico ciudadano que grabe un recor
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/route_java.png} 
     \caption{RouteStep en Java.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.3]{50-anexos/C-steps/route_screen.jpg} 
+    \caption{RouteStep en ejecución.}
 \end{figure}
 
 
@@ -229,6 +259,12 @@ InsertTextStep se usa para solicitarle al científico ciudadano que ingrese una 
     \caption{InsertTextStep en Java.}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.3]{50-anexos/C-steps/insert_text_screen.jpg} 
+    \caption{InsertTextStep en ejecución.}
+\end{figure}
+
 
 \subsection{InsertTextStepResult: El resultado de Ingresar texto}
 InsertTextStepResult contiene el String con la anotación ingresada.
@@ -251,6 +287,13 @@ InsertDateStep e InsertTimeStep se usan para solicitarle al científico ciudadan
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/insert_date_time_java.png} 
     \caption{InsertDateStep e InsertTimeStep en Java.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.3]{50-anexos/C-steps/insert_date_screen.jpg} 
+    \includegraphics[scale=0.3]{50-anexos/C-steps/insert_time_screen.jpg} 
+    \caption{InsertDateStep (izquierda) e InsertTimeStep (derecha) en ejecución.}
 \end{figure}
 
 
