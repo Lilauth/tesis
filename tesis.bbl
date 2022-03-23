@@ -91,6 +91,12 @@ R.~E. Johnson, ``Frameworks=(components+ patterns),'' {\em Communications of
 R.~E. Johnson and B.~Foote, ``Designing reusable classes,'' {\em Journal of
   object-oriented programming}, vol.~1, no.~2, pp.~22--35, 1988.
 
+\bibitem{projectNoah}
+{projectNoah}, ``{Project Noah}.''
+
+\bibitem{epicollect}
+{epicollect}, ``{Epicollect}.''
+
 \bibitem{androidDocs}
 {Google}, ``Documentation for android developers.''
   https://developer.android.com/docs.

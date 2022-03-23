@@ -2,17 +2,17 @@
 
 \section{Frameworks}
 
-	La definición de framework más popular dice 'un framework es un diseño reutilizable de todo un sistema o de una parte del mismo representado por un conjunto de clases abstractas y por la manera en que sus instancias interactúan'. Otra definición que también es usual es la siguiente: 'un framework es el esqueleto de una aplicación que puede ser configurada por un desarrollador de aplicaciones'. Estas dos definiciones no se contradicen; una está planteada desde el punto de vista del comportamiento y la otra desde su finalidad. Sin embargo, permite entender por qué resulta complejo dar una definición concreta de framework. Los frameworks son aplicaciones reutilizables, ``semi-completas'' que pueden ser especializadas para producir aplicaciones específicas. Los frameworks, al permitir la reutilización de diseños y de código también permiten reducir los costos medidos en tiempo de desarrollo y los errores en el software. 
+	Framework podría definirse como ``... un diseño reutilizable de todo un sistema o de una parte del mismo representado por un conjunto de clases abstractas y por la manera en que sus instancias interactúan“. Otra definición que también es usual es la siguiente: ``un framework es el esqueleto de una aplicación que puede ser configurada por un desarrollador de aplicaciones“. Estas dos definiciones no se contradicen; una está planteada desde el punto de vista del comportamiento y la otra desde su finalidad. Sin embargo, permite entender por qué resulta complejo dar una definición concreta de framework. Los frameworks son aplicaciones reutilizables, ``semi-completas'' que pueden ser especializadas para producir aplicaciones específicas. Los frameworks, al permitir la reutilización de diseños y de código también permiten reducir los costos medidos en tiempos de desarrollo y también reduce los errores en el software. 
 	
-	La fortaleza de los frameworks orientados a objetos reside en permitir la modularidad, la reusabilidad, la extensibilidad y la inversión de control que le provee a los desarrolladores. Encapsulan detalles volátiles de implementación detrás de interfaces estables. Las interfaces estables permiten la reusabilidad mediante la definición de componentes genéricos que pueden volver a ser ensamblados para producir nuevas aplicaciones. \cite{fayad1997object}
+	La fortaleza de los frameworks orientados a objetos reside en permitir la modularidad, la reusabilidad, la extensibilidad y la inversión de control que brinda a los desarrolladores. Los frameworks facilitan la modularidad encapsulando los detalles de la implementación que son volátiles detrás de interfaces estables. Las interfaces estables permiten la reusabilidad mediante la definición de componentes genéricos que pueden volver a ser ensamblados para producir nuevas aplicaciones. \cite{fayad1997object}
 	
     Los desarrolladores de software no necesitan saber de qué manera están implementados los componentes, y resulta sencillo aprender a utilizarlos. El sistema que resulte va a ser eficiente, fácil de mantener y confiable.\cite{johnson1997frameworks} \cite{fayad1997object}
 	
-	Los componentes de un framework son los que hacen posible la reutilización en la granularidad más alta. Diseñar un buen framework es mucho más difícil que diseñar una buena clase abstracta. También, tienden a ser específicos de la aplicación, a integrarse a otros frameworks mediante compartir clases abstractas, y a tener algunas clases abstractas especializadas para el framework. Diseñar un framework requiere experiencia y experimentación al igual que lo requiere el diseño de las clases abstractas de sus componentes.\cite{johnson1988designing}
+	Los componentes de un framework son los que hacen posible la reutilización en la granularidad o modularidad más alta. Diseñar un buen framework es mucho más difícil que diseñar una buena clase abstracta. También, tienden a ser específicos de la aplicación, a integrarse a otros frameworks mediante compartir clases abstractas, y a tener algunas de ellas especializadas para el framework. Diseñar un framework requiere experiencia y experimentación al igual que lo requiere el diseño de las clases abstractas de sus componentes.\cite{johnson1988designing}
 
 \subsection{Tipos de Frameworks}
 
-    Los frameworks pueden clasificarse de diferentes maneras, pero nos interesan los tipos de frameworks desde el punto de vista del tipo de especialización que soportan. Si utilizan la herencia y la extensión de métodos generalmente son llamados de caja blanca, porque permiten conocer los estados internos de las clases genéricas que lo componen. En cambio si utilizan la composición como estrategia de especialización son llamados de caja negra, ya que el desarrollador no tiene acceso al estado interno de las clases del framework ni puede extender o agregar métodos, sino que la especialización se realiza proveyendo un componente que respeta un protocolo (o API) de interacción con el framework para lograr el comportamiento específico
+    Los frameworks pueden clasificarse de varias maneras dependiendo de si son para construir servicios, interfaces de usuario o aplicaciones. También pueden clasificarse por la manera en que permiten la especialización. Los frameworks de caja blanca son aquellos que utilizan la herencia y la extensión de métodos. Estos frameworks permiten conocer los estados internos de las clases que lo componen. Los frameworks denominados de caja negra utilizan la composición para permitir la especialización. El desarrollador no tiene acceso al estado interno de las clases del framework ni puede extender o agregar métodos. La especialización se realiza proveyendo un componente que respeta un protocolo (o API) de interacción con el framework para lograr el comportamiento específico.   
 
 
 \subsubsection{Frameworks de caja blanca}
@@ -35,20 +35,49 @@
  \cite{johnson1988designing}
 
 
-\section{Estado del arte}
+\section{Estado del arte} \label{sec:estado_arte}
+Luego de detallar los aspectos conceptuales de los frameworks con respecto a su arquitectura y con respecto a la manera en la que permiten la especialización, se exploran algunas herramientas que asisten a la ciencia ciudadana. 
+
+\begin{comment}
 Los dispositivos móviles son ideales para que las personas puedan de manera espontánea recolectar información. Sin embargo, esa simplicidad yace sobre una base que requiere fuertes conocimientos técnicos y una infraestructura compleja. Por lo tanto, construir aplicaciones móviles implican una inversión que puede ser limitante para organizaciones pequeñas. A continuación se analizan algunas alternativas que permiten que personas que no son desarrolladoras tengan la posibilidad de crear herramientas que permitan la recolección de información para proyectos de ciencia ciudadana con dispositivos móviles. \cite{kim2013sensr}
+\end{comment}
+
 
 \subsection{Sensr}
-[aca vamos a hablar de Sensr, mencionando sus ventajas y desventajas]
+
+Sensr “...is an authoring tool that enables non-programmers to create mobile data collection tools for citizen science. ” (sic). 
+
+Sensr es una herramienta que permite que interesados sin conocimientos de programación
+puedan crear aplicaciones para dispositivos móviles que faciliten la recolección de información para ciencia ciudadana. 
+
+La documentación que acompaña la herramienta explica las ventajas que los dispositivos móviles poseen para recolectar de manera espontánea información del entorno, pero también advierte que bajo esta simplicidad existe una complejidad técnica y de infraestructura a la hora de desarrollar este tipo de aplicaciones. Contrasta la facilidad de utilización de un dispositivo móvil con la complejidad que el desarrollo de aplicaciones para estos dispositivos representa. Los desarrolladores de aplicaciones móviles tienen la posibilidad de usar directamente el hardware y los sensores que brindan estos dispositivos. 
+Sensr es un framework que consiste de dos partes:
+Una parte es un sitio web alojado en Amazon Web Services donde los interesados pueden crear y administrar campañas y donde el público puede acceder a la lista de campañas activas junto con visualización de información. una aplicación móvil con la cual los voluntarios pueden explorar, suscribirse y/o participar de las campañas. La otra parte es una aplicación móvil con la que los voluntarios pueden explorar, suscribir y/o participar en campañas.\cite{kim2013sensr}
+
 
 \subsection{Project Noah}
-[aca vamos a hablar de Project Noah, mencionando sus ventajas y desventajas]
+Project Noah es una comunidad global para compartir fotos de avistajes de fauna en su hábitat natural. A medida que se comparten fotos, el usuario miembro de la comunidad, empieza a plasmar sus registros de la naturaleza igual que lo haría en un diario o jornal de viaje. 
+Permite el registro particular generando un usuario con correo electrónico y contraseña y permite el inicio de sesión por integración a servicios de autenticación como los brindados por Google o bien inicio de sesión con redes sociales.
+Una vez que se accede con un usuario se pueden ingresar avistajes completando un formulario y agregando una o varias fotografías del avistaje. Entre la información requerida se encuentran geolocalización, fecha, nombre científico (si se conoce), información adicional que se quiera agregar o que no haya sido capturada en la o las imágenes, una descripción del habitat y otras notas. 
+Project Noah permite participar de ‘Misiones’ que son lo que en Sensr serían campañas: compartir fotos de avistajes con determinadas características. Una misión, por ejemplo, tiene por título ``Aves del Mundo“. Se puede unir a esa misión y cuando se registre un nuevo avistaje se puede seleccionar la opción de agregarlo a la galería de esa misión. También permite aportar en avistajes de otros miembros de la comunidad observaciones propias o bien sugerir una identificación del ejemplar del avistaje.
+La comunidad tiene miembros que son diferentes al usuario estándar. Se denominan «Rangers» y son los que se encargan de sugerir identificación de especies de otros avistajes, de dar la bienvenida a los nuevos miembros y de compartir avistajes de manera más regular. \cite{projectNoah} 
 
 \subsection{EpiCollect}
-[aca vamos a hablar de EpiCollect, mencionando sus ventajas y desventajas]
+Epicollect es una aplicación web y mobile gratuita y fácil de utilizar para recolectar información. Los proyectos se crean utilizando el sitio web y luego se descarga una app a un dispositivo móvil para efectuar la recolección de información. 
+La información (incluyendo GPS y multimedia) puede ser recolectada utilizando múltiples dispositivos y puede ser vista en un servidor central (utilizando mapas, tablas y gráficos).
+También puede ser exportada en formato cvs y json.
+La aplicación mobile está disponible para Android (6+) y iOS (12+)
+
+Los usuarios pueden ingresar a la aplicación con su cuenta de Google, su cuenta de Apple o bien creando una cuenta con su correo electrónico. Para crear un proyecto se debe ingresar el nombre, una descripción, seleccionar el tipo de acceso entre público (cualquier usuario puede colaborar) o privado (sólo usuarios seleccionados por el administrador del proyecto pueden colaborar) y definir como mínimo un formulario para recolectar la información. Permite toda una variedad de ``preguntas“ que pueden ser de tipo texto, numérico, telefóno, foto, video, código de barras y varios tipos más entre los disponibles. Cada formulario de pregunta tiene una opción para conectar a la siguiente pregunta que permite formato condicional, es decir, en caso de que la respuesta cumpla determinadas condiciones se ejecuta un ``salto“ a un formulario determinado. En la edición del proyecto, permite modificar el tipo de acceso nuevamente, el estado, la visibilidad y permite asignarle una categoría entre las predefinidas.
+La información de las entradas de los usuarios se puede visualizar en una tabla, en un mapa o descargarse.\cite{epicollect} 
+
 
 \subsection{Conclusión}
-[aca vamos a dar una conclusión diciendo que ninguno de estos tiene lo que necesitamos]
+La herramienta Sensr permite desarrollar una campaña de recolección de información más una aplicación móvil para que los científicos ciudadanos que quieran particicar de una campaña puedan hacerlo mediante esa aplicación. El autor de la campaña, completando formularios en el sitio web y arrastrando componentes para definir el contenido y las validaciones, diseña la aplicación móvil que se generará. Esta aplicación móvil sólo está disponible para dispositivos con sistema operativo IOs y la administración de la información se puede realizar sólo a través del sitio web. Al no ser IOs el sistema operativo más popular entre los usuarios de dispositivos móviles de Argentina, ya es una alternativa con menos alcance que la que proponemos. Ver información de dispositivos móviles en Argentina \ref{ccDispMoviles}
+Project Noah podría calificar como herramienta social para colaborar con la Ciencia Ciudadana. La posibilidad de compartir avistajes a través de las redes sociales, puede llegar a más interesados que quieran formar parte de esta comunidad o puede poner en contacto a personas interesadas en la vida al aire libre.
+Aunque asiste de manera intuitiva, el ingreso de la información de geolocalización del avistaje es en forma de coordenadas, latitud y longitud. Si un usuario quisiera subir varios avistajes de un viaje, debería recordar dónde hizo cada uno y señalarlos en un mapa.
+Epicollect es una herramienta simple e intuitiva para construir proyectos de recolección de información mediante cuestionarios. El proyecto está financiado por Wellcome Trust Foundation y está implementado con tecnologías open source. ofrece una API para desarrolladores que permite consultar la información mediante servicios o integrar los cuestionarios a una app propia, previo registro de la aplicación en el proyecto Epicollect. Epicollect siempre está intermediando entre los colaboradores y los administradores del proyecto. Las herramientas que ofrece, las ofrece siempre a través de la plataforma. 
+
 
 \begin{comment}
 
