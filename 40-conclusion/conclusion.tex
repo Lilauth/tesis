@@ -1,12 +1,38 @@
 \chapter{Conclusiones y Trabajo Futuro}
 
-[falta desarrollar...]
+En este capítulo se recordarán los objetivos propuestos al comienzo de este trabajo, los resultados y en qué medida se cumplieron dichas metas. También se detallaran posibles trabajos a futuro que contribuirían a mejorar aspectos del proyecto como puede ser mejorar su usabilidad, mantener el proyecto para que siga cumpliendo los estándares requeridos para aplicaciones móviles o ampliar la base de usuarios soportando iOS.
 
-%Supongamos que se quiso atacar el problema de la dificultad en el desarrollo de aplicaciones móviles multi-plataforma. Y que lo que se hizo fue desarrollar una librería de clases. ¿Cómo demuestro que la librería de clases resuelve el problema?
+\section{Conclusiones}
 
-%Antes que nada, deberíamos haber dejado claro, en alguna sección del capítulo \ref{introduccion} cuales son los indicadores que miro para decir que hay "dificultad en el desarrollo de aplicaciones móviles". Por ejemplo, ¿cantidad de bugs específicos de la plataforma? ¿tiempo que lleva traducir los aspectos específicos?. Conocer esos indicadores (o aspectos) es importante para decidir a cuales de ellos voy a apuntar en mi solución (porque tal vez no puedo ser mejor en todos los aspectos). Es importante para poder comparar mi solución con otras. Y es importante porque en este capítulo tengo que demostrar que mi solución es mejor en términos del/los aspectos elegidos. 
+En el comienzo de este trabajo se participó de una reunión que se dió en el marco de lo que fué el inicio de varios proyectos que buscaban crear herramientas para fomentar el uso de Ciencia Ciudadana e integrar Cientópolis. Cientópolis es un proyecto cuyo objetivo principal es fomentar el uso de la ciencia ciudadana, asistir a los investigadores que quieran sumar ciencia ciudadana a sus proyectos y acercar a la comunidad a la participación en desarrollos científicos \cite{cientopolis}. Asistió a esa reunión Joaquín Cochero, biólogo e investigador del CONICET en el Instituto Platense de Limnologıía y creador de la app AppEAR para relevar estuarios utilizando ciencia ciudadana. En esa reunión Cochero cuenta que a pesar de tener conocimientos básicos de programación, tuvo que ampliarlos para poder desarrollar la app, y que luego de eso recibió solicitudes de varios colegas para que los asista, de ser posible, en el desarrollo de apps para ellos también poder incluir Ciencia Ciudadana en sus proyectos de investigación. Con esta reunión que devino un poco en relevamiento de requerimientos, se pudo observar que algunos investigadores estaban encontrando una traba tecnológica a la hora de incluir Ciencia Ciudadana en sus proyectos.
 
-%La evaluación se puede hacer de muchas formas y depende del caso en particular. Por ejemplo, podrías poner a varios compañeros a hacer la misma aplicación demo con tu librería y otras que ellos quieran. Y luego les hacés preguntas para saber si con tu libreria fué mejor. O podés contar la cantidad de bugs que se hicieron usando tu librería vs los que se hicieron sin ella. Hacer un experimento es complejo, pero hay muchas alternativas intermedias para que puedas demostrar que tu propuesta resuelve el problema planteado.
+Habiendo relevado la necesidad de facilitar el desarrollo de aplicaciones móviles para que sea más accesible para los investigadores, este trabajo se orientó a cumplir los objetivos que se detallan a continuación junto con el resultado logrado con la realización de este trabajo:
+
+
+\begin{itemize} 
+  \item \textbf{Desarrollar un framework que dado un archivo de configuración produzca una aplicación móvil}
+   
+   Como se detalla en el capítulo 5, el framework Samplers recibe un archivo de configuración dónde se especifican los pasos necesarios para recolectar una muestra y con ello produce el código de una aplicación móvil para Android. El archivo de configuración también debe tener información adicional que pueda ser necesaria en el proyecto, como credenciales para acceder a servicios de geolocalización brindados por Google. Samplers genera el código fuente de una app que puede ser utilizada inmediatamente; puede ser modificada para cambiar el estilo y utilizar otros colores o fuentes que no sean los default y también pueden incluirse como librería en una aplicación y utilizar sus clases libremente.
+   
+   \item \textbf{Capturar multimedia, pregunta con una o varias respuestas, fecha y hora, texto e información}
+
+Samplers permite sacar fotos, grabar un audio, indicar una posición con coordenadas GPS asistidas por mapa, permite grabar un recorrido, preguntas con una o varias respuestas, ingreso de texto, fecha y hora. También permite mostrar información. No se pudo alcanzar el objetivo de permitir captura de video. No declarado entre los objetivos se agregó poder especificar ayuda que puede ser relevante a la aplicación o relacionada a la actividad que esté ejecutando el usuario. 
+
+   \item \textbf{Instanciar una aplicación básica}
+
+En el capítulo 6 se instancia una aplicación cuyo conjunto de pasos definidos coincide con la app AppEAR para documentar de qué manera puede construirse una aplicación con Samplers. Se concluye que el resultado es similar en cuánto a funcionalidad.
+
+\end{itemize} 
+
+\section{Trabajo Futuro}
+
+En esta sección se proponen posibles caminos a seguir para que la aplicación evolucione, pero que quedan fuera del alcance de este trabajo. Poder compilar para iOS ampliaría la base de usuarios. Aunque en el país el uso de dispositivos iOS, como mencionamos previamente en la sección \ref{ccDispMoviles}, representa un 6\% en contraposición con el 93\% que representa Android, sigue siendo un porcentaje que queda excluido de la app que se puede crear con Samplers. Para desarrollar en iOS se debe contar con una computadora Mac que pueda ejecutar la última versión de Xcode. De la misma manera que Android Studio es el IDE que deben utilizar las apps desarrolladas para dispositivos Android, Xcode es el IDE para apps Apple que se ejecuten en Mac o en iOS. Para publicar la app en la App Store se debe ser miembro del Apple Developer Program. Teniendo en cuenta que es necesario contar con hardware específico \cite{appleDeveloper} y que se requiere unirse al Apple Developer Program que tiene un costo anual \cite{appleEnrollment} lo hace una mejora con un costo económico ya más alto que el que se necesita para desarrollar en Android. 
+
+Android actualiza regularmente su sistema operativo y en cada nueva versión introduce cambios y mejoras. Un trabajo a futuro sería mantener el código fuente actualizado para ajustarse a los cambios del sistema operativo, aprovechar las mejoras que puedan llegar a existir y respetar los estándares de seguridad requeridos. Lo mismo si hiciera falta una adecuación a las políticas de privacidad, en el caso de que cambien a políticas más restrictivas. 
+
+Una mejora ya realizada por los participantes del trabajo de tesina Samplers2 es Muestre.AR, una interfaz web que permite a los investigadores definir el workflow de recolección de una muestra utilizando un sitio web y descargar la aplicación Android resultante. Con las instrucciones definidas por el usuario investigador, el sitio puede generar el archivo de configuración e ingresarlo en Samplers para crear una aplicación Andorid y descargar la app. \cite{samplers2}
+
+
 
 
 
