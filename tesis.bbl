@@ -49,9 +49,12 @@ J.~P. Cohn, ``Citizen science: Can volunteers do real research?,'' {\em AIBS
 
 \bibitem{GalaxyZoo}
 {Galaxy Zoo}, ``{The Science behind the Site}.''
+  {https://www.zooniverse.org/projects/zookeeper/galaxy-zoo/about/research}, 4
+  2018.
 
 \bibitem{FossilFinders}
 {Fossil Finders}, ``{What is Fossil Finders?}.''
+  {http://fossilfinder.coe.uga.edu/about/what-is-fossil-finders/}, 4 2018.
 
 \bibitem{carey2011beginner}
 S.~S. Carey, {\em A beginner's guide to scientific method}.
@@ -59,7 +62,8 @@ S.~S. Carey, {\em A beginner's guide to scientific method}.
 
 \bibitem{INDEC}
 {INDEC}, ``{Acceso y uso de tecnologías de la información y la
-  comunicación}.''
+  comunicación}.'' {https://www.indec.gob.ar/uploads/informesdeprensa/
+  mautic\_05\_19CF6C49F37A.pdf}, 5 2019.
 
 \bibitem{carrier}
 {Carrier y Asoc.}, ``Mercado celular argentino 2019.''
@@ -92,10 +96,13 @@ R.~E. Johnson and B.~Foote, ``Designing reusable classes,'' {\em Journal of
   object-oriented programming}, vol.~1, no.~2, pp.~22--35, 1988.
 
 \bibitem{projectNoah}
-{projectNoah}, ``{Project Noah}.''
+{Yasser Ansari, Martin Ceperley, Peter Horvath, Bruno Kruse}, ``{Project
+  Noah}.'' {https://www.projectnoah.org/}, 2010.
+\newblock NYU's Interactive Telecommunications Program.
 
 \bibitem{epicollect}
-{epicollect}, ``{Epicollect}.''
+{epicollect}, ``{Epicollect}.'' https://docs.epicollect.net/.
+\newblock [Online; último acceso: marzo/2022].
 
 \bibitem{androidDocs}
 {Google}, ``Documentation for android developers.''
@@ -130,6 +137,10 @@ R.~E. Johnson and B.~Foote, ``Designing reusable classes,'' {\em Journal of
 \bibitem{okhttp}
 {Square Inc.}, ``Okhttp.'' http://square.github.io/okhttp/.
 \newblock [Online; último acceso: Noviembre/2018].
+
+\bibitem{appEar}
+{Joaquín Cochero}, ``Appear.'' https://app-ear.com.ar/.
+\newblock [Online; último acceso marzo/2022].
 
 \bibitem{appleDeveloper}
 {Apple Inc}, ``{Getting Started with iOS App Development}.''
