@@ -1,8 +1,65 @@
 \chapter{Conclusiones y Trabajo Futuro}
 
-En este capítulo se recordarán los objetivos propuestos al comienzo de este trabajo, los resultados y en qué medida se cumplieron dichas metas. También se detallaran posibles trabajos a futuro que contribuirían a mejorar aspectos del proyecto como puede ser mejorar su usabilidad, mantener el proyecto para que siga cumpliendo los estándares requeridos para aplicaciones móviles o ampliar la base de usuarios soportando iOS.
+En este capítulo se recordarán los objetivos propuestos al comienzo de este trabajo, los resultados obtenidos y en qué medida se cumplieron dichas metas. También se detallaran posibles trabajos a futuro que contribuirían a mejorar aspectos del proyecto como puede ser mejorar su usabilidad, mantener el proyecto para que siga cumpliendo los estándares requeridos para aplicaciones móviles o implementar una versión para iOS para ampliar la base de usuarios.
 
 \section{Conclusiones}
+En la sección \ref{sec:objetivos} se definieron los objetivos de este trabajo, los cuales analizaremos si fueron cumplidos, cómo y en qué medida se alcanzaron.
+
+A continuación se detallan dichos objetivos con su respectivo análisis:
+
+\begin{itemize} 
+  \item \textbf{Desarrollar un framework para instanciar aplicaciones móviles Android de ciencia ciudadana. El framework recibirá un archivo con la configuración requerida en formato JSON y generará una aplicación para ejecutarse en un dispositivo Android.}
+
+Como se detalla en el capítulo \ref{cap:samplers}, el framework Samplers recibe un archivo de configuración dónde se especifican los pasos necesarios para recolectar una muestra y con ello produce el código de una aplicación móvil para Android. El código queda listo para compilar y ejecutar en un dispositivo móvil con Android o en un emulador virtual de los que provee Android Studio.
+
+De esta manera no solo se genera una app sino que al brindar el código fuente ésta puede ser personalizada y modificada para agregarle más funcionalidades en caso de que el usuario tenga conocimientos de programación.
+  
+  
+    \item \textbf{En este archivo estará el conjunto de pasos que especifican el protocolo de recolección de muestras. Estos pasos pueden ser:
+captura de una foto, un video, un audio, una ubicación o un recorrido hecho con el dispositivo móvil, contestar una pregunta con respecto a la muestra -con una o múltiples respuestas posibles-, introducir anotaciones de texto, indicar una fecha y hora, mostrar información de orientación y ayuda para la toma de la muestra.			}
+  
+Como se explica en la sección \ref{sec:archivo_configuracion} en el archivo de configuración que recibe Samplers debe venir configurado el Workflow que representa los pasos a seguir para tomar una muestra. Cada uno de los Steps que provee Samplers para armar el Workflow permite realizar cada una de las acciones especificadas en el objetivo. El detalle de los Steps que provee Samplers y como usarlos se explica en el anexo \ref{sec:steps_detallados}. Además Samplers permite que un usuario con conocimientos de programación defina sus propios Steps como se explica en la sección \ref{sec:definir_steps} del mencionado anexo.
+
+
+  \item \textbf{La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado y las almacenará y empaquetará en el dispositivo móvil hasta que pueda ser enviada a un servidor web.}
+  
+  
+  La aplicación generada por Samplers almacena las muestras tomadas en el almacenamiento interno del dispositivo móvil como se explicó en la sección \ref{sec:persistencia_local}. Dichas muestras son comprimidas en formato ZIP y enviadas al servidor web previamente configurado cuando se detecta conexión wifi como se explicó en la sección \ref{sec:envio_muestras}.
+  
+  
+    \item \textbf{Definir el formato del archivo de configuración de la aplicación y la información adicional necesaria, como pueden ser credenciales para acceder a los servicios de Google Services o el posicionamiento por GPS.}
+  
+  
+  Se definió el formato que debe tener el archivo de configuración que recibe Samplers como se explicó en la sección \ref{sec:archivo_configuracion}. La especificación detallada del mismo se encuentra en el anexo \ref{sec:archivo_config_detallado}
+  
+  
+      \item \textbf{Instanciar una aplicación básica de ejemplo con el framework en base a un archivo de configuración, que permita tomar algunas muestras y enviarlas a un servidor web que estará configurado para dicho propósito.}
+  
+  
+Se instanció una app usando Samplers que imita a una app de ciencia ciudadana que ya está en funcionamiento (AppEAR) y se hizo una comparación en el capítulo \ref{cap:caso_de_uso} analizando las diferencias. Para probar el envío de muestras se montó un servidor local en PHP, el cual se deja a disposición en el repositorio de Samplers en GitHub.
+  
+
+\end{itemize}
+
+En base a lo detallado anteriormente, podemos concluir que los objetivos fueron alcanzados en su totalidad.
+
+
+
+\section{Trabajo Futuro}
+
+En esta sección se proponen posibles caminos a seguir para que la aplicación evolucione, pero que quedan fuera del alcance de este trabajo. Poder compilar para iOS ampliaría la base de usuarios. Aunque en el país el uso de dispositivos iOS, como mencionamos previamente en la sección \ref{ccDispMoviles}, representa un 6\% en contraposición con el 93\% que representa Android, sigue siendo un porcentaje que queda excluido de la app que se puede crear con Samplers. Para desarrollar en iOS se debe contar con una computadora Mac que pueda ejecutar la última versión de Xcode. De la misma manera que Android Studio es el IDE que deben utilizar las apps desarrolladas para dispositivos Android, Xcode es el IDE para apps Apple que se ejecuten en Mac o en iOS. Para publicar la app en la App Store se debe ser miembro del Apple Developer Program. Teniendo en cuenta que es necesario contar con hardware específico \cite{appleDeveloper} y que se requiere unirse al Apple Developer Program que tiene un costo anual \cite{appleEnrollment} lo hace una mejora con un costo económico ya más alto que el que se necesita para desarrollar en Android. 
+
+Android actualiza regularmente su sistema operativo y en cada nueva versión introduce cambios y mejoras. Un trabajo a futuro sería mantener el código fuente actualizado para ajustarse a los cambios del sistema operativo, aprovechar las mejoras que puedan llegar a existir y respetar los estándares de seguridad requeridos. Lo mismo si hiciera falta una adecuación a las políticas de privacidad, en el caso de que cambien a políticas más restrictivas. 
+
+Una mejora ya realizada por los participantes del trabajo de tesina Samplers2 es Muestre.AR, una interfaz web que permite a los investigadores definir el workflow de recolección de una muestra utilizando un sitio web y descargar la aplicación Android resultante. Con las instrucciones definidas por el usuario investigador, el sitio puede generar el archivo de configuración e ingresarlo en Samplers para crear una aplicación Andorid y descargar la app. \cite{samplers2}
+
+
+
+\begin{comment}
+
+#######################################################################################################
+Primer intento
+#######################################################################################################
 
 En el comienzo de este trabajo se participó de una reunión que se dió en el marco de lo que fué el inicio de varios proyectos que buscaban crear herramientas para fomentar el uso de Ciencia Ciudadana e integrar Cientópolis. Cientópolis es un proyecto cuyo objetivo principal es fomentar el uso de la ciencia ciudadana, asistir a los investigadores que quieran sumar ciencia ciudadana a sus proyectos y acercar a la comunidad a la participación en desarrollos científicos \cite{cientopolis}. Asistió a esa reunión Joaquín Cochero, biólogo e investigador del CONICET en el Instituto Platense de Limnologıía y creador de la app AppEAR para relevar estuarios utilizando ciencia ciudadana. En esa reunión Cochero cuenta que a pesar de tener conocimientos básicos de programación, tuvo que ampliarlos para poder desarrollar la app, y que luego de eso recibió solicitudes de varios colegas para que los asista, de ser posible, en el desarrollo de apps para ellos también poder incluir Ciencia Ciudadana en sus proyectos de investigación. Con esta reunión que devino un poco en relevamiento de requerimientos, se pudo observar que algunos investigadores estaban encontrando una traba tecnológica a la hora de incluir Ciencia Ciudadana en sus proyectos.
 
@@ -31,7 +88,7 @@ En esta sección se proponen posibles caminos a seguir para que la aplicación e
 Android actualiza regularmente su sistema operativo y en cada nueva versión introduce cambios y mejoras. Un trabajo a futuro sería mantener el código fuente actualizado para ajustarse a los cambios del sistema operativo, aprovechar las mejoras que puedan llegar a existir y respetar los estándares de seguridad requeridos. Lo mismo si hiciera falta una adecuación a las políticas de privacidad, en el caso de que cambien a políticas más restrictivas. 
 
 Una mejora ya realizada por los participantes del trabajo de tesina Samplers2 es Muestre.AR, una interfaz web que permite a los investigadores definir el workflow de recolección de una muestra utilizando un sitio web y descargar la aplicación Android resultante. Con las instrucciones definidas por el usuario investigador, el sitio puede generar el archivo de configuración e ingresarlo en Samplers para crear una aplicación Andorid y descargar la app. \cite{samplers2}
-
+\end{comment}
 
 
 
