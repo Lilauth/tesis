@@ -302,11 +302,70 @@ InsertDateStepResult e InsertTimeStep tienen un objeto Date de Java que tiene la
 
 
 
-
-
-
 \section{Definir un nuevo Step, StepFragment y StepResult} \label{sec:definir_steps}
-[TO-DO: acá vamos a explicar como definir un nuevo Step para extender el framework]
+Como se explicó en la sección \ref{sec:clases_core} un Step tiene los parámetros necesarios para que se ejecute un StepFragment y genere un  StepResult con la interacción del usuario.
 
+Para definir un nuevo Step personalizado, se debe definir también un StepFragment personalizado que sepa ejecutarlo y StepResult personalizado que contendrá el resultado de esa ejecución. A continuación se explica cómo definir cada uno de ellos.
+
+\subsection{Definir un nuevo Step}
+Para definir un nuevo Step personalizado se debe implementar la interface Step, la cual extiende Serializable y define los siguientes métodos que se deben implementar:
+
+\begin{itemize} 
+  \item \textbf{\textit{String getStepResourceName()}:} debe devolver el nombre o etiqueta del Step, por ejemplo «Tomar foto».
+  
+  \item \textbf{\textit{int getId()}:} debe devolver el id del Step.
+  
+  
+  \item \textbf{\textit{ \textless T extends StepFragment\textgreater }} 
+  
+   \textbf{\textit{Class\textless T\textgreater   getStepFragmentClass()}:}  debe devolver la clase del StepFragment que lo ejecutará.
+    
+    
+  \item \textbf{\textit{ \textless T extends StepFragment\textgreater }} 
+  
+   \textbf{\textit{void setStepFragmentClass(Class\textless T\textgreater type)}:} se usa para establecer la clase del StepFragment que lo ejecutará.
+  
+  
+  \item \textbf{\textit{@Nullable Integer getNextStepId(StepResult stepResult)}:}  debe devolver el id del siguiente Step a ejecutar en el Workflow. Puede ser null y en ese caso se considerará el final del Workflow.
+    
+    
+  \item \textbf{\textit{@Nullable Integer getHelpResourseId()}:}   debe devolver el id del recurso que se usará para mostrar la ayuda del Step. Puede ser null y en ese caso se considerará que el Step no tiene ayuda para mostrar.
+  
+  \item \textbf{\textit{void setHelpResourseId(Integer helpResourseId)}:}   se usa para establecer el recurso que se usará para mostrar la ayuda del Step.
+
+\end{itemize}
+
+
+\subsection{Definir un nuevo StepFragment}
+Para definir un nuevo StepFragment personalizado se debe extender la clase StepFragment, la cual es una clase abstracta que extiende de Fragment y define los siguientes métodos que se deben implementar:
+
+\begin{itemize} 
+  \item \textbf{\textit{int getLayoutResource()}:} debe devolver el «Layout Resource» que contiene diseño con la estructura de la interfaz de usuario. Es el que se usará en el método \textit{onCreateView} para cargar dicha estructura de interfaz de usuario.
+  
+  
+  \item \textbf{\textit{void onCreateViewStepFragment(View rootView, Bundle savedInstanceState)}:} este método se llama internamente en el método \textit{onCreateView} luego de cargar la estructura de la interfaz de usuario y debe usarse para inicializar  y guardar referencia a los elementos de la IU. El parámetro \textit{rootView} contiene la estructura de la interfaz de usuario cargada y el parámetro \textit{savedInstanceState} contiene el estado de instancia guardado que se recibe en el método \textit{onCreateView}.
+    
+
+  
+  \item \textbf{\textit{boolean validate()}:} este método se llama internamente cuando el usuario aprieta el botón «Siguiente» y se debe usar para hacer las validaciones pertinentes antes de finalizar el StepFragment, como por ejemplo validar que el usuario haya seleccionado una opción de las dadas. Debe devolver \textbf{true} si la validación es exitosa o \textbf{false} en caso contrario.  
+  
+  \item \textbf{\textit{StepResult getStepResult()}:} debe devolver el StepResult generado.
+
+
+\end{itemize}
+
+\subsection{Definir un nuevo StepResult}
+Para definir un nuevo StepResult personalizado se debe implementar la interface StepResult, la cual extiende Serializable y define los siguientes métodos que se deben implementar:
+
+\begin{itemize} 
+  \item \textbf{\textit{Step getStep()}:} debe devolver el Step que generó el StepFragment.
+  
+  
+  \item \textbf{\textit{boolean hasMultimediaFile()}:} debe devolver \textbf{true} si el StepResult tiene un archivo multimedia (foto, video, audio, etc.) asociado o \textbf{false} en caso contrario.
+    
+    
+  \item \textbf{\textit{String getMultimediaFileName()}:} debe devolver el nombre del archivo multimedia asociado al StepResult.
+
+\end{itemize}
 
 
