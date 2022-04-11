@@ -26,7 +26,7 @@ Se propone desarrollar un framework para instanciar aplicaciones móviles Androi
 
 La aplicación generada servirá para tomar muestras siguiendo el protocolo de recolección especificado y las almacenará y empaquetará en el dispositivo móvil hasta que pueda ser enviada a un servidor web.
 		
-Se define el formato del archivo de configuración de la aplicación y la información adicional necesaria, como pueden ser credenciales para acceder a los servicios de Google Services o el posicionamiento por GPS.
+Definir el formato del archivo de configuración de la aplicación y la información adicional necesaria, como pueden ser credenciales para acceder a los servicios de Google Services o el posicionamiento por GPS.
 
 Instanciar una aplicación básica de ejemplo con el framework en base a un archivo de configuración, que permita tomar algunas muestras y enviarlas a un servidor web que estará configurado para dicho propósito.
 
@@ -48,19 +48,23 @@ Este trabajo de tesina se organiza de la siguiente manera:
 	
 	\item{Capítulo 4} 
 		
-		Se describe el sistema operativo para dispositivos móviles Android y se detallan sus principales componentes de aplicación. La Activity, el componente principal de las aplicaciones en Android. Características, ciclo de vida y posibles estados. Relación entre Fragment y Activity. Ciclo de vida y estads del Fragment. Propósito de los Services y tipos soportados. Método de suscripción de eventos del sistema y de otras aplicaciones, BroadcastReceiver. 
+		Se describe el sistema operativo para dispositivos móviles Android y se detallan sus principales componentes de aplicación. La Activity, el componente principal de las aplicaciones en Android. Características, ciclo de vida y posibles estados. Relación entre Fragment y Activity. Ciclo de vida y estados del Fragment. Propósito de los Services y tipos soportados. Método de suscripción de eventos del sistema y de otras aplicaciones, BroadcastReceiver. 
 		 
 
 	\item{Capítulo 5} 
 		
-		Samplers, un framework para construir aplicaciones Android para proyectos de recolección que utilizan ciencia ciudadana. Alcance y descripción de la solución propuesta con Samplers. Workflow o protocolo para la recolección de la muestra. Descripción y ejemplo del archivo para configuración de una aplicación. Pasos para la recolección de la muestra: Step y Workflow y su relación con los principales componentes de las aplicaciones Android. Sample, la muestra, resultado de la ejecución del workflow por parte de un científico ciudadano. Envío de muestras por internet y persistencia local para envío manual o cuando tenga disponibilidad.
+		Se presenta el framework propuesto, Samplers, para construir aplicaciones Android para proyectos de recolección que utilizan ciencia ciudadana. Se describe el alcance de la solución propuesta y los detalles del framework.
+		
 		
 		
 	\item{Capítulo 6} 
-		Utilizando el framework se instancia la aplicación AppEar y se comparan en cuanto a funcionalidad. Los resultados obtenidos demuestran que con Samplers se puede instanciar fácilmente una aplicación para ciencia ciudadana.
+	
+		Se presenta un caso de uso del framework Samplers, instanciando una aplicación que imita a AppEar.  Se comparan las aplicaciones en cuanto a apariencia y funcionalidad, y se analizan los resultados obtenidos. 
+		
 		
 		
 	\item{Capítulo 7} 
+	
 		En este capítulo se sumariza el desarrollo de la tesina y se evalúan nuevamente los objetivos con los resultados obtenidos y el grado de cumplimiento. También se detallan posibles trabajos a futuro que permitirían que el proyecto crezca y se mantenga en el tiempo.		
 						
 \end{itemize}
