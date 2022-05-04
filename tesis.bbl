@@ -1,11 +1,5 @@
 \begin{thebibliography}{10}
 
-\bibitem{bonney2009citizen}
-R.~Bonney, C.~B. Cooper, J.~Dickinson, S.~Kelling, T.~Phillips, K.~V.
-  Rosenberg, and J.~Shirk, ``Citizen science: a developing tool for expanding
-  science knowledge and scientific literacy,'' {\em BioScience}, vol.~59,
-  no.~11, pp.~977--984, 2009.
-
 \bibitem{wiggins2011conservation}
 A.~Wiggins and K.~Crowston, ``From conservation to crowdsourcing: A typology of
   citizen science,'' in {\em System Sciences (HICSS), 2011 44th Hawaii
@@ -14,6 +8,10 @@ A.~Wiggins and K.~Crowston, ``From conservation to crowdsourcing: A typology of
 \bibitem{silvertown2009new}
 J.~Silvertown, ``A new dawn for citizen science,'' {\em Trends in ecology \&
   evolution}, vol.~24, no.~9, pp.~467--471, 2009.
+
+\bibitem{appEar}
+{Joaquín Cochero}, ``Appear.'' https://app-ear.com.ar/.
+\newblock [Online; último acceso marzo/2022].
 
 \bibitem{cientopolis}
 {LIFIA Centro asociado de la Comisión de Investigaciones Científicas, NOVA
@@ -33,6 +31,26 @@ E.~C.~D. Environment, ``Science for environment policy indepth report:
   Environmental citizen science,'' {\em Science Communication Unit, University
   of the West of England, Bristol}, vol.~9, 2013.
 
+\bibitem{CBC}
+{Audubon}, ``{History of the Christmas Bird Count}.''
+  {http://www.audubon.org/conservation/history-christmas-bird-count}.
+\newblock [Online; último acceso: mayo/2022].
+
+\bibitem{Zooniverse}
+``{Zooniverse}.'' {https://www.zooniverse.org}.
+\newblock [Online; último acceso: mayo/2022].
+
+\bibitem{GalaxyConqueror}
+{Juan Ignacio Yañez, Matías Celasco, Roberto Gamen}, ``{Galaxy Conqueror:
+  Astronomy, Citizen Science and Gamification}.''
+  {https://www.cientopolis.org/wp-content/uploads/sites/40/2016/10/laclo-2016-camera-ready.pdf}.
+\newblock [Online; último acceso: mayo/2022].
+
+\bibitem{Butterfly}
+``{The Big Butterfly Count}.''
+  {https://bigbutterflycount.butterfly-conservation.org/}.
+\newblock [Online; último acceso: mayo/2022].
+
 \bibitem{shirk2012public}
 J.~L. Shirk, H.~L. Ballard, C.~C. Wilderman, T.~Phillips, A.~Wiggins,
   R.~Jordan, E.~McCallie, M.~Minarchek, B.~V. Lewenstein, M.~E. Krasny, {\em
@@ -51,6 +69,12 @@ J.~P. Cohn, ``Citizen science: Can volunteers do real research?,'' {\em AIBS
 \bibitem{FossilFinders}
 {Fossil Finders}, ``{What is Fossil Finders?}.''
   {http://fossilfinder.coe.uga.edu/about/what-is-fossil-finders/}, 4 2018.
+
+\bibitem{bonney2009citizen}
+R.~Bonney, C.~B. Cooper, J.~Dickinson, S.~Kelling, T.~Phillips, K.~V.
+  Rosenberg, and J.~Shirk, ``Citizen science: a developing tool for expanding
+  science knowledge and scientific literacy,'' {\em BioScience}, vol.~59,
+  no.~11, pp.~977--984, 2009.
 
 \bibitem{carey2011beginner}
 S.~S. Carey, {\em A beginner's guide to scientific method}.
@@ -134,10 +158,6 @@ R.~E. Johnson and B.~Foote, ``Designing reusable classes,'' {\em Journal of
 {Square Inc.}, ``Okhttp.'' http://square.github.io/okhttp/.
 \newblock [Online; último acceso: Noviembre/2018].
 
-\bibitem{appEar}
-{Joaquín Cochero}, ``Appear.'' https://app-ear.com.ar/.
-\newblock [Online; último acceso marzo/2022].
-
 \bibitem{appleDeveloper}
 {Apple Inc}, ``{Getting Started with iOS App Development}.''
 
@@ -146,5 +166,6 @@ R.~E. Johnson and B.~Foote, ``Designing reusable classes,'' {\em Journal of
 
 \bibitem{samplers2}
 {Rojas Lara Alex, Valentini Mac Adden Nicolás}, ``{Samplers 2}.''
+  {http://sedici.unlp.edu.ar/handle/10915/118539}.
 
 \end{thebibliography}

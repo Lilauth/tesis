@@ -3,11 +3,11 @@
 \section{Propuesta general}
 
 \subsection{Descripción del problema}
-En la descripción del Estado del Arte hecha en \ref{estado_arte}, se describen algunas herramientas que sirven de soporte a los científicos para incluir ciencia ciudadana en sus proyectos, y facilitar la recolección de la información o la recolección de muestras a través de formularios web o de aplicaciones para dispositivos móviles. Estas herramientas de soporte existen porque la simplicidad de utilización de los dispositivos móviles es ideal para que los científicos ciudadanos participen en la recolección de muestras, pero el desarrollo de estas aplicaciones puede ser una limitante para algunos proyectos por su complejidad técnica. \cite{kim2013sensr}
+En la descripción del Estado del Arte (Sección \ref{sec:estado_arte}), se describen algunas herramientas que sirven de soporte a los científicos para incluir ciencia ciudadana en sus proyectos, y facilitar la recolección de la información o la recolección de muestras a través de formularios web o de aplicaciones para dispositivos móviles. Estas herramientas de soporte existen porque la simplicidad de utilización de los dispositivos móviles es ideal para que los científicos ciudadanos participen en la recolección de muestras, pero el desarrollo de estas aplicaciones puede ser una limitante para algunos proyectos por su complejidad técnica. \cite{kim2013sensr}
 Para evitar que el desarrollo de una aplicación móvil sea limitante a la hora de incluir ciencia ciudadana en proyectos de investigación, se propone un framework que permita la creación de una aplicación móvil de manera sencilla para la recolección de muestras realizada por científicos ciudadanos.
 El objetivo principal es permitir crear una aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. Por ejemplo, desde una página web armar el protocolo de recolección de las muestras y con el mismo poder generar una aplicación móvil que sirva para tomar las muestras siguiendo dicho protocolo.
 
-El protocolo de recolección estaría compuesto por los diferentes pasos necesarios para tomar la muestra con la aplicación. Estos pasos deben permitir:
+El protocolo de recolección debe estar compuesto por los diferentes pasos necesarios para tomar la muestra con la aplicación. Estos pasos deben permitir:
 \begin{itemize}
 \item capturar una foto, un video o un audio.
 \item tomar la posición del GPS o grabar un recorrido con el GPS.
@@ -214,7 +214,7 @@ Básicamente se tiene que instanciar la clase Workflow y agregarle instancias de
 
 El detalle de como usar las clases y establecer las configuraciones adicionales se explican en la sección \ref{sec:instanciacion_manual}.
 
-\section{Estructura del Framework}
+\section{Estructura e implementación del Framework}
 
 Samplers está compuesto por dos elementos: una librería con las clases y demás recursos necesarios para crear la app y un script en Gradle para procesar el archivo de configuración.
 
