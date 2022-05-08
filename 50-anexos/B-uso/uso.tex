@@ -10,38 +10,90 @@ También es necesario establecer la configuración general en el método onCreat
 Se puede usar una activity principal propia o se puede heredar de SamplersMainActivity. En ambos casos se debe hacer lo siguiente:
 \begin{itemize}
 	\item Establecer la configuración general en el método onCreate de la activity principal:
+\end{itemize}
 	
-		
+\begin{comment}		
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/configuracion_general.png} 
    \caption{Ejemplo de configuración general}
 \end{figure}		
+\end{comment}
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=Ejemplo de configuración general]
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+	
+	// Establecer la configuración de red
+	NetworkConfiguration.setURL("http://192.168.1.10/samplers/upload.php");
+	NetworkConfiguration.setPARAM_NAME_SAMPLE("sample");
+
+	// Opcional, si se desea usar identificación (*)
+	NetworkConfiguration.setPARAM_NAME_USER_ID("user_id");
+	NetworkConfiguration.setPARAM_NAME_AUTHENTICATION_TYPE("authentication_type");
+
+	AuthenticationManager.setAuthenticationEnabled(true);
+	AuthenticationManager.setAuthenticationOptional(true);
+}
+\end{lstlisting}
 		
 		
 (*) Ver la sección \ref{sec:usando_autenticacion} para más detalles sobre como usar identificación.
 
-
+\begin{itemize}
 	\item Crear un Workflow. Si se está heredando de SamplersMainActivity se debe hacer sobreescribiendo el método getWorkflow.
-	
+\end{itemize}	
+
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/get_workflow.png} 
    \caption{Ejemplo de un Workflow que tiene dos Steps. El primero muestra un mensaje de bienvenida y el segundo pide para tomar una foto.}
 \end{figure}		
+\end{comment}
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=Ejemplo de un Workflow que tiene dos Steps. El primero muestra un mensaje de bienvenida y el segundo pide para tomar una foto.]
+@Override
+protected Workflow getWorkflow() {
+  Workflow workflow = new Workflow();
+
+  Step step = new PhotoStep(2,"Por favor tome una foto de su gato", null);
+  workflow.add(step);
+
+  step = new InformationStep(1,"Bienvenido a la app de prueba", 2);
+  workflow.add(step);
+
+  return workflow;
+}		
+\end{lstlisting}
 	
 
 Nota: Para ver los distintos Steps que se pueden usar vea la sección \ref{sec:steps_detallados}.
 
+\begin{itemize}
 	\item Iniciar la activity TakeSampleActivity. Si se está heredando de SamplersMainActivity esto se hace automáticamente en el método onClick del botón "tomar muestra". De lo contrario, deberá iniciarla de la siguiente forma, en el método onClick de un botón por ejemplo:
+\end{itemize}
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/take_sample_click.png} 
    \caption{Ejemplo de como iniciar la activity TakeSampleActivity.}
 \end{figure}		
+\end{comment}
 
-\end{itemize}
+\begin{lstlisting}[language=Java, frame=tlbr, caption=Ejemplo de como iniciar la activity TakeSampleActivity.]
+public void takeSampleClick(View view) {
+  Workflow workflow = getWorkflow();
+
+  Intent intent = new Intent(this, TakeSampleActivity.class);        
+  intent.putExtra(TakeSampleActivity.EXTRA_WORKFLOW, workflow);
+  startActivity(intent);
+}		
+\end{lstlisting}
+
+
 
 
 \section{Instanciación usando el  generador de clases de Gradle}
@@ -96,6 +148,35 @@ El archivo SamplersConfig.json es un archivo JSON con 3 objetos: project, applic
     \includegraphics[scale=0.6]{50-anexos/B-uso/json_project.png} 
     \caption{Ejemplo del objeto project.}
 \end{figure}	
+
+\begin{lstlisting}[language=XML, frame=tlbr, caption=Ejemplo del objeto project.]	
+{
+  "project" : {
+    "app_path" = "app/src/main/java/com/example/myApplication/"
+    "package_name" : "com.example.myApplication"
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=Java, frame=tlbr]	
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  
+  int uno = 12;
+  String dos = "Algun string medio largo";
+
+  NetworkConfiguration.setURL("http://192.168.1.10/samplers/upload.php");
+  NetworkConfiguration.setPARAM_NAME_SAMPLE("sample");
+  // Set the authentication params of the Network Configuration
+  NetworkConfiguration.setPARAM_NAME_USER_ID("user_id");
+  NetworkConfiguration.setPARAM_NAME_AUTHENTICATION_TYPE("authentication_type");
+
+  // Set the authenticationconfiguration
+  AuthenticationManager.setAuthenticationEnabled(true);
+  AuthenticationManager.setAuthenticationOptional(true);
+}
+\end{lstlisting}
 	
 \subsection{El objeto application}
 	El objeto application tiene 7 campos, de los cuales 3 son requeridos y los otros 4 opcionales (para habilitar características especiales)
