@@ -1,4 +1,4 @@
-\chapter{Los diferentes Steps y sus resultados (StepResult)} \label{sec:steps_detallados}
+\section{Los diferentes Steps y sus resultados (StepResult)} \label{sec:steps_detallados}
 De manera predeterminada, Samplers provee los Steps que se explican a continuación. Además de los provistos por Samplers, un usuario programador puede definir y agregar sus propios Steps, junto con sus StepFragments y StepResults como se explica en la sección \ref{sec:definir_steps} 
 
 Todos los Step tienen los siguientes campos:
@@ -13,7 +13,7 @@ Todos los Step tienen los siguientes campos:
 Además de estos campos, los diferentes tipos de Step agregan campos adicionales como se detalla en la explicación de cada Step a continuación.
 
 
-\section{PhotoStep: Tomar una foto}
+\subsection{PhotoStep: Tomar una foto}
 PhotoStep se usa para solicitarle al científico ciudadano que tome una foto. Tiene un texto (text) que se muestran a modo de instrucciones o mensaje cuando la cámara esta encendida. Luego de tomada la foto, se muestra una vista preliminar de la misma, con un botón que da la opción de volver a tomar la foto.
 
 \begin{figure}[H]
@@ -36,14 +36,14 @@ PhotoStep se usa para solicitarle al científico ciudadano que tome una foto. Ti
     \caption{Ejemplo de un PhotoStep en ejecución. A la izquierda al momento de tomar la foto, y a la derecha al momento de mostrar la vista preliminar.}
 \end{figure}
 
-\subsection{PhotoStepResult: El resultado de Tomar una foto}
+\subsubsection{PhotoStepResult: El resultado de Tomar una foto}
 El PhotoStepResult contiene el nombre del archivo de la foto tomada. La foto va como archivo jpg en la carpeta de la muestra.
 Puede haber varias fotos si hay varios PhotoSteps en el Workflow.
 
 
 
 
-\section{SoundRecordStep: Grabar sonido}
+\subsection{SoundRecordStep: Grabar sonido}
 SoundRecordStep  se usa para solicitarle al científico ciudadano que grabe un sonido. Tiene un texto (text) que se muestran a modo de instrucciones o mensaje. Luego de grabado el sonido, el mismo se puede escuchar, y en todo caso volver a grabar otro sonido.
 
 
@@ -67,13 +67,13 @@ SoundRecordStep  se usa para solicitarle al científico ciudadano que grabe un s
 
 
 
-\subsection{SoundRecordStepResult: El resultado de Grabar sonido}
+\subsubsection{SoundRecordStepResult: El resultado de Grabar sonido}
 El SoundRecordStepResult contiene el nombre del archivo del sonido grabado. El sonido va como archivo mp4 en la carpeta de la muestra.
 Puede haber varios sonidos si hay varios SoundRecordSteps en el Workflow.
 
 
 
-\section{InformationStep: Mostrar información}
+\subsection{InformationStep: Mostrar información}
 InformationStep se usa para mostrar una información (texto) al científico ciudadano, por ejemplo, para mostrar un mensaje de bienvenida o para explicar brevemente los pasos que seguirán a continuación para tomar la muestra.
 
 
@@ -97,14 +97,14 @@ InformationStep se usa para mostrar una información (texto) al científico ciud
 \end{figure}
 
 
-\subsection{InformationStepResult: El resultado de Mostrar información}
+\subsubsection{InformationStepResult: El resultado de Mostrar información}
 El resultado de mostrar información es nulo, es una clase vacía. Solo está para cerrar el circuito.
 
 
 
 
 
-\section{SelectOneStep: Seleccionar una opción de un grupo de opciones}
+\subsection{SelectOneStep: Seleccionar una opción de un grupo de opciones}
 SelectOneStep  se usa para solicitarle al científico ciudadano que seleccione una sola opción de varias opciones disponibles. Tiene un texto (title) que se muestran a modo de título o instrucciones. Las opciones disponibles para seleccionar son una lista de objetos SelectOneOption.
 Cada objeto SelectOneOption tiene un id, textToShow y nextStepId, que se muestran en pantalla en forma de radio buttons.
 
@@ -129,14 +129,14 @@ Este caso particular de Step no tiene un identificador del siguiente Step a ejec
 \end{figure}
 
 
-\subsection{SelectOneStepResult: El resultado de Seleccionar una opción de un grupo de opciones}
+\subsubsection{SelectOneStepResult: El resultado de Seleccionar una opción de un grupo de opciones}
 SelectOneStepResult contiene la opción seleccionada (un objeto SelectOneOption).
 
 
 
 
 
-\section{MultipleSelectStep: Seleccionar varias opciones de un grupo de opciones}
+\subsection{MultipleSelectStep: Seleccionar varias opciones de un grupo de opciones}
 MultipleSelectStep  se usa para solicitarle al científico ciudadano que seleccione una o más opciones de varias opciones disponibles. Tiene un texto (title) que se muestran a modo de título o instrucciones. Las opciones disponibles para seleccionar son una lista de objetos MultipleSelectOption.
 Cada objeto MultipleSelectOption tiene un id, textToShow.
 Las opciones disponibles para seleccionar se muestran en pantalla en forma de check-boxes.
@@ -161,14 +161,14 @@ Las opciones disponibles para seleccionar se muestran en pantalla en forma de ch
 \end{figure}
 
 
-\subsection{MultipleSelectStepResult: El resultado de Seleccionar varias opciones de un grupo de opciones}
+\subsubsection{MultipleSelectStepResult: El resultado de Seleccionar varias opciones de un grupo de opciones}
 MultipleSelectStepResult contiene una lista de las opciones seleccionadas (una lista de objetos MultipleSelectOption).
 
 
 
 
 
-\section{LocationStep: Posicionar la muestra en el mapa con el GPS}
+\subsection{LocationStep: Posicionar la muestra en el mapa con el GPS}
 LocationStep se usa para solicitarle al científico ciudadano que tome la posición con el GPS del dispositivo móvil. Tiene un texto (text) que se muestran a modo de instrucciones o mensaje. 
 
 Permite usar el GPS o posicionar la muestra manualmente en el mapa.
@@ -191,14 +191,14 @@ Permite usar el GPS o posicionar la muestra manualmente en el mapa.
     \caption{LocationStep en ejecución.}
 \end{figure}
 
-\subsection{LocationStepResult: El resultado de Posicionar la muestra en el mapa con el GPS}
+\subsubsection{LocationStepResult: El resultado de Posicionar la muestra en el mapa con el GPS}
 LocationStepResult contiene la latitud y longitud (ambos de tipo double) de la posición GPS tomada.
 
 
 
 
 
-\section{RouteStep: Grabar un recorrido en el mapa usando el GPS}
+\subsection{RouteStep: Grabar un recorrido en el mapa usando el GPS}
 LocationStep se usa para solicitarle al científico ciudadano que grabe un recorrido con el GPS del dispositivo móvil. Tiene las siguientes propiedades:
 
 \begin{itemize}
@@ -227,7 +227,7 @@ LocationStep se usa para solicitarle al científico ciudadano que grabe un recor
 \end{figure}
 
 
-\subsection{RouteStepResult: El resultado de Grabar un recorrido en el mapa usando el GPS}
+\subsubsection{RouteStepResult: El resultado de Grabar un recorrido en el mapa usando el GPS}
 RouteStepResult tiene una lista de objetos de la clase Location proporcionada por Android.  Para
 mas información sobre esta clase ver la documentación oficial de Android sobre Location \footnote{https://developer.android.com/reference/android/location/Location}.
 
@@ -236,7 +236,7 @@ mas información sobre esta clase ver la documentación oficial de Android sobre
 
 
 
-\section{InsertTextStep: Ingresar texto}
+\subsection{InsertTextStep: Ingresar texto}
 InsertTextStep se usa para solicitarle al científico ciudadano que ingrese una anotación, que puede ser texto o números. Tiene las siguientes propiedades:
 
 \begin{itemize}
@@ -266,14 +266,14 @@ InsertTextStep se usa para solicitarle al científico ciudadano que ingrese una 
 \end{figure}
 
 
-\subsection{InsertTextStepResult: El resultado de Ingresar texto}
+\subsubsection{InsertTextStepResult: El resultado de Ingresar texto}
 InsertTextStepResult contiene el String con la anotación ingresada.
 
 
 
 
 
-\section{InsertDateStep e InsertTimeStep: Ingresar fecha y hora}
+\subsection{InsertDateStep e InsertTimeStep: Ingresar fecha y hora}
 InsertDateStep e InsertTimeStep se usan para solicitarle al científico ciudadano que ingrese una fecha y una hora respectivamente. Tienen un texto que se muestran a modo de instrucciones o mensaje.
 
 
@@ -297,17 +297,17 @@ InsertDateStep e InsertTimeStep se usan para solicitarle al científico ciudadan
 \end{figure}
 
 
-\subsection{InsertDateStepResult e InsertTimeStep: El resultado de Ingresar fecha y hora}
+\subsubsection{InsertDateStepResult e InsertTimeStep: El resultado de Ingresar fecha y hora}
 InsertDateStepResult e InsertTimeStep tienen un objeto Date de Java que tiene la fecha o la hora según corresponda.
 
 
 
-\section{Definir un nuevo Step, StepFragment y StepResult} \label{sec:definir_steps}
+\subsection{Definir un nuevo Step, StepFragment y StepResult} \label{sec:definir_steps}
 Como se explicó en la sección \ref{sec:clases_core} un Step tiene los parámetros necesarios para que se ejecute un StepFragment y genere un  StepResult con la interacción del usuario.
 
 Para definir un nuevo Step personalizado, se debe definir también un StepFragment personalizado que sepa ejecutarlo y StepResult personalizado que contendrá el resultado de esa ejecución. A continuación se explica cómo definir cada uno de ellos.
 
-\subsection{Definir un nuevo Step}
+\subsubsection{Definir un nuevo Step}
 Para definir un nuevo Step personalizado se debe implementar la interface Step, la cual extiende Serializable y define los siguientes métodos que se deben implementar:
 
 \begin{itemize} 
@@ -336,7 +336,7 @@ Para definir un nuevo Step personalizado se debe implementar la interface Step, 
 \end{itemize}
 
 
-\subsection{Definir un nuevo StepFragment}
+\subsubsection{Definir un nuevo StepFragment}
 Para definir un nuevo StepFragment personalizado se debe extender la clase StepFragment, la cual es una clase abstracta que extiende de Fragment y define los siguientes métodos que se deben implementar:
 
 \begin{itemize} 
@@ -354,7 +354,7 @@ Para definir un nuevo StepFragment personalizado se debe extender la clase StepF
 
 \end{itemize}
 
-\subsection{Definir un nuevo StepResult}
+\subsubsection{Definir un nuevo StepResult}
 Para definir un nuevo StepResult personalizado se debe implementar la interface StepResult, la cual extiende Serializable y define los siguientes métodos que se deben implementar:
 
 \begin{itemize} 
