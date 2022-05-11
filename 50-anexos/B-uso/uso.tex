@@ -143,40 +143,21 @@ El archivo SamplersConfig.json es un archivo JSON con 3 objetos: project, applic
 		\item \textbf{package\_name}: Un String con el nombre del package usado para las activities de la aplicación. Es el package donde la activity MyMainSamplersActivity será agregada.
 	\end{itemize}
 	
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/json_project.png} 
     \caption{Ejemplo del objeto project.}
 \end{figure}	
+\end{comment}
 
 \begin{lstlisting}[language=XML, frame=tlbr, caption=Ejemplo del objeto project.]	
-{
-  "project" : {
-    "app_path" = "app/src/main/java/com/example/myApplication/"
-    "package_name" : "com.example.myApplication"
-  }
+"project" : {
+	"app_path" = "app/src/main/java/com/example/myApplication/"
+	"package_name" : "com.example.myApplication"
 }
 \end{lstlisting}
 
-\begin{lstlisting}[language=Java, frame=tlbr]	
-@Override
-protected void onCreate(Bundle savedInstanceState) {
-  super.onCreate(savedInstanceState);
-  
-  int uno = 12;
-  String dos = "Algun string medio largo";
-
-  NetworkConfiguration.setURL("http://192.168.1.10/samplers/upload.php");
-  NetworkConfiguration.setPARAM_NAME_SAMPLE("sample");
-  // Set the authentication params of the Network Configuration
-  NetworkConfiguration.setPARAM_NAME_USER_ID("user_id");
-  NetworkConfiguration.setPARAM_NAME_AUTHENTICATION_TYPE("authentication_type");
-
-  // Set the authenticationconfiguration
-  AuthenticationManager.setAuthenticationEnabled(true);
-  AuthenticationManager.setAuthenticationOptional(true);
-}
-\end{lstlisting}
 	
 \subsection{El objeto application}
 	El objeto application tiene 7 campos, de los cuales 3 son requeridos y los otros 4 opcionales (para habilitar características especiales)
@@ -213,12 +194,30 @@ protected void onCreate(Bundle savedInstanceState) {
 	
 	\end{itemize}
 	
-	
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/json_application.png} 
     \caption{Ejemplo del objeto application.}
 \end{figure}	
+\end{comment}
+
+\begin{lstlisting}[language=XML, frame=tlbr, caption=Ejemplo del objeto application.]
+"application": {
+	"title" : "App de prueba",
+	"welcomeMessage" : "Bienvenido a la app de prueba!",
+	"networkConfiguration" : {
+		"url" : "http://192.168.1.10/samplers/upload.php",
+		"paramName" : "sample",
+		"paramNameUserId" : "user_id",
+		"paramNameAuthenticationType" : "authentication_type"
+	},
+	"authenticationEnabled" : true,
+	"authenticationOptional" : true,
+	"googleMaps_API_KEY" : "your_google_maps_API_KEY",
+	"mainHelpFileName" : "mainhelp.html"
+}
+\end{lstlisting}
 	
 	
 \subsection{El objeto workflow}
@@ -234,13 +233,64 @@ protected void onCreate(Bundle savedInstanceState) {
 	
 	\end{itemize}	
 	
-	
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/json_workflow.png} 
     \caption{Ejemplo del objeto workflow.}
 \end{figure}	
+\end{comment}
 		
+
+\begin{lstlisting}[language=XML, frame=tlbr, caption=Ejemplo del objeto workflow.]	
+"workflow": {
+	"actionLabel" : "Tomar muestra",
+	"steps": [
+		{
+			"id" : 1,
+			"type" : "Information",
+			"text" : "Por favor, siga las instrucciones",
+			"nextStepId" : 2
+		},
+		{
+			"id" : 2,
+			"type" : "Location",
+			"text" : "Posicione la muestra en el mapa",
+			"nextStepId" : 3
+		},
+		{
+			"id" : 3,
+			"type" : "Photo",
+			"text" : "Tome una foto del lugar",
+			"nextStepId" : 4,
+			"helpFileName" : "photohelp.html"
+		},      
+		{
+			"id" : 4,
+			"type": "MultipleSelect",
+			"title" : "Seleecione las cosas que ve",
+			"options" : [
+				{
+					"id":1,
+					"text":"Arboles"
+				},
+				{
+					"id":2,
+					"text":"Basura"
+				},
+				{
+					"id":3,
+					"text":"Agua"
+				},
+				{
+					"id":4,
+					"text":"Animales"
+				}          
+			]
+		}
+	]
+}
+\end{lstlisting}
 
 
 
@@ -270,20 +320,55 @@ Samplers permite dos formas de mostrar ayuda:
 \subsection{Ayuda general}
 Para configurar la ayuda general se debe completar el atributo \textit{mainHelpFileName} del objeto \textit{application} con el nombre del archivo HTML que contiene la ayuda que se quiere mostrar. El archivo HTML debe estar ubicado junto con el archivo SamplersConfig.json.
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/json_application_ayuda.png} 
     \caption{Ejemplo de configuración de ayuda general.}
 \end{figure}	
+\end{comment}
+
+\begin{lstlisting}[language=XML, frame=tlbr, caption=Ejemplo de configuración de ayuda general (línea 13).]
+"application": {
+	"title" : "App de prueba",
+	"welcomeMessage" : "Bienvenido a la app de prueba!",
+	"networkConfiguration" : {
+		"url" : "http://192.168.1.10/samplers/upload.php",
+		"paramName" : "sample",
+		"paramNameUserId" : "user_id",
+		"paramNameAuthenticationType" : "authentication_type"
+	},
+	"authenticationEnabled" : true,
+	"authenticationOptional" : true,
+	"googleMaps_API_KEY" : "your_google_maps_API_KEY",
+	"mainHelpFileName" : "mainhelp.html"
+}
+\end{lstlisting}
 
 \subsection{Ayuda puntual para cada Step}
 Para configurar la ayuda para un Step se debe completar el atributo \textit{helpFileName} del objeto \textit{step} con el nombre del archivo HTML que contiene la ayuda que se quiere mostrar. El archivo HTML debe estar ubicado junto con el archivo SamplersConfig.json.
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/json_step_ayuda.png} 
     \caption{Ejemplo de configuración de ayuda en un Step.}
 \end{figure}	
+\end{comment}
+
+\begin{lstlisting}[language=XML, frame=tlbr, caption=Ejemplo de configuración de ayuda en un Step (línea 9).]	
+"workflow": {
+	"actionLabel" : "Tomar muestra",
+	"steps": [
+		{
+			"id" : 1,
+			"type" : "Photo",
+			"text" : "Tome una foto del lugar",
+			"nextStepId" : 2,
+			"helpFileName" : "photohelp.html"
+		},      
+...		
+\end{lstlisting}
 
 
 \section{Usando identificación} \label{sec:usando_autenticacion}
@@ -313,22 +398,60 @@ Para usar identificación usando el generador de clases de Gradle, es necesario 
 
 \end{itemize}
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/identificacion.png} 
     \caption{Ejemplo del objeto application configurado para usar identificación.}
 \end{figure}	
+\end{comment}
+
+\begin{lstlisting}[language=XML, frame=tlbr, caption=Ejemplo del objeto application configurado para usar identificación (líneas 7\, 8\, 10 y 11).]
+"application": {
+	"title" : "App de prueba",
+	"welcomeMessage" : "Bienvenido a la app de prueba!",
+	"networkConfiguration" : {
+		"url" : "http://192.168.1.10/samplers/upload.php",
+		"paramName" : "sample",
+		"paramNameUserId" : "user_id",
+		"paramNameAuthenticationType" : "authentication_type"
+	},
+	"authenticationEnabled" : true,
+	"authenticationOptional" : true,
+	"googleMaps_API_KEY" : "your_google_maps_API_KEY",
+	"mainHelpFileName" : "mainhelp.html"
+}
+\end{lstlisting}
 
 
 \subsection{Configurar identificación manualmente} \label{sec:identificacion_manual}
 
 Para usar identificación cuando se usan las clases directamente, es necesario definir la configuración de red y de identificación en el método \textbf{onCreate()} de la activity principal:
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/identificacion_manual.png} 
     \caption{Ejemplo de configuración de identificación en el método onCreate.}
 \end{figure}	
+\end{comment}
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=Ejemplo de configuración de identificación en el método onCreate.]	
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+
+	// Establecer la configuración de red
+	NetworkConfiguration.setURL("http://192.168.1.10/samplers/upload.php");
+	NetworkConfiguration.setPARAM_NAME_SAMPLE("sample");
+	
+	// Establecer la configuración para usar Identificación
+	NetworkConfiguration.setPARAM_NAME_USER_ID("user_id");
+	NetworkConfiguration.setPARAM_NAME_AUTHENTICATION_TYPE("authentication_type");	
+	AuthenticationManager.setAuthenticationEnabled(true);
+	AuthenticationManager.setAuthenticationOptional(true);
+}
+\end{lstlisting}
 
 
 \subsection{Usando un método de identificación propio} \label{sec:usar_auth_propia}
@@ -340,20 +463,44 @@ Con Samplers también se puede usar un método de identificación propio, defini
 
 Es necesario crear un fragment que herede de LoginFragment, y configurar la clase AuthenticationManager para que lo use, llamando al método setLoginFragmentClass() dentro del método onCreate() de la ativity principal:
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/identificacion_propio_configurar.png} 
     \caption{Ejemplo de como configurar un LoginFragment propio.}
 \end{figure}	
+\end{comment}
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=Ejemplo de como configurar un LoginFragment propio (línea 6).]	
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+	super.onCreate(savedInstanceState);
+
+	// Configurar AuthenticationManager para que use un LoginFragment propio
+	AuthenticationManager.setLoginFragmentClass(MyCustomLoginFragment.class);
+  
+	// resto de las configuraciones
+	// ...
+}
+\end{lstlisting}
 
 
 El proceso de login y la interacción con las APIs responsabilidad del desarrollador, pero después de que el usuario inicia sesión en la API seleccionada, es necesario llamar al método login() en la clase AuthenticationManager y al método onLogin() en el objeto mListener heredado:
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/identificacion_loginOk.png} 
     \caption{Ejemplo de como llamar al método onLogin.}
 \end{figure}	
+\end{comment}
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=Ejemplo de como llamar al método onLogin.]	
+if (loginOK) {
+	AuthenticationManager.login(user, getActivity().getApplicationContext());
+	mListener.onLogin(user);
+}
+\end{lstlisting}
 
 
 
@@ -361,11 +508,45 @@ El proceso de login y la interacción con las APIs responsabilidad del desarroll
 
 Es necesario crear una clase usuario propia que implemente la interfaz User por cada método de identificación que se use. Los objetos de dichas clases se usarán para llamar al método login() de la clase AuthenticationManager.
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/B-uso/identificacion_user_propio.png} 
     \caption{Ejemplo de una clase usuario propia.}
 \end{figure}	
+\end{comment}
+
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=Ejemplo de una clase usuario propia.]	
+public class EMailUser implements User {
+
+    public static final String AUTHENTICATION_TYPE = "email";
+
+    private String userName;
+    private String email;
+
+    public EMailUser(String userName, String email) {
+        this.userName = userName;
+        this.email = email;
+    }
+
+    @Override
+    public String getAuthenticationType() {
+        return AUTHENTICATION_TYPE;
+    }
+
+    @Override
+    public String getUserName() {
+        return userName;
+    }
+
+    @Override
+    public String getUserId() {
+        return email;
+    }
+
+}
+\end{lstlisting}
 
 
 
