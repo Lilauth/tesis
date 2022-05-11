@@ -28,27 +28,61 @@ En esta sección se describe como instalar el framework en Android Studio; se de
 	\item Agregar el repositorio de Google:
 	
 		En el archivo build.gradle del proyecto agregar: 
-			
+\end{enumerate}	
+		
+\begin{comment}	
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/A-instalacion/repositorio_google.png} 
    \caption{Configuración del repositorio de Google}
-\end{figure}				
+\end{figure}		
+\end{comment}
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=Configuración del repositorio de Google(línea 4)]
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
+    }
+}
+\end{lstlisting}		
 							
 			
-
+\begin{enumerate}
+  \setcounter{enumi}{3}
 	\item Agregar las dependencias necesarias:
 	
 	En el archivo build.gradle de la aplicación agregar: 
 	
+\end{enumerate}	
+	
+\begin{comment}	
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/A-instalacion/dependencias.png} 
    \caption{Configuración de las dependencias necesarias}
 \end{figure}			
+\end{comment}
+
+\begin{lstlisting}[language=XML, frame=tlbr, caption=Configuración de la dependencia del framework (línea 11)]
+dependencies {
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+		exclude group: 'com.android.support', module: 'support-annotations'
+	})
+
+	implementation 'com.google.android.material:material:1.4.0'
+	testImplementation 'junit:junit:4.13.2'
+
+	// agregar la dependencia del framework Samplers
+	compile project(":samplersFramework")
+}
+\end{lstlisting}	
+			
 			
 
-
+\begin{enumerate}
+  \setcounter{enumi}{4}
 	\item Instanciar:
 
 	La instanciación puede ser manual o usando el generador de clases en Gradle como se explica en la siguiente sección.
