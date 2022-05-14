@@ -236,17 +236,59 @@ Cada objeto MultipleSelectOption tiene un id, textToShow.
 Las opciones disponibles para seleccionar se muestran en pantalla en forma de check-boxes.
 
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/multiple_select_json.png} 
     \caption{MultipleSelectStep usando el generador de clases.}
 \end{figure}	
+\end{comment}
 
+\clearpage
+
+\begin{lstlisting}[language=XML, frame=tlbr, caption=MultipleSelectStep usando el generador de clases.]	
+{
+	"id": 1,
+	"type": "MultipleSelect",
+	"title" : "Seleccione lo que observa",
+	"options": [{
+					"id": 1,
+					"text": "Árboles"
+				}, {
+					"id": 2,
+					"text": "Basura"
+				}, {
+					"id": 3,
+					"text": "Agua"
+				}, {
+					"id": 4,
+					"text": "Animales"
+				}],
+	"nextStepId": 2
+}
+\end{lstlisting}
+
+
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/multiple_select_java.png} 
     \caption{MultipleSelectStep en Java.}
 \end{figure}
+\end{comment}
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=MultipleSelectStep en Java.]	
+ArrayList<MultipleSelectOption> optionsToSelect = new ArrayList<MultipleSelectOption>();
+optionsToSelect.add(new MultipleSelectOption(1,"Árboles"));
+optionsToSelect.add(new MultipleSelectOption(2,"Basura"));
+optionsToSelect.add(new MultipleSelectOption(3,"Agua"));
+optionsToSelect.add(new MultipleSelectOption(4,"Animales"));
+
+Step step = new MultipleSelectStep(1, optionsToSelect,          "Seleccione lo que observa", 2);
+workflow.addStep(step);
+\end{lstlisting}
+
+
 
 \begin{figure}[H]
   \centering
@@ -267,17 +309,41 @@ LocationStep se usa para solicitarle al científico ciudadano que tome la posici
 
 Permite usar el GPS o posicionar la muestra manualmente en el mapa.
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/location_json.png} 
     \caption{LocationStep usando el generador de clases.}
 \end{figure}	
+\end{comment}
 
+\clearpage
+
+\begin{lstlisting}[language=XML, frame=tlbr, caption=LocationStep usando el generador de clases.]	
+{
+	"id": 1,
+	"type": "Location",
+	"text": "Por favor posicione la muestra en el mapa",
+	"nextStepId": 2
+}
+\end{lstlisting}
+
+
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/location_java.png} 
     \caption{LocationStep en Java.}
 \end{figure}
+\end{comment}
+
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=LocationStep en Java.]	
+Step step = new LocationStep(1,"Por favor posiciones la muestra en el mapa",2);
+workflow.addStep(step);
+\end{lstlisting}
+
+
 
 \begin{figure}[H]
   \centering
@@ -301,18 +367,44 @@ LocationStep se usa para solicitarle al científico ciudadano que grabe un recor
 \item \textbf{mapZoom:} [Opcional] el zoom con el que se muestra el mapa. Si no se especifica el valor por defecto es 15.
 \end{itemize}
 
-
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/route_json.png} 
     \caption{RouteStep usando el generador de clases.}
 \end{figure}	
+\end{comment}
 
+
+\begin{lstlisting}[language=XML, frame=tlbr, caption=RouteStep usando el generador de clases.]	
+{
+	"id": 1,
+	"type": "Route",
+	"text": "Inicie el recorrido cuando este listo",
+	"interval": 30000,
+	"mapZoom": 20,
+	"nextStepId": 2
+}
+\end{lstlisting}
+
+
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/route_java.png} 
     \caption{RouteStep en Java.}
 \end{figure}
+\end{comment}
+
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=RouteStep en Java.]	
+RouteStep step = new RouteStep(1,"Inicie el recorrido cuendo esté listo",2);
+step.setInterval(30000);
+step.setMapZoom(20);
+workflow.addStep(step);
+\end{lstlisting}
+
+
 
 \begin{figure}[H]
   \centering
@@ -341,17 +433,45 @@ InsertTextStep se usa para solicitarle al científico ciudadano que ingrese una 
 \item \textbf{optional:} un booleano que indica si se puede dejar vacío (true) o si es obligatorio que ingrese una anotación (false).
 \end{itemize}
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/insert_text_json.png} 
     \caption{InsertTextStep usando el generador de clases.}
 \end{figure}	
+\end{comment}
 
+
+\begin{lstlisting}[language=XML, frame=tlbr, caption=InsertTextStep usando el generador de clases.]	
+{
+	"id": 1,
+	"type": "InsertText",
+	"text": "Por favor, ingrese el nombre del lago",
+	"sampleText" : "Nombre del lago",
+	"inputType" : "text",
+	"maxLength" : 50,
+	"optional" : true,
+	"nextStepId": 2
+}
+\end{lstlisting}
+
+
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/insert_text_java.png} 
     \caption{InsertTextStep en Java.}
 \end{figure}
+\end{comment}
+
+
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=InsertTextStep en Java.]	
+Step step = new InsertTextStep(1,"Por favor, ingrese el nombre del lago","Nombre del lago",50, InsertTextStep.InputType.TYPE_TEXT, true,2);
+workflow.addStep(step);
+\end{lstlisting}
+
+
 
 \begin{figure}[H]
   \centering
@@ -371,17 +491,53 @@ InsertTextStepResult contiene el String con la anotación ingresada.
 InsertDateStep e InsertTimeStep se usan para solicitarle al científico ciudadano que ingrese una fecha y una hora respectivamente. Tienen un texto que se muestran a modo de instrucciones o mensaje.
 
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/insert_date_time_json.png} 
     \caption{InsertDateStep e InsertTimeStep usando el generador de clases.}
 \end{figure}	
+\end{comment}
 
+\clearpage
+
+\begin{lstlisting}[language=XML, frame=tlbr, caption=InsertDateStep e InsertTimeStep usando el generador de clases.]	
+{
+{
+	"id": 1,
+	"type": "InsertDate",
+	"text": "Ingrese la fecha que encontró el mosquito",
+	"nextStepId": 2
+},
+{
+	"id": 2,
+	"type": "InsertTime",
+	"text": "Ingrese la hora que encontró el mosquito",
+	"nextStepId": 3
+}	
+
+}
+\end{lstlisting}
+
+
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{50-anexos/C-steps/insert_date_time_java.png} 
     \caption{InsertDateStep e InsertTimeStep en Java.}
 \end{figure}
+\end{comment}
+
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=InsertDateStep e InsertTimeStep en Java.]	
+Step step = new InsertDateStep(1,"Ingrese la fecha que encontró el mosquito",2);
+workflow.addStep(step);
+
+step = new InsertTimeStep(2,"Ingrese la hora que encontró el mosquito",3);
+workflow.addStep(step);
+
+\end{lstlisting}
+
 
 \begin{figure}[H]
   \centering
