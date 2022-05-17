@@ -62,13 +62,64 @@ Por ejemplo, si se desea crear una aplicación para hacer un relevamiento de las
 
 \end{enumerate}
 
-Para representar este protocolo de recolección se debería configurar el Workflow en el archivo de configuración para Samplers de la siguiente manera: 
+Para representar este protocolo de recolección se debería configurar el Workflow en el archivo de configuración para Samplers como se muestra en el código \ref{codigo:app_ejemplo} 
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[width=\textwidth]{05-implementacion/archivo_config_app_ejemplo.png} 
    \caption{Archivo de configuración para Samplers de la app ejemplo}
 \end{figure}
+\end{comment}
+
+\clearpage
+
+\begin{lstlisting}[language=XML, frame=tlbr, label={codigo:app_ejemplo}, caption=Archivo de configuración para Samplers de la app ejemplo.]
+{
+	"project": {
+		"app_path": "app/src/main/java/com/example/myApplication/",
+		"package_name": "com.example.myApplication"
+	},
+	"application": {
+		"title": "App de prueba",
+		"welcomeMessage": "Bienvenido a la app de prueba!",
+		"networkConfiguration": {
+			"url": "https://192.168.0.10/samplers/upload.php",
+			"paramName": "sample",
+		},
+		"googleMaps_API_KEY": "YOUR_GOOGLE_KEY"
+	},
+	"workflow": {
+		"actionLabel": "Tomar muestra",
+		"steps": [
+			{
+				"id": 1,
+				"type": "Information",
+				"text": "El mosquito Aedes Aegypti tiene estas características: \n 1) Es negro\n 2) Tiene rayas blancas en cuerpo y patas",
+				"nextStepId": 2,
+				"helpFileName": "mosquito_help.html"				
+			}, 
+			{
+				"id": 2,
+				"type": "Photo",
+				"text": "Tome una foto del mosquito desde arriba",
+				"nextStepId": 3
+			},			
+			{
+				"id": 3,
+				"type": "Photo",
+				"text": "Tome una foto del mosquito desde un costado",
+				"nextStepId": 4
+			},
+			{
+				"id": 4,
+				"type": "Location",
+				"text": "Posicione la muestra en el mapa"
+			}
+		]
+	}
+}
+\end{lstlisting}
 
 
 Con este archivo de configuración, Samplers generará el código necesario para la app, que al compilarla y ejecutarla en un dispositivo móvil Android se verá como muestra la siguiente imagen:
@@ -206,11 +257,25 @@ Como se mencionó antes, Samplers también puede ser usado por una persona con c
 
 Básicamente se tiene que instanciar la clase Workflow y agregarle instancias de los diferentes Steps que se quieran usar. Luego, en el método «onClick» de algún botón, iniciar la Activity TakeSampleActivity pasándole como parámetro la instancia de Workflow creada. De esta forma, cuando se presione dicho botón, Samplers se encargará te tomar la muestra, guardarla en el dispositivo móvil y enviarla al servidor cuando haya conexión wifi.
 
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.6]{05-implementacion/take_sample_click.png} 
    \caption{Ejemplo de como iniciar la activity TakeSampleActivity instanciando las clases.}
 \end{figure}	
+\end{comment}
+
+
+\begin{lstlisting}[language=Java, frame=tlbr, caption=Ejemplo de como iniciar la activity TakeSampleActivity instanciando las clases.]
+public void takeSampleClick(View view) {
+	Intent intent = new Intent(this, TakeSampleActivity.class);  
+	
+	Workflow workflow = getWorkflow();       
+	intent.putExtra(TakeSampleActivity.EXTRA_WORKFLOW, workflow);
+	
+	startActivity(intent);
+}		
+\end{lstlisting}
 
 El detalle de como usar las clases y establecer las configuraciones adicionales se explican en la sección \ref{sec:instanciacion_manual}.
 
