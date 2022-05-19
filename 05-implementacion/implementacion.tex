@@ -255,7 +255,7 @@ El detalle de todos los parámetros, como configurar el archivo de configuració
 \subsection{Usando las clases} \label{sec:usando_las_clases}
 Como se mencionó antes, Samplers también puede ser usado por una persona con conocimientos de programación en una app que se encuentre en desarrollo, como si fuera una librería que se incluye al proyecto y permite usar sus clases. 
 
-Básicamente se tiene que instanciar la clase Workflow y agregarle instancias de los diferentes Steps que se quieran usar. Luego, en el método «onClick» de algún botón, iniciar la Activity TakeSampleActivity pasándole como parámetro la instancia de Workflow creada. De esta forma, cuando se presione dicho botón, Samplers se encargará te tomar la muestra, guardarla en el dispositivo móvil y enviarla al servidor cuando haya conexión wifi.
+Básicamente se tiene que instanciar la clase Workflow y agregarle instancias de los diferentes Steps que se quieran usar. Luego se debe  iniciar la Activity TakeSampleActivity pasándole como parámetro la instancia de Workflow creada. Ésto se puede hacer por ejemplo en el método «onClick» de un botón; de esta forma, cuando se presione dicho botón, Samplers se encargará te tomar la muestra, guardarla en el dispositivo móvil y enviarla al servidor cuando haya conexión wifi.
 
 \begin{comment}
 \begin{figure}[H]
@@ -315,7 +315,7 @@ El conjunto de todos los StepResults obtenidos después de ejecutar todos los St
 \subsubsection{Workflow: el protocolo de recolección de las muestras}
 La clase Workflow representa el protocolo de recolección de las muestras. Está formado por una colección de Steps, que representan los pasos a seguir para completar dicho protocolo, y un Step inicial que indica el inicio del mismo (el primer Step a ejecutar).
 
-El Workflow es el encargado de llevar el estado del paso en el que se encuentra, y posee métodos para obtener el siguiente Step (\textit{nextStep()}  que depende del Step actual) y el Step anterior (\textit{previuosStep()}  para lo que maneja una lista a modo de pila\footnote{Pila o stack en inglés, una lista ordenada con acceso a sus elementos de tipo «último en entrar, primero en salir»}).
+El Workflow es el encargado de llevar el estado del paso en el que se encuentra, y posee métodos para obtener el siguiente Step (\textit{nextStep()}  que depende del Step actual) y el Step anterior (\textit{previuosStep()}  para lo que maneja una lista a modo de pila -stack en inglés-).
 
 El Workflow se comporta de manera secuencial, puede ir hacia adelante o volver hacia atrás, pero esto no impide que pueda tener bifurcaciones, y así formar diferentes caminos para tomar la muestra. Por ejemplo, se le podría preguntar al científico ciudadano si observa una característica particular al momento de tomar la muestra, y si la observa solicitarle que tome una foto de la misma, pero en caso contrario se puede omitir el paso de la foto.
 

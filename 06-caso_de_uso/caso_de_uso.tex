@@ -28,11 +28,261 @@ A continuación se muestra como sería AppEAR usando Samplers.
 
 Observando el Workflow planteado en la figura \ref{img_grafo_appear}, se genera el archivo de configuración para Samplers de la siguiente manera:
 
+\begin{comment}
 \begin{figure}[H]\label{img_archivo_configuracion_appear}
   \centering
    \includegraphics[scale=0.3]{06-caso_de_uso/archivo_configuracion.png} 
     \caption{Archivo de configuración para Samplers para generar una app equivalente a AppEAR}
 \end{figure}
+\end{comment}
+
+
+\begin{lstlisting}[language=XML, escapechar=\% , frame=tlbr, label={codigo:archivo_configuracion_appear}, caption=Archivo de configuración para Samplers para generar una app equivalente a AppEAR.]
+{
+	"project": {
+		"app_path": "app/src/main/java/com/example/AppEAR/",
+		"package_name": "com.example.AppEAR"
+	},
+	"application": {
+		"title": "AppEAR",
+		"welcomeMessage": "Analiza el ambiente acuático",
+		"networkConfiguration": {
+			"url": "https://192.168.0.10/samplers/upload.php",
+			"paramName": "sample",
+
+		},
+		"googleMaps_API_KEY": "AIzaSyBSdAX453WDiPJmPotssakUQNQw_W_MzJ4",
+		"mainHelpFileName": "mainhelp.html"
+	},
+	"workflow": {
+		"actionLabel": "Analizar",
+		"steps": [
+			{
+				"id": 1,
+				"type": "InsertText",
+				"text": "Escriba el nombre del lugar si lo conoce",
+				"sampleText" : "Nombre del lugar",
+				"inputType" : "text",
+				"maxLength" : 50,
+				"optional" : true,
+				"nextStepId": 2
+			},
+			{
+				"id": 2,
+				"type": "Location",
+				"text": "Posicione el lugar en el mapa",
+				"nextStepId": 3
+			},%\newpage%
+			{
+				"id": 3,
+				"type": "SelectOne",
+				"title": "%\highlightcode{SteelBlue}{\mbox{¿}}%Qué tipo de ambiente es?",
+				"options": [{
+						"id": 1,
+						"text": "Río de llanura",
+						"nextStepId": 4
+					}, {
+						"id": 2,
+						"text": "Río de monta%\highlightcode{SteelBlue}{\mbox{ñ}}%a",
+						"nextStepId": 4
+					}, {
+						"id": 3,
+						"text": "Estuario/Playa",
+						"nextStepId": 6
+					},
+					{
+						"id": 4,
+						"text": "Laguna",
+						"nextStepId": 6
+					}]
+			},
+			{
+				"id": 4,
+				"type": "SelectOne",
+				"title": "%\highlightcode{SteelBlue}{\mbox{¿}}%Está canalizado o entubado?",
+				"options": [{
+						"id": 1,
+						"text": "Entubado/canalizado",
+						"nextStepId": 5
+					}, {
+						"id": 2,
+						"text": "Sin entubar/canalizar",
+						"nextStepId": 5
+					}, {
+						"id": 3,
+						"text": "No lo sé",
+						"nextStepId": 5
+					}]
+			},%\newpage%
+			{
+				"id": 5,
+				"type": "SelectOne",
+				"title": "%\highlightcode{SteelBlue}{\mbox{¿}}%Está desbordado el cauce?",
+				"options": [{
+						"id": 1,
+						"text": "Desbordado",
+						"nextStepId": 8
+					}, {
+						"id": 2,
+						"text": "Sin desbordar",
+						"nextStepId": 8
+					}, {
+						"id": 3,
+						"text": "No lo sé",
+						"nextStepId": 8
+					}]
+			},	
+			{
+				"id": 6,
+				"type": "SelectOne",
+				"title": "%\highlightcode{SteelBlue}{\mbox{¿}}%Hay campings en la costa cerca tuyo?",
+				"options": [{
+						"id": 1,
+						"text": "Hay campings o casillas",
+						"nextStepId": 7
+					}, {
+						"id": 2,
+						"text": "Sin campings ni casillas",
+						"nextStepId": 7
+					}, {
+						"id": 3,
+						"text": "No lo sé",
+						"nextStepId": 7
+					}]
+			},%\newpage%
+			{
+				"id": 7,
+				"type": "SelectOne",
+				"title": "%\highlightcode{SteelBlue}{\mbox{¿}}%Hay juncales o pajonales?",
+				"options": [{
+						"id": 1,
+						"text": "Si, muchos",
+						"nextStepId": 8
+					}, {
+						"id": 2,
+						"text": "Si, pocos",
+						"nextStepId": 8
+					}, {
+						"id": 3,
+						"text": "No, sin juncales ni pajonales",
+						"nextStepId": 8
+					}, {
+						"id": 4,
+						"text": "No lo sé",
+						"nextStepId": 8
+					}]
+			},	
+			{
+				"id": 8,
+				"type": "SelectOne",
+				"title": "%\highlightcode{SteelBlue}{\mbox{¿}}%Hay ganado cerca del sitio?",
+				"options": [{
+						"id": 1,
+						"text": "Mucho, junto",
+						"nextStepId": 9
+					}, {
+						"id": 2,
+						"text": "Mucho, disperso",
+						"nextStepId": 9
+					}, {
+						"id": 3,
+						"text": "Poco",
+						"nextStepId": 9
+					}, {
+						"id": 4,
+						"text": "No hay ganado",
+						"nextStepId": 9
+					}, {
+						"id": 5,
+						"text": "No lo sé",
+						"nextStepId": 9
+					}]
+			},%\newpage%
+			{
+				"id": 9,
+				"type": "SelectOne",
+				"title": "%\highlightcode{SteelBlue}{\mbox{¿}}%Cómo son los árboles?",
+				"options": [{
+						"id": 1,
+						"text": "Árboles poco variados",
+						"nextStepId": 10
+					}, {
+						"id": 2,
+						"text": "Árboles muy variados",
+						"nextStepId": 10
+					}, {
+						"id": 3,
+						"text": "Sin árboles",
+						"nextStepId": 10
+					}, {
+						"id": 4,
+						"text": "No lo sé",
+						"nextStepId": 10
+					}]
+			},
+			{
+				"id": 10,
+				"type": "SelectOne",
+				"title": "%\highlightcode{SteelBlue}{\mbox{¿}}%Es transparente el agua?",
+				"options": [{
+						"id": 1,
+						"text": "Clara",
+						"nextStepId": 11
+					}, {
+						"id": 2,
+						"text": "Marrón",
+						"nextStepId": 11
+					}, {
+						"id": 3,
+						"text": "Oscura",
+						"nextStepId": 11
+					}, {
+						"id": 4,
+						"text": "No lo sé",
+						"nextStepId": 11
+					}]
+			},%\newpage%
+			{
+				"id": 11,
+				"type": "SelectOne",
+				"title": "%\highlightcode{SteelBlue}{\mbox{¿}}%Tiene mal olor?",
+				"options": [{
+						"id": 1,
+						"text": "No tiene olor",
+						"nextStepId": 12
+					}, {
+						"id": 2,
+						"text": "Tiene feo olor",
+						"nextStepId": 12
+					}, {
+						"id": 3,
+						"text": "No lo sé",
+						"nextStepId": 12
+					}]
+			},
+			{
+				"id": 12,
+				"type": "SelectOne",
+				"title": "%\highlightcode{SteelBlue}{\mbox{¿}}%Hay basura en la costa?",
+				"options": [{
+						"id": 1,
+						"text": "No hay"
+					}, {
+						"id": 2,
+						"text": "Poca"
+					}, {
+						"id": 3,
+						"text": "Mucha"
+					}, {
+						"id": 4,
+						"text": "No lo sé"
+					}]
+			}
+		]
+	}
+}
+\end{lstlisting}
+
 
 Una vez completado el archivo de configuración, se ejecuta Samplers y se genera la app.
 
@@ -97,5 +347,7 @@ Analizando y comparando ambas aplicaciones móviles, podemos ver algunas diferen
     \caption{Izquierda: mapa con problemas de visualización (AppEAR). Derecha:  mapa que se muestra correctamente (Samplers)}
 \end{figure}
 
-Más allá de las diferencias encontradas, la app generada por Samplers es funcionalmente equivalente a AppEAR y sirve para recolectar las muestras que necesita el proyecto. La ventaja principal de Samplers es que no se requieren conocimientos de programación para generar la app, sólo hay que completar el archivo JSON que se muestra en la figura \ref{img_archivo_configuracion_appear}, lo que también reduce considerablemente el tiempo de desarrollo de la app. Además como Samplers genera el código de la app, la misma se puede editar para personalizarla y agregarle más funcionalidades, por lo que puede ser usada por un programador como punto de partida de un proyecto.
+Más allá de las diferencias encontradas, la app generada por Samplers es funcionalmente equivalente a AppEAR y sirve para recolectar las muestras que necesita el proyecto. La ventaja principal de Samplers es que no se requieren conocimientos de programación para generar la app, sólo hay que completar el archivo JSON que se muestra en el código \ref{codigo:archivo_configuracion_appear}, lo que también reduce considerablemente el tiempo de desarrollo de la app. Además como Samplers genera el código de la app, la misma se puede editar para personalizarla y agregarle más funcionalidades, por lo que puede ser usada por un programador como punto de partida de un proyecto.
+
+
 
