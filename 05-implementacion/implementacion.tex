@@ -33,9 +33,9 @@ También se debe contemplar algún mecanismo de identificación del usuario que 
 En un principio, Samplers se pensó para que un científico pudiera crear su propia aplicación móvil de ciencia ciudadana sin tener conocimientos de programación. 
 La idea inicial era que, mediante una aplicación web, el científico pudiera armar el protocolo de recolección de las muestras de manera visual e intuitiva, y se generara un archivo de configuración para el framework de este trabajo: Samplers. 
 Con el archivo de configuración se pasaría a Samplers y se generaría la app para Android (el archivo APK para instalarla). 
-Pero de esta forma el alcance de la tesis era muy grande, por lo que se decidió quitar la parte de la aplicación web y suponer que el archivo de configuración ya viene armado.
+En este trabajo se presenta una solución que supone que el archivo de configuración ya viene armado, y se plantea la aplicación web que genera dicho archivo como un trabajo a futuro.
 
-Como se mencionó antes se requerían aplicaciones nativas, pero abarcar los 3 sistemas operativos móviles más usados en ese momento (Android, iOS y Windows Phone) era mucho para el alcance de esta tesis, por lo que se decidió optar por Android, que era el sistema operativo móvil más usado en ese momento. Según una estadística elaborada por Gartner Inc., empresa consultora y de investigación de las tecnologías de la información, sobre las ventas de smartphones a nivel mundial en el último trimestre de 2016\cite{gartner}, mas del 80\% de las mismas fueron de celulares con Android, y ese porcentaje fue creciendo hasta obtener una cuota del mercado del 88\% a nivel mundial a mediados de 2018. En la actualidad, en Argentina esa cuota de mercado es mas grande, llegando al 93\% según datos publicados por Carrier y Asociados, estudio profesional dedicado a la información y el análisis de mercado para productos y servicios vinculados a internet, en su reporte Mercado Celular Argentino 2019\cite{carrier}.
+Como se mencionó antes se requerían aplicaciones nativas, y de los 3 sistemas operativos móviles más usados en ese momento (Android, iOS y Windows Phone) se decidió optar por Android, que era el sistema operativo móvil más usado en ese momento, y se plantea como trabajo futuro el desarrollo en otras plataformas. Según una estadística elaborada por Gartner Inc., empresa consultora y de investigación de las tecnologías de la información, sobre las ventas de smartphones a nivel mundial en el último trimestre de 2016\cite{gartner}, mas del 80\% de las mismas fueron de celulares con Android, y ese porcentaje fue creciendo hasta obtener una cuota del mercado del 88\% a nivel mundial a mediados de 2018. En la actualidad, en Argentina esa cuota de mercado es mas grande, llegando al 93\% según datos publicados por Carrier y Asociados, estudio profesional dedicado a la información y el análisis de mercado para productos y servicios vinculados a internet, en su reporte Mercado Celular Argentino 2019\cite{carrier}.
 
 Para desarrollar aplicaciones móviles para la plataforma Android, el entorno de desarrollo integrado (IDE por sus siglas en inglés) oficial es Android Studio\cite{androidStudio}, por lo que Samplers utiliza el mismo para la generación de la app. Android Studio ha sido publicado de forma gratuita bajo Licencia Apache 2.0 y está disponible para las plataformas Microsoft Windows, MacOS y GNU/Linux.
 
@@ -87,7 +87,7 @@ Para representar este protocolo de recolección se debería configurar el Workfl
 			"url": "https://192.168.0.10/samplers/upload.php",
 			"paramName": "sample",
 		},
-		"googleMaps_API_KEY": "YOUR_GOOGLE_KEY"
+		"googleMaps_API_KEY": "YOUR_GOOGLE_API_KEY"
 	},
 	"workflow": {
 		"actionLabel": "Tomar muestra",
@@ -241,11 +241,73 @@ El objeto workflow se usa justamente para configurar el Workflow (el protocolo d
 \end{itemize}
 
 En la siguiente imagen se muestra un ejemplo del archivo de configuración para Samplers.
+
+
+\begin{comment}
 \begin{figure}[H]
   \centering
     \includegraphics[width=\textwidth]{05-implementacion/archivo_config_ejemplo.png} 
    \caption{Ejemplo de un archivo de configuración para Samplers}
 \end{figure}
+\end{comment}
+
+\begin{lstlisting}[language=XML, frame=tlbr, label={codigo:app_ejemplo}, caption=Ejemplo de un archivo de configuración para Samplers.]
+{
+	"project": {
+		"app_path": "app/src/main/java/com/example/myApplication/",
+		"package_name": "com.example.myApplication"
+	},
+	"application": {
+		"title": "App de prueba",
+		"welcomeMessage": "Bienvenido a la app de prueba!",
+		"networkConfiguration": {
+			"url": "https://192.168.0.10/samplers/upload.php",
+			"paramName": "sample"
+		},
+		"googleMaps_API_KEY": "YOUR_GOOGLE_API_KEY",
+		"mainHelpFileName": "mainhelp.html"
+	},
+	"workflow": {
+		"actionLabel": "Tomar muestra",
+		"steps": [
+			{
+				"id": 1,
+				"type": "Information",
+				"text": "Por favor siga las instrucciones",
+				"nextStepId": 2
+			}, 
+			{
+				"id": 2,
+				"type": "Location",
+				"text": "Posicione la muestra en el mapa",
+				"nextStepId": 3
+			}, 
+			{
+				"id": 3,
+				"type": "Photo",
+				"text": "Tome una foto del lugar",
+				"nextStepId": 4,
+				"helpFileName": "photohelp.html"
+			},
+			{
+				"id": 4,
+				"type": "MultipleSelect",
+				"title": "Seleccione las cosas que ve",
+				"options": [{
+						"id": 1,
+						"text": "Arboles"
+					}, {
+						"id": 2,
+						"text": "Basura"
+					}, {
+						"id": 3,
+						"text": "Agua"
+					}]
+			}
+		]
+	}
+}
+\end{lstlisting}
 
 Una vez configurado el archivo, Samplers generará una Activity principal para la app que tendrá todas las configuraciones del objeto application y que usará el Workflow configurado para llamar a la Activity encargada de tomar las muestras (TakeSampleActivity) cuando el científico ciudadano presione el botón para tomar una muestra.
 
