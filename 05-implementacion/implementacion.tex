@@ -48,7 +48,7 @@ La app generada contiene, entre otras cosas, una Activity principal que muestra 
 
 Para configurar el Workflow y los demás parámetros que necesita Samplers para generar la app, se debe completar un archivo de configuración llamado SamplersConfig.json.
 
-Por ejemplo, si se desea crear una aplicación para hacer un relevamiento de las zonas con presencia del mosquito transmisor del Dengue (Aedes Aegypti), solicitando a los científicos ciudadanos que tomen fotos de los mosquitos que encuentren con las características del mosquito Aedes Aegypti, junto con la posición del GPS del dispositivo móvil. De esta manera se podría identificar al mosquito con la foto, y con la posición GPS armar un mapa de los avistajes. Para recolectar estas muestras se podría definir el protocolo de recolección de la siguiente manera:
+Por ejemplo, si se desea hacer un relevamiento de las zonas con presencia del mosquito transmisor del Dengue (Aedes Aegypti), se puede crear una aplicación móvil para solicitar a los científicos ciudadanos que tomen fotos de los mosquitos que encuentren con las características de dicho mosquito. Además de la foto, también se puede solicitar la posición del GPS del dispositivo móvil. De esta manera se podría identificar al mosquito con la foto, y con la posición GPS armar un mapa de los avistajes. Para recolectar estas muestras se podría definir el protocolo de recolección de la siguiente manera:
 
 \begin{enumerate}
 
@@ -120,6 +120,8 @@ Para representar este protocolo de recolección se debería configurar el Workfl
 	}
 }
 \end{lstlisting}
+
+El código \ref{codigo:app_ejemplo} muestra el archivo de configuración para Samplers. Si bien el detalle de como se configura este archivo se explica en la sección \ref{sec:archivo_configuracion}, en la línea 15 se puede observar como se define el Workflow y los Steps que lo conforman. El primer Step (línea 18) muestra un texto de información al científico ciudadano. Los Steps 2 y 3 (líneas 25 y 31) le solicitan tomar una foto desde arriba y desde un costado, y el último Step (línea 37) le solicita la posición de la muestra.
 
 
 Con este archivo de configuración, Samplers generará el código necesario para la app, que al compilarla y ejecutarla en un dispositivo móvil Android se verá como muestra la siguiente imagen:
