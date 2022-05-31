@@ -60,30 +60,7 @@
     rulecolor=\color{Gray}
 }
 
-
-% TODO ESTO es para poder poner el signo de pregunta que abre adentro del codigo ---------------------------------------------
-
-% some listings shenanigans to have access to the current listings style
-% within an escape to LaTeX
-\makeatletter
-\newcommand\currentStyle@lstparam{}
-\lst@AddToHook{Output}{\global\let\currentStyle@lstparam\lst@thestyle}
-\lst@AddToHook{OutputOther}{\global\let\currentStyle@lstparam\lst@thestyle}
-\makeatother
-
-\makeatletter
-% Usage: \highlightcode{color}{content}
-\newcommand{\highlightcode}[2]{\currentStyle@lstparam \textcolor{#1}{#2}}
-\makeatother
-
-% HASTA ACA -----------------------------------------------------------------------------------------------------------------------------------------------
-
-\lstset{
-style=mystyle,
-inputencoding=utf8,
-extendedchars=true,
-}
-
+\lstset{style=mystyle}
 
 \renewcommand{\lstlistingname}{Código}
 
@@ -152,7 +129,7 @@ Javier
 \include{05-implementacion/implementacion}
 \include{50-anexos/B-uso/uso}
 \include{50-anexos/C-steps/steps}
-\include{06-caso_de_uso/caso_de_uso}
+%\include{06-caso_de_uso/caso_de_uso}
 \include{40-conclusion/conclusion}
 \include{50-anexos/anexos}
 \include{50-anexos/A-instalacion/instalacion}
