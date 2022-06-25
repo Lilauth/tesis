@@ -62,10 +62,10 @@ Project Noah permite participar de ‘Misiones’ que son lo que en Sensr sería
 La comunidad tiene miembros que son diferentes al usuario estándar. Se denominan «Rangers» y son los que se encargan de sugerir identificación de especies de otros avistajes, de dar la bienvenida a los nuevos miembros y de compartir avistajes de manera más regular. 
 
 \subsection{EpiCollect}
-Epicollect \cite{epicollect} es una aplicación web y mobile gratuita y fácil de utilizar para recolectar información. Los proyectos se crean utilizando el sitio web y luego se descarga una app a un dispositivo móvil para efectuar la recolección de información. 
+Epicollect \cite{epicollect} es una aplicación web y aplicación móvil gratuita y fácil de utilizar para recolectar información. Los proyectos se crean utilizando el sitio web y luego se descarga una app a un dispositivo móvil para efectuar la recolección de información. 
 La información (incluyendo GPS y multimedia) puede ser recolectada utilizando múltiples dispositivos y puede ser vista en un servidor central (utilizando mapas, tablas y gráficos).
 También puede ser exportada en formato cvs y json.
-La aplicación mobile está disponible para Android (6+) y iOS (12+)
+La aplicación móvil está disponible para Android (6+) y iOS (12+)
 
 Los usuarios pueden ingresar a la aplicación con su cuenta de Google, su cuenta de Apple o bien creando una cuenta con su correo electrónico. Para crear un proyecto se debe ingresar el nombre, una descripción, seleccionar el tipo de acceso entre público (cualquier usuario puede colaborar) o privado (sólo usuarios seleccionados por el administrador del proyecto pueden colaborar) y definir como mínimo un formulario para recolectar la información. Permite toda una variedad de ``preguntas“ que pueden ser de tipo texto, numérico, telefóno, foto, video, código de barras y varios tipos más entre los disponibles. Cada formulario de pregunta tiene una opción para conectar a la siguiente pregunta que permite formato condicional, es decir, en caso de que la respuesta cumpla determinadas condiciones se ejecuta un ``salto“ a un formulario determinado. En la edición del proyecto, permite modificar el tipo de acceso nuevamente, el estado, la visibilidad y permite asignarle una categoría entre las predefinidas.
 La información de las entradas de los usuarios se puede visualizar en una tabla, en un mapa o descargarse.
@@ -84,7 +84,7 @@ Una vez creado un proyecto de ciencia ciudadana, para que los colaboradores pued
 				\item Organismo 
 			\end{itemize}
 Cada una de estas opciones permiten su configuración particular. Por ejemplo, la opción Lista Desplegable permite definir un título, una ayuda en forma de pista que aparece, los items que componen la lista y si es opcional u obligatoria. Por cada una de las opciones que se agreguen a la recolección de la muestra la aplicación móvil genera un paso para que el ciudadano científico complete. Las plantillas definidas pueden modificarse y también pueden definirse otras plantillas de recolección de muestras.					 
-Una vez definidas las opciones requeridas para la recolectar una muestra, la información puede ingresarse por la aplicación web, o puede descargarse la aplicación móvil que provee CitSci para Android o Ios. La aplicación móvil permite que el ciudadano científico se una a los proyectos publicados o recolecte muestras en los proyectos que creó o a los que se unió. Las muestras que recolecta quedan en un listado de muestras donde por cada una tiene disponibles las acciones de editar, eliminar o subir la información a la plataforma.  		
+Una vez definidas las opciones requeridas para la recolectar una muestra, la información puede ingresarse por la aplicación web, o puede descargarse la aplicación móvil que provee CitSci para Android o Ios. La aplicación móvil permite que el científico ciudadano se una a los proyectos publicados o recolecte muestras en los proyectos que creó o a los que se unió. Las muestras que recolecta quedan en un listado de muestras donde por cada una tiene disponibles las acciones de editar, eliminar o subir la información a la plataforma.  		
 La plataforma brinda una herramienta que permite administrar las muestras recolectadas, listarlas y por cada una de ellas visualizarlas, editarlas o eliminarlas. También provee un foro asociado al proyecto. 	
 
 \subsection{Spotteron}		
@@ -94,15 +94,48 @@ Spotteron \cite{spotteron} provee Aplicaciones y Servicios de Ciencia Ciudadana 
 Ofrecen, en conjunto con la plataforma Spotteron para la Ciencia Ciudadana un sistema de aplicaciones personalizables y económicamente accesibles, aplicables en áreas de la Ciencia Ciudadana, de protección ambiental y monitoreo de voluntarios. Desarrollan aplicaciones móviles independientes en Ios y Android, aplicaciones web interactivas como mapas o juegos para ciencia ciudadana y proveen una plataforma estable y confiable para los mismos.
 
 El objetivo es proveer un sistema con mantenimiento y mejoras constantes y un servicio profesional y confiable para la Ciencia Ciudadana, para la Conservación del Medio Ambiente y Proyectos Sociales. También considerar a los usuarios y albergar el crecimiento de la comunidad y fomentar la interacción entre ciudadanos y científicos.
-			
+
+\subsection{Zooniverse}	
+
+Zooniverse \cite{Zooniverse} es la más grande y popular plataforma de ciencia ciudadana para investigaciones científicas. El objetivo de Zooniverse es llevar a cabo investigaciones  que no serían posibles o prácticas de otra manera. Aunque Zooniverse opera sobre todo en su aplicación web \cite{zooniverseMobile} también provee una aplicación móvil para que los científicos ciudadanos puedan hacer su colaboración desde sus dispositivos móviles. 
+La plataforma provee una herramienta de construcción de proyectos, Project Builder, que permite configurar tres secciones de los proyectos de investigación
+
+			\begin{itemize}
+				\item { Proyecto (Project) } 
+				
+				Galaxy Zoo, un proyecto que vive en la plataforma desde hace más de diez años, es un buen ejemplo de proyecto que puede construirse utilizando la herramienta Project Builder. En este proyecto los científicos ciudadanos clasifican galaxias de acuerdo a su forma observando fotografías del espacio y dibujando digitalmente sobre ellas. Un proyecto tiene nombre, descripción, un avatar (una imagen que lo identifica), colaboradores y otros atributos configurables más.
+				
+				\item { Secuencia de Tareas (Workflows) } 
+				Workflow es la secuencia de tareas que deben realizar los científicos ciudadanos. Un workflow tiene un título que sirve para identificarlo, un número de versión que se utiliza para trazar los cambios y tareas que pueden ser de tres tipos:  responder preguntas, transcribir o dibujar.  
+				
+				\begin{itemize}
+				
+				\item { Pregunta }  
+				Las tareas de tipo pregunta pueden ser preguntas de única respuesta o de respuesta múltiple. Las preguntas pueden marcarse como ‘requeridas’ y en este caso el científico ciudadano no puede avanzar hacia la siguiente tarea hasta no haber ingresado una respuesta.
+				
+				\item { Dibujar }  
+				Las tareas de este tipo requieren que el científico ciudadano marque o dibuje de manera digital sobre una muestra del conjunto de muestras definido. La marca o dibujo que realice va a terminar siendo de un tipo entre los predefinidos (forma libre, rectángulo, elipse, círculo y otros disponibles) y será para señalar alguna cosa en la muestra que se está analizando. La herramienta dibujo permite ingresar también etiquetas o color aparte del marcado en sí.
+				
+				\item { Transcripción }  
+				Las tareas de transcripción requieren que los científicos ciudadanos transcriban una porción de texto que perciben en un archivo multimedia. Puede solicitarse una transcripción fiel que respete la ortografía original o bien una que modernice y corrija el texto original. Las herramientas de transcripción también permiten marcar o hacer una lista de palabras clave asociadas al texto o porción de texto que se está analizando.
+				\end{itemize}
+				
+				Una vez definidas las tareas se está en condiciones de definir el workflow. Una de esas tareas se marca como ‘Primer Tarea’. Luego, utilizando un selector de opciones se configura que tarea de las definidas será la siguiente. En las tareas de tipo ‘pregunta’ se puede especificar una tarea distinta para cada respuesta disponible. 
+La secuencia de tareas que cumplen determinadas condiciones se pueden habilitar para estar disponibles desde la aplicación móvil que provee Zooniverse y permitir que los científicos ciudadanos colaboren desde sus dispositivos. Diseñar un workflow que se puede habilitar para la aplicación móvil permite incrementar la cantidad de colaboraciones que recibe el proyecto.				
+				
+				\item { Conjunto de Muestras (Subject Set) } 
+				Un conjunto de muestras es un grupo de datos que debe ser clasificado. Consiste generalmente de archivos multimedia como imágenes, archivos de sonido o videos, sobre los cuáles los científicos ciudadanos deben marcar cosas que perciban. Se puede tener un conjunto de muestras sobre el que se pueden seguir agregando muestras a lo largo del tiempo, o varios de diferentes momentos o lugares. Se pueden tener diferentes conjuntos de muestras para diferentes secuencias de tareas aunque no es necesario. 
+				
+			\end{itemize}	
 
 
 \subsection{Conclusión}
-La herramienta Sensr permite desarrollar una campaña de recolección de información más una aplicación móvil para que los científicos ciudadanos que quieran particicar de una campaña puedan hacerlo mediante esa aplicación. El autor de la campaña, completando formularios en el sitio web y arrastrando componentes para definir el contenido y las validaciones, diseña la aplicación móvil que se generará. Esta aplicación móvil sólo está disponible para dispositivos con sistema operativo iOS y la administración de la información se puede realizar sólo a través del sitio web. Al no ser iOS el sistema operativo más popular entre los usuarios de dispositivos móviles de Argentina, como se mencionó en la sección \ref{ccDispMoviles}, es una alternativa con menos alcance que la que proponemos. 
+La herramienta Sensr permite desarrollar una campaña de recolección de información más una aplicación móvil para que los científicos ciudadanos que quieran participar de una campaña puedan hacerlo mediante esa aplicación. El autor de la campaña, completando formularios en el sitio web y arrastrando componentes para definir el contenido y las validaciones, diseña la aplicación móvil que se generará. Esta aplicación móvil sólo está disponible para dispositivos con sistema operativo iOS y la administración de la información se puede realizar sólo a través del sitio web. Al no ser iOS el sistema operativo más popular entre los usuarios de dispositivos móviles de Argentina, como se mencionó en la sección \ref{ccDispMoviles}, es una alternativa con menos alcance que la que proponemos. 
 Project Noah podría calificar como herramienta social para colaborar con la Ciencia Ciudadana. La posibilidad de compartir avistajes a través de las redes sociales, puede llegar a más interesados que quieran formar parte de esta comunidad o puede poner en contacto a personas interesadas en la vida al aire libre.
 Aunque asiste de manera intuitiva, el ingreso de la información de geolocalización del avistaje es en forma de coordenadas, latitud y longitud. Si un usuario quisiera subir varios avistajes de un viaje, debería recordar dónde hizo cada uno y señalarlos en un mapa. También está limitado al avistaje de fauna.
-Epicollect es una herramienta simple e intuitiva para construir proyectos de recolección de información mediante cuestionarios. El proyecto está financiado por Wellcome Trust Foundation y está implementado con tecnologías open source. Ofrece una API para desarrolladores que permite consultar la información mediante servicios o integrar los cuestionarios a una app propia, previo registro de la aplicación en el proyecto Epicollect. Epicollect siempre está intermediando entre los colaboradores y los administradores del proyecto. Las herramientas que ofrece, las ofrece siempre a través de la plataforma. CitSci permite implementar proyectos de recolección de ciencia ciudadana de manera sencilla y se integra con Zooniverse y con SciStarter, lo que permite diversificar las muestras y los colaboradores. La aplicación móvil que ofrece es propia y compartida entre todos los proyectos que conviven en la plataforma. No permite una personalizaciòn profunda del proyecto más allá de la foto de portada.
-Spotteron es un equipo y una plataforma que está ampliamente utilizada sobre todo en Europa. El equipo que hace el desarrollo y mantenimiento de las aplicaciones está integrado por personas con experiencia de trabajo en áreas como el marketing o el desarrollo para empresas que proveen productos de software y les sirve como base para brindar servicios y soporte profesionales a precios accesibles. No se integran a otras aplicaciones de Ciencia Ciudadana ni proveen API's de integración.
+Epicollect es una herramienta simple e intuitiva para construir proyectos de recolección de información mediante cuestionarios. El proyecto está financiado por Wellcome Trust Foundation y está implementado con tecnologías open source. Ofrece una API para desarrolladores que permite consultar la información mediante servicios o integrar los cuestionarios a una app propia, previo registro de la aplicación en el proyecto Epicollect. Epicollect siempre está intermediando entre los científicos ciudadanos y los administradores del proyecto. Las herramientas que ofrece, las ofrece siempre a través de la plataforma. CitSci permite implementar proyectos de recolección de ciencia ciudadana de manera sencilla y se integra con Zooniverse y con SciStarter, lo que permite diversificar las muestras y los colaboradores. La aplicación móvil que ofrece es propia y compartida entre todos los proyectos que conviven en la plataforma.  No permite personalizar muchas características del proyecto más allá de la foto de portada. 
+Spotteron es un equipo y una plataforma que está ampliamente utilizada sobre todo en Europa. El equipo que hace el desarrollo y mantenimiento de las aplicaciones está integrado por profesionales con experiencia en áreas como marketing y desarrollo. De esta manera el equipo puede brindar servicios y soporte  a precios accesibles. No se integran a otras aplicaciones de Ciencia Ciudadana ni proveen API's de integración.
+Zooniverse brinda herramientas que permiten realizar una configuración exhaustiva de un proyecto. Aunque posee más riqueza que las otras herramientas exploradas en cuanto a definición de tareas y secuencia de las mismas, su aplicación móvil también es compartida entre los proyectos, de la misma manera que ofrece CitSci. 
 
 
 \begin{comment}
