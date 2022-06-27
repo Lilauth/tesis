@@ -213,6 +213,7 @@ El Workflow es el encargado de llevar el estado del paso en el que se encuentra,
 
 El Workflow se comporta de manera secuencial, puede ir hacia adelante o volver hacia atrás, pero esto no impide que pueda tener bifurcaciones, y así formar diferentes caminos para tomar la muestra. Por ejemplo, se le podría preguntar al científico ciudadano si observa una característica particular al momento de tomar la muestra, y si la observa solicitarle que tome una foto de la misma, pero en caso contrario se puede omitir el paso de la foto.
 
+\clearpage
 \subsubsection{Step: el paso}
 Un Step representa un paso dentro del Workflow. Tiene asociado un StepFragment que es el encargado de ejecutar el Step para generar un StepResult (el resultado). El Step básicamente tiene los parámetros o información para que pueda ser ejecutado por el StepFragment.
 Por ejemplo, para el caso en que el paso sea contestar una pregunta, el Step tendrá la pregunta en sí (un String) y una colección con las posibles respuestas (id y descripción).
@@ -277,6 +278,7 @@ Las muestras se guardan en el dispositivo móvil en un archivo JSON, junto con l
 
 Se eligió el almacenamiento interno para guardar las muestras porque no se necesitan permisos especiales para acceder al mismo y, de forma predeterminada, los archivos que se guardan en el mismo son privados para la aplicación y otras aplicaciones no pueden tener acceso a ellos (tampoco el usuario). Cuando el usuario desinstala la aplicación, estos archivos se quitan\cite{androidInternalStorage}.
 
+\clearpage
 Por ejemplo, una muestra con id 123456 y 2 fotos se guarda de la siguiente manera:
 
 \begin{figure}[H]
@@ -343,7 +345,10 @@ HelpActivity es una Activity que se usa para mostrar ayuda al usuario final de l
 
 
 
-\section{Uso del framework}
+\section{Configuración del framework}
+
+Como se mencionó antes, para generar aplicaciones móviles con Samplers se debe configurar el Workflow y unos parámetros más, lo que se hace con el archivo de configuración llamado SamplersConfig.json. También se puede hacer mediante código, instanciando las clases como si fuera una librería, por usuario con conocimientos de programación. A continuación se explican ambos métodos.
+
 
 \subsection{Archivo de configuración}\label{sec:archivo_configuracion}
 
@@ -438,7 +443,8 @@ En la siguiente imagen se muestra un ejemplo del archivo de configuración para 
 \end{figure}
 \end{comment}
 
-\begin{lstlisting}[language=XML, frame=tlbr, label={codigo:app_ejemplo}, caption=Ejemplo de un archivo de configuración para Samplers.]
+\clearpage
+\begin{lstlisting}[language=XML, escapechar=\%, frame=tlbr, label={codigo:app_ejemplo}, caption=Ejemplo de un archivo de configuración para Samplers.]
 {
 	"project": {
 		"app_path": "app/src/main/java/com/example/myApplication/",
@@ -480,13 +486,16 @@ En la siguiente imagen se muestra un ejemplo del archivo de configuración para 
 				"id": 4,
 				"type": "MultipleSelect",
 				"title": "Seleccione las cosas que ve",
-				"options": [{
+				"options": [
+				   {
 						"id": 1,
 						"text": "Arboles"
-					}, {
+					},  %\clearpage%
+					{
 						"id": 2,
 						"text": "Basura"
-					}, {
+					}, 
+					{
 						"id": 3,
 						"text": "Agua"
 					}]
@@ -514,7 +523,7 @@ Básicamente se tiene que instanciar la clase Workflow y agregarle instancias de
 \end{figure}	
 \end{comment}
 
-
+\clearpage
 \begin{lstlisting}[language=Java, frame=tlbr, caption=Ejemplo de como iniciar la activity TakeSampleActivity instanciando las clases.]
 public void takeSampleClick(View view) {
 	Intent intent = new Intent(this, TakeSampleActivity.class);  
