@@ -1,19 +1,44 @@
 \chapter{Frameworks para proyectos de ciencia ciudadana}
 
-\section{Frameworks}
+\section{Frameworks} \label{sFrameworks}
 
-	Framework podría definirse como ``... un diseño reutilizable de todo un sistema o de una parte del mismo representado por un conjunto de clases abstractas y por la manera en que sus instancias interactúan“. Otra definición que también es usual es la siguiente: ``un framework es el esqueleto de una aplicación que puede ser configurada por un desarrollador de aplicaciones“. Estas dos definiciones no se contradicen; una está planteada desde el punto de vista del comportamiento y la otra desde su finalidad. Sin embargo, permite entender por qué resulta complejo dar una definición concreta de framework. Los frameworks son aplicaciones reutilizables, ``semi-completas'' que pueden ser especializadas para producir aplicaciones específicas. Los frameworks, al permitir la reutilización de diseños y de código también permiten reducir los costos medidos en tiempos de desarrollo y también reduce los errores en el software. 
+	En esta sección se explorarán conceptos básicos de programación orientada a objetos como clases y herencia que son fundamentales para comprender qué es un framework.
+ 
+	Las aplicaciones desarrolladas utilizando programación orientada a objetos están compuestas por una colección de objetos. Estos objetos poseen información sobre sí mismos y comportamiento, denominados atributos y métodos respectivamente. Para construir los objetos que componen la aplicación se utiliza un “molde” que se denomina clase \cite{weisfeld2008object}. Todos los objetos son instancias de una clase \cite{budd2008introduction}. 
+ 
+	A modo de ejemplo se describe un sistema de gestión de pacientes para un consultorio. Se puede modelar una clase Paciente que tenga los atributos nombre, teléfono, correo electrónico, fecha de nacimiento, obra social y un método para agendar un turno. También se puede modelar una clase Médico que tenga los atributos nombre, teléfono, correo electrónico, fecha de nacimiento, matrícula y un método para emitir un turno. Las clases Médico y Paciente tienen atributos en común. Esto permite diseñar una clase Persona que contenga los atributos comunes (nombre, teléfono, fecha de nacimiento) y que las clases Paciente y Médico hereden de la clase Persona y definan sus atributos particulares (obra social en el caso de la clase Paciente y matrícula en la clase Médico). 
 	
-	La fortaleza de los frameworks orientados a objetos reside en permitir la modularidad, la reusabilidad, la extensibilidad y la inversión de control que brinda a los desarrolladores. Los frameworks facilitan la modularidad encapsulando los detalles de la implementación que son volátiles detrás de interfaces estables. Las interfaces estables permiten la reusabilidad mediante la definición de componentes genéricos que pueden volver a ser ensamblados para producir nuevas aplicaciones. \cite{fayad1997object}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.4]{04-framework/personaAtributosMetodos.png}
+		\caption{Atributos y Métodos de la clase Persona}
+		\label{fig:umlClassAttributesMethods}
+	\end{figure}
 	
-    Los desarrolladores de software no necesitan saber de qué manera están implementados los componentes, y resulta sencillo aprender a utilizarlos. El sistema que resulte va a ser eficiente, fácil de mantener y confiable.\cite{johnson1997frameworks} \cite{fayad1997object}
+	Ampliando el ejemplo, se requiere que los médicos y los pacientes puedan ser contactados.
+Pero a los pacientes se los puede contactar por correo electrónico ya que la comunicación nunca es urgente. En cambio a los médicos se los debe contactar por teléfono. Para cumplir con este requerimiento, se agrega en la clase Persona un método abstracto ‘contactar()’ que no tiene implementación ya que el comportamiento debe ser implementado en las clases que heredan de ella. 
+
+\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.4]{04-framework/personaMetodoAbstracto.png}
+		\caption{Método abstracto en clase Persona}
+		\label{fig:umlClassAttributesMethods}
+	\end{figure}
 	
-	Los componentes de un framework son los que hacen posible la reutilización en la granularidad o modularidad más alta. Diseñar un buen framework es mucho más difícil que diseñar una buena clase abstracta. También, tienden a ser específicos de la aplicación, a integrarse a otros frameworks mediante compartir clases abstractas, y a tener algunas de ellas especializadas para el framework. Diseñar un framework requiere experiencia y experimentación al igual que lo requiere el diseño de las clases abstractas de sus componentes.\cite{johnson1988designing}
+La clase Persona es ahora una clase abstracta ya que contienen uno o más métodos para los cuáles no provee una implementación \cite{weisfeld2008object}. 
+ 
+Las clases pueden agruparse en librerías para ser reutilizadas en otro proyecto. De esta manera, los componentes se van sumando para crear librerías más complejas que en conjunto con otros componentes reutilizables, diseños, patrones de diseño y estructuras que definen comportamiento logran ser una aplicación a la que sólo le falta la definición propia del dominio en el que se está implementando.
+ 
+Un framework es una aplicación reutilizable, semi-completa que puede ser especializada para producir aplicaciones a medida \cite{fayad1997object}. También puede verse como un esqueleto que puede ser configurado por un desarrollador para construir una aplicación \cite{johnson1997frameworks}.   
+ 
+Los frameworks se desarrollan teniendo como objetivo un área en particular y un dominio de aplicación específico \cite{fayad1997object}. Un framework diseñado para gestionar la agenda de un consultorio médico probablemente permita ser adaptada para gestionar la agenda de otro tipo de consultorio de salud (un consultorio odontológico o psicológico) ya que ambos ámbitos de aplicación comparten la gestión de pacientes y médicos. Pero en el caso de querer desarrollar una aplicación para gestionar muestras de un relevamiento para una investigación científica debe investigarse un framework que se adapte mejor.
+		
+Diseñar un framework requiere experiencia y experimentación al igual que lo requiere el diseño de las clases abstractas de sus componentes.\cite{johnson1988designing} 
+
 
 \subsection{Tipos de Frameworks}
 
-    Los frameworks pueden clasificarse de varias maneras dependiendo de si son para construir servicios, interfaces de usuario o aplicaciones. También pueden clasificarse por la manera en que permiten la especialización. Los frameworks de caja blanca son aquellos que utilizan la herencia y la extensión de métodos. Estos frameworks permiten conocer los estados internos de las clases que lo componen. Los frameworks denominados de caja negra utilizan la composición para permitir la especialización. El desarrollador no tiene acceso al estado interno de las clases del framework ni puede extender o agregar métodos. La especialización se realiza proveyendo un componente que respeta un protocolo (o API) de interacción con el framework para lograr el comportamiento específico.   
-
+	Como se mencionó en la sección anterior \ref{sFrameworks}, los frameworks son específicos de un dominio de aplicación. Pueden clasificarse de varias maneras dependiendo de si son para construir servicios, interfaces de usuario o aplicaciones. También pueden clasificarse por la manera en que permiten la especialización. Los frameworks de caja blanca son aquellos que utilizan la herencia y la extensión de métodos. Estos frameworks permiten conocer los estados internos de las clases que lo componen. Los frameworks denominados de caja negra utilizan la composición para permitir la especialización. El desarrollador no tiene acceso al estado interno de las clases del framework ni puede extender o agregar métodos. La especialización se realiza proveyendo un componente que respeta un protocolo (o API) de interacción con el framework para lograr el comportamiento específico.   
 
 \subsubsection{Frameworks de caja blanca}
 
@@ -36,7 +61,7 @@
 
 
 \section{Estado del arte} \label{sec:estado_arte}
-Luego de detallar los aspectos conceptuales de los frameworks con respecto a su arquitectura y con respecto a la manera en la que permiten la especialización, en esta sección se exploran seis herramientas que actualmente asisten a los proyectos de recolección de ciencia ciudadana. 
+Luego de detallar los aspectos conceptuales de los frameworks con respecto a su arquitectura y con respecto a la manera en la que permiten la especialización, en esta sección se exploran seis herramientas que permiten generar aplicaciones que sirvan de soporte a los proyectos de recolección de ciencia ciudadana. 
 
 \begin{comment}
 Los dispositivos móviles son ideales para que las personas puedan de manera espontánea recolectar información. Sin embargo, esa simplicidad yace sobre una base que requiere fuertes conocimientos técnicos y una infraestructura compleja. Por lo tanto, construir aplicaciones móviles implican una inversión que puede ser limitante para organizaciones pequeñas. A continuación se analizan algunas alternativas que permiten que personas que no son desarrolladoras tengan la posibilidad de crear herramientas que permitan la recolección de información para proyectos de ciencia ciudadana con dispositivos móviles. \cite{kim2013sensr}
